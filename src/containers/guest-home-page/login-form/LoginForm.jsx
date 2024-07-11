@@ -26,11 +26,17 @@ const LoginForm = ({
 
   const { openModal } = useModalContext()
 
+  // const { closeModal } = useModalContext();
+
   const { t } = useTranslation()
 
   const openForgotPassword = () => {
     openModal({ component: <ForgotPassword /> })
   }
+
+  // const closeLoginModal = () => {
+  //   closeModal({Component: <LoginForm/>})
+  // }
 
   return (
     <Box component='form' onSubmit={handleSubmit} sx={styles.form}>
