@@ -28,7 +28,7 @@ const side = {
     marginBottom: '8px'
   },
   description: {
-    typography: { fontSize: '14px', 'font-weight': '400' }
+    typography: { fontSize: '14px', fontWeight: '400' }
   }
 }
 
