@@ -80,29 +80,26 @@
       "title": "Who we are",
       "description": "SpaceToStudy platform is a place where experts share their knowledge and students can learn from the best. Here you can find the proper training course, find a tutor, or find a student. SpaceToStude doesn’t receive any commission for classes between a tutor and a student, that’s why education with us becomes even closer and more financially available."
     },
+
   "faq": {
-  "title": "Frequently Asked Questions",
-  "description":"Everything you need to know about learning journey in Space2Study as a student",
- "howToFindTutor" : 
-    {
+    "title": "Frequently Asked Questions",
+    "description": "Everything you need to know about learning journey in Space2Study as a student",
+    "howToFindTutor": {
       "title": "How to find a tutor",
       "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English."
     },
-    "howToBookLesson":
-  {
-    "title": "How to book a lesson",
-    "description": "Booking a lesson is easy. Simply choose your preferred tutor and schedule a time that works for you."
-  },
-  "rulesForStudents":
-  {
-    "title":"Rules for students",
-    "description":"Students are expected to attend lessons on time and complete any assignments given by their tutors."
-  },
-  "howToPayForLessons":
-  {
-    "title":"How you can pay for lessons",
-    "description":"Payments can be made through our secure online payment system using a credit card or PayPal."
+    "howToBookLesson": {
+      "title": "How to book a lesson",
+      "description": "Booking a lesson is easy. Simply choose your preferred tutor and schedule a time that works for you."
+    },
+    "rulesForStudents": {
+      "title": "Rules for students",
+      "description": "Students are expected to attend lessons on time and complete any assignments given by their tutors."
+    },
+    "howToPayForLessons": {
+      "title": "How you can pay for lessons",
+      "description": "Payments can be made through our secure online payment system using a credit card or PayPal."
+    }
   }
+} 
   
-  } 
-  }
