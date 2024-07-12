@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import useInputVisibility from '~/hooks/use-input-visibility'
 import { useSelector } from 'react-redux'
-
+import { useRef, useState, useEffect } from 'react'
 import Box from '@mui/material/Box'
 import ButtonBase from '@mui/material/ButtonBase'
 import Typography from '@mui/material/Typography'
@@ -19,24 +19,38 @@ const LoginForm = ({
   data,
   errors
 }) => {
+  const { authLoading } = useSelector((state) => state.appMain)
+  const { openModal } = useModalContext()
+  const { t } = useTranslation()
+
   const { inputVisibility: passwordVisibility, showInputText: showPassword } =
     useInputVisibility(errors.password)
 
-  const { authLoading } = useSelector((state) => state.appMain)
+  const emailRef = useRef(null)
+  const passwordRef = useRef(null)
+  const [formValues, setFormValues] = useState({ email: '', password: '' })
 
-  const { openModal } = useModalContext()
+  useEffect(() => {
+    setFormValues({ email: data.email, password: data.password })
+  }, [data])
 
-  // const { closeModal } = useModalContext();
+  const handleInputChange = (name) => (e) => {
+    const value = e.target.value
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: value
+    }))
+    handleChange(name)(e)
+  }
 
-  const { t } = useTranslation()
+  const isFormValid = () => {
+    const { email, password } = formValues
+    return email.trim() !== '' && password.trim() !== ''
+  }
 
   const openForgotPassword = () => {
     openModal({ component: <ForgotPassword /> })
   }
-
-  // const closeLoginModal = () => {
-  //   closeModal({Component: <LoginForm/>})
-  // }
 
   return (
     <Box component='form' onSubmit={handleSubmit} sx={styles.form}>
@@ -47,12 +61,13 @@ const LoginForm = ({
         fullWidth
         label={t('common.labels.email')}
         onBlur={handleBlur('email')}
-        onChange={handleChange('email')}
+        onChange={handleInputChange('email')}
+        ref={emailRef}
         required
         size='large'
         sx={{ mb: '5px' }}
         type='email'
-        value={data.email}
+        value={formValues.email}
       />
 
       <AppTextField
@@ -61,10 +76,11 @@ const LoginForm = ({
         fullWidth
         label={t('common.labels.password')}
         onBlur={handleBlur('password')}
-        onChange={handleChange('password')}
+        onChange={handleInputChange('password')}
+        ref={passwordRef}
         required
         type={showPassword ? 'text' : 'password'}
-        value={data.password}
+        value={formValues.password}
       />
 
       <Typography
@@ -76,7 +92,12 @@ const LoginForm = ({
         {t('login.forgotPassword')}
       </Typography>
 
-      <AppButton loading={authLoading} sx={styles.loginButton} type='submit'>
+      <AppButton
+        disabled={!isFormValid()}
+        loading={authLoading}
+        sx={styles.loginButton}
+        type='submit'
+      >
         {t('common.labels.login')}
       </AppButton>
     </Box>
