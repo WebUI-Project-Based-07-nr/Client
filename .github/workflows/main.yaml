@@ -51,7 +51,6 @@ jobs:
             -Dsonar.coverage.exclusions=**/src/constants/*,**/src/tests/**/*,**/*.styles.ts
             -Dsonar.sourceEncoding=UTF-8
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov-report/lcov.info
-            -Dsonar.testExecutionReportPaths=./test-report.xml
             -Dsonar.qualitygate.wait=true
 
   Test_Docker:
