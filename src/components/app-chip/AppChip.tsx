@@ -1,15 +1,13 @@
-import { ReactNode, ReactElement } from 'react'
-
-import { Chip, IconButton, SvgIconProps, Typography } from '@mui/material'
+import React, { ReactNode } from 'react'
+import { Chip, IconButton, Typography } from '@mui/material'
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
 import { SxProps } from '@mui/system'
-
 import { styles } from '~/components/app-chips-list/AppChipsList-styles'
 
 interface AppChipProps {
   handleDelete?: () => void
   children: ReactNode
-  icon?: ReactElement<SvgIconProps>
+  icon?: React.ReactElement
   sx?: SxProps
   labelSx?: SxProps
 }
@@ -28,6 +26,7 @@ const AppChip: React.FC<AppChipProps> = ({
         handleDelete && (
           <IconButton
             data-testid='close-btn'
+            onClick={handleDelete}
             size='small'
             sx={styles.deleteButton}
           >
@@ -37,7 +36,7 @@ const AppChip: React.FC<AppChipProps> = ({
       }
       icon={icon}
       label={
-        <Typography sx={{ typography: 'subtitle2', ...labelSx }}>
+        <Typography sx={{ ...labelSx }} variant='subtitle2'>
           {children}
         </Typography>
       }
