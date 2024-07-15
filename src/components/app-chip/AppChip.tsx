@@ -1,5 +1,5 @@
-import React, { ReactNode } from 'react'
-import { Chip, IconButton, Typography } from '@mui/material'
+import { ReactNode, ReactElement } from 'react'
+import { Chip, IconButton, SvgIconProps, Typography } from '@mui/material'
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
 import { SxProps } from '@mui/system'
 import { styles } from '~/components/app-chips-list/AppChipsList-styles'
@@ -7,7 +7,7 @@ import { styles } from '~/components/app-chips-list/AppChipsList-styles'
 interface AppChipProps {
   handleDelete?: () => void
   children: ReactNode
-  icon?: React.ReactElement
+  icon?: ReactElement<SvgIconProps>
   sx?: SxProps
   labelSx?: SxProps
 }
@@ -36,7 +36,7 @@ const AppChip: React.FC<AppChipProps> = ({
       }
       icon={icon}
       label={
-        <Typography sx={{ ...labelSx }} variant='subtitle2'>
+        <Typography sx={{ typography: 'subtitle2', ...labelSx }}>
           {children}
         </Typography>
       }
