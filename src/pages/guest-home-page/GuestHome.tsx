@@ -12,6 +12,7 @@ import WhatCanYouDo from '~/containers/guest-home-page/WhatCanYouDo'
 import HowItWorks from '~/containers/guest-home-page/how-it-works/HowItWorks'
 import LoginDialog from '~/containers/guest-home-page/login-dialog/LoginDialog'
 import ResetPassword from '~/containers/guest-home-page/reset-password/ResetPassword'
+import Faq from '~/containers/guest-home-page/faq/Faq'
 import WhoWeAre from '~/containers/guest-home-page/who-we-are/WhoWeAre'
 import { useModalContext } from '~/context/modal-context'
 import { styles } from '~/pages/guest-home-page/GuestHome.styles'
@@ -51,6 +52,7 @@ const GuestHomePage = () => {
         <FeatureBlock items={descriptionTimes} />
         <WhatCanYouDo />
         <HowItWorks />
+        <Faq />
         <WhoWeAre />
       </PageWrapper>
     </Box>
