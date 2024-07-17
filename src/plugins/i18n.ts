@@ -5,7 +5,12 @@ import resources from '~/constants/translations'
 void i18n.use(initReactI18next).init({
   resources,
   lng: 'en',
-  ns: ['translations']
+  fallbackLng: 'en',
+  ns: ['translations'],
+  defaultNS: 'translations',
+  interpolation: {
+    escapeValue: false
+  }
 })
 
 i18n.languages = ['en', 'ua']
