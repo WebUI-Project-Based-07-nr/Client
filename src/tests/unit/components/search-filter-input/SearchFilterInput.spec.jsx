@@ -1,4 +1,5 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import SearchFilterInput from '~/components/search-filter-input/SearchFilterInput'
 
 const props = {
@@ -14,44 +15,47 @@ describe('SearchFilterInput', () => {
     expect(input).toBeInTheDocument()
   })
 
-  it('should render typed text correctly', () => {
+  it('should render typed text correctly', async () => {
     render(<SearchFilterInput {...props} />)
 
     const input = screen.getByRole('textbox')
-    fireEvent.change(input, { target: { value: 'test' } })
+    await userEvent.type(input, 'test')
 
     expect(input.value).toBe('test')
   })
 
-  it('should delete typed text when delete button is clicked', () => {
+  it('should delete typed text when delete button is clicked', async () => {
     render(<SearchFilterInput {...props} />)
 
     const input = screen.getByRole('textbox')
 
-    fireEvent.change(input, { target: { value: 'test' } })
+    await userEvent.type(input, 'test')
+
     const deleteButton = screen.getByTestId('clearIcon')
 
-    fireEvent.click(deleteButton)
+    await userEvent.click(deleteButton)
+
     expect(input.value).toBe('')
   })
 
-  it('should call updateFilter function on search button click', () => {
+  it('should call updateFilter function on search button click', async () => {
     const { updateFilter } = props
     render(<SearchFilterInput {...props} />)
 
     const searchButton = screen.getByRole('button', { name: 'common.search' })
 
-    fireEvent.click(searchButton)
+    await userEvent.click(searchButton)
+
     expect(updateFilter).toHaveBeenCalledWith('')
   })
 
-  it('should call updateFilter function when enter is pressed', () => {
+  it('should call updateFilter function when enter is pressed', async () => {
     const { updateFilter } = props
     render(<SearchFilterInput {...props} />)
 
     const input = screen.getByRole('textbox')
 
-    fireEvent.keyPress(input, { key: 'Enter', code: 13 })
+    await userEvent.type(input, '{enter}')
 
     expect(updateFilter).toHaveBeenCalledWith('')
   })
