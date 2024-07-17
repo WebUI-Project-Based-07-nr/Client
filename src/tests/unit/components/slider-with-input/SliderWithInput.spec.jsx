@@ -37,7 +37,7 @@ describe('SliderWithInput', () => {
       expect(mockOnChange).toHaveBeenCalledWith(75)
     })
   })
-  test('update inputValue correctly when input value is empty', async () => {
+  test('update inputValue correctly when input value empty', async () => {
     const mockOnChange = vi.fn()
     render(
       <SliderWithInput
