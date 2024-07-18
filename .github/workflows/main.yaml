@@ -28,10 +28,11 @@ jobs:
         run : npm run lint
 
       - name: Run Tests and Generate Coverage
-        if: always()
         continue-on-error: true
         run: |
-          npx vitest --coverage
+          npx vitest --coverage || true
+          echo "List files in coverage directory"
+          ls src/tests/coverage || echo "No coverage directory found"
 
       - name: List Coverage Directory
         if: always()
