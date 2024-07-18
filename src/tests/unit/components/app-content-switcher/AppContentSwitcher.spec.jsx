@@ -1,4 +1,5 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import AppContentSwitcher from '~/components/app-content-switcher/AppContentSwitcher'
 import { vi } from 'vitest'
 
@@ -12,6 +13,7 @@ const defaultProps = {
 }
 
 describe('AppContentSwitcher', () => {
+  const user = userEvent.setup()
   it('should render with the correct props', () => {
     render(<AppContentSwitcher {...defaultProps} />)
 
@@ -20,26 +22,26 @@ describe('AppContentSwitcher', () => {
     expect(screen.getByTestId('switch')).toBeInTheDocument()
   })
 
-  it('should call the onChange function when the switch is clicked', () => {
+  it('should call the onChange function when the switch is clicked', async () => {
     render(<AppContentSwitcher {...defaultProps} />)
 
     const switchElement = screen.getByTestId('switch').querySelector('input')
-    fireEvent.click(switchElement)
+    await user.click(switchElement)
 
     expect(defaultProps.onChange).toHaveBeenCalledTimes(1)
   })
 
-  it('should renders tooltips when tooltip props are passed', () => {
+  it('should renders tooltips when tooltip props are passed', async () => {
     render(<AppContentSwitcher {...defaultProps} />)
 
     const leftOption = screen.getByText('Left Option')
     const leftTooltip = () => screen.getByLabelText('Left Tooltip')
-    fireEvent.mouseOver(leftOption)
+    await user.hover(leftOption)
     expect(leftTooltip()).toBeInTheDocument()
 
     const rightOption = screen.getByText('Right Option')
     const rightTooltip = () => screen.getByLabelText('Right Tooltip')
-    fireEvent.mouseOver(rightOption)
+    await user.hover(rightOption)
     expect(rightTooltip()).toBeInTheDocument()
   })
 })
