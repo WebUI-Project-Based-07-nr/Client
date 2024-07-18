@@ -38,14 +38,20 @@ jobs:
           echo "List files in coverage directory"
           ls src/tests/coverage
 
-      - name: Adjust LCOV paths
-        if: success() || failure()
+      - name: List Coverage Directory
+        if: always()
+        run: ls src/tests/coverage
+
+      - name: Adjust LCOV Paths
         run: |
           if [ -f src/tests/coverage/lcov.info ]; then
             sed -i 's|SF:.*/src/|SF:src/|' src/tests/coverage/lcov.info
           else
             echo "lcov.info not found"
-          fi   
+          fi
+
+      - name: List Adjusted LCOV
+        run: cat src/tests/coverage/lcov.info
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
