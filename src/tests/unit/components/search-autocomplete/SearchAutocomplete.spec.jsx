@@ -1,4 +1,5 @@
-import { render, fireEvent, screen, waitFor } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import SearchAutocomplete from '~/components/search-autocomplete/SearchAutocomplete'
 import { vi } from 'vitest'
 
@@ -18,6 +19,7 @@ describe('SearchAutocomplete test', () => {
     )
 
   beforeEach(() => {
+    vi.clearAllMocks()
     renderComponent()
   })
 
@@ -26,51 +28,52 @@ describe('SearchAutocomplete test', () => {
     expect(autocompleteInput).toBeInTheDocument()
   })
 
-  it('should update search input on typing', () => {
+  it('should update search input on typing', async () => {
+    const user = userEvent.setup()
     const autocompleteInput = screen.getByLabelText('Search')
-    fireEvent.change(autocompleteInput, { target: { value: 'Fi' } })
-    expect(autocompleteInput.value).toBe('Fi')
+    await user.type(autocompleteInput, 'Fi')
+    expect(autocompleteInput).toHaveValue('Fi')
   })
 
   it('should filter options on typing', async () => {
+    const user = userEvent.setup()
     const autocompleteInput = screen.getByLabelText('Search')
-    fireEvent.change(autocompleteInput, { target: { value: 'Fr' } })
+    await user.type(autocompleteInput, 'Fr')
 
-    await waitFor(() => {
-      const option = screen.getByText(/France/i)
-      expect(option).toBeInTheDocument()
-    })
+    const option = await screen.findByText(/France/i)
+    expect(option).toBeInTheDocument()
   })
 
   it('should select an option on click', async () => {
+    const user = userEvent.setup()
     const autocompleteInput = screen.getByLabelText('Search')
-    fireEvent.change(autocompleteInput, { target: { value: 'Fr' } })
+    await user.type(autocompleteInput, 'Fr')
 
-    await waitFor(() => {
-      const option = screen.getByText(/France/i)
-      expect(option).toBeInTheDocument()
-    })
+    const option = await screen.findByText(/France/i)
+    expect(option).toBeInTheDocument()
 
-    fireEvent.click(screen.getByText(/France/i))
+    await user.click(option)
     expect(setSearchMock).toHaveBeenCalledWith('France')
   })
 
-  it('should clear search input on clear icon click', () => {
+  it('should clear search input on clear icon click', async () => {
+    const user = userEvent.setup()
     const autocompleteInput = screen.getByLabelText('Search')
-    fireEvent.change(autocompleteInput, { target: { value: 'Fr' } })
+    await user.type(autocompleteInput, 'Fr')
 
     const clearIcon = screen.getByTestId('ClearIcon')
-    fireEvent.click(clearIcon)
+    await user.click(clearIcon)
 
-    expect(autocompleteInput.value).toBe('')
+    expect(autocompleteInput).toHaveValue('')
   })
 
-  it('should trigger search on search button click', () => {
+  it('should trigger search on search button click', async () => {
+    const user = userEvent.setup()
     const autocompleteInput = screen.getByLabelText('Search')
-    fireEvent.change(autocompleteInput, { target: { value: 'Fr' } })
+    await user.type(autocompleteInput, 'Fr')
 
     const searchButton = screen.getByRole('button', { name: /search/i })
-    fireEvent.click(searchButton)
+    await user.click(searchButton)
 
     expect(setSearchMock).toHaveBeenCalled()
   })
