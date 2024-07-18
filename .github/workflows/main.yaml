@@ -28,6 +28,7 @@ jobs:
         run : npm run lint
 
       - name: Run Tests and Generate Coverage
+        if: always()
         continue-on-error: true
         run: |
           npm test -- --coverage
