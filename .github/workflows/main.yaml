@@ -26,17 +26,11 @@ jobs:
 
       - name : Lint
         run : npm run lint
-        
-#      - name : Test
-#        if: success() || failure()
-#        run: npm test -- --coverage
 
-      - name: Run Tests Manually
-        if: success() || failure()
+      - name: Run Tests and Generate Coverage
+        continue-on-error: true
         run: |
-          npx vitest --coverage
-          echo "List files in coverage directory"
-          ls src/tests/coverage
+          npm test -- --coverage
 
       - name: List Coverage Directory
         if: always()
