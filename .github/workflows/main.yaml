@@ -28,8 +28,16 @@ jobs:
         run : npm run lint
         
       - name : Test
-        if: success()
         run: npm test -- --coverage
+
+      - name: Adjust LCOV paths
+        if: success()
+        run: |
+          if [ -f src/tests/coverage/lcov.info ]; then
+            sed -i 's|SF:.*/src/|SF:src/|' src/tests/coverage/lcov.info
+          else
+            echo "lcov.info not found"
+          fi   
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
