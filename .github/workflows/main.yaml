@@ -32,6 +32,7 @@ jobs:
 #        run: npm test -- --coverage
 
       - name: Run Tests Manually
+        if: success() || failure()
         run: |
           npx vitest --coverage
           echo "List files in coverage directory"
