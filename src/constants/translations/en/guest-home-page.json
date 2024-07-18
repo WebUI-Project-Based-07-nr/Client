@@ -1,21 +1,19 @@
-  {
-    "welcomeBlock": {
-      "description": "An educational platform that offers professional courses, empowering students with essential skills for career success.",
-      "getStarted": "Get started for free"
-    },
-
-    "individualTime": {
-      "title": "Individual Time",
-      "description": "Space2Study platform provides the opportunity to study lessons at any time convenient for you, pause and continue again."
-    },
-    "freeChoiceOfTeachers": {
-      "title": "Free Choice of Tutors",
-      "description": "Space2Study platform has a wide range of criteria and will help you find the best tutor for education."
-    },
-    "digitalCommunication": {
-      "title": "Digital Communication",
-      "description": "Space2Study platform offers extensive opportunities for meaningful communication not only with tutors but also with students."
-    }
+{
+  "welcomeBlock": {
+    "description": "An educational platform that offers professional courses, empowering students with essential skills for career success.",
+    "getStarted": "Get started for free"
+  },
+  "individualTime": {
+    "title": "Individual Time",
+    "description": "Space2Study platform provides the opportunity to study lessons at any time convenient for you, pause and continue again."
+  },
+  "freeChoiceOfTeachers": {
+    "title": "Free Choice of Tutors",
+    "description": "Space2Study platform has a wide range of criteria and will help you find the best tutor for education."
+  },
+  "digitalCommunication": {
+    "title": "Digital Communication",
+    "description": "Space2Study platform offers extensive opportunities for meaningful communication not only with tutors but also with students."
   },
   "whatCanYouDo": {
     "title": "What can you do",
@@ -27,7 +25,7 @@
     },
     "teach": {
       "title": "Share your experience",
-      "description": "Sharing your experience as an expert will be incredibly rewarding, helping students unlock their pоtential and achieve their goals. Don't waste your time 📚",
+      "description": "Sharing your experience as an expert will be incredibly rewarding, helping students unlock their potential and achieve their goals. Don't waste your time 📚",
       "actionLabel": "Become a tutor"
     }
   },
@@ -39,7 +37,6 @@
       "signUp": {
         "title": "Sign Up",
         "description": "Registering on the Space2Study platform is very simple, just enter your email or use your Google account."
-
       },
       "individualTime": {
         "title": "Individual Time",
@@ -64,7 +61,7 @@
       },
       "teach": {
         "title": "Share your experience",
-        "description": "Sharing your experience as an expert will be incredibly rewarding, helping students unlock their pоtential and achieve their goals. Don't waste your time 📚",
+        "description": "Sharing your experience as an expert will be incredibly rewarding, helping students unlock their potential and achieve their goals. Don't waste your time 📚",
         "actionLabel": "Become a tutor"
       }
     },
@@ -112,8 +109,8 @@
     "whoWeAre": {
       "title": "Who we are",
       "description": "SpaceToStudy platform is a place where experts share their knowledge and students can learn from the best. Here you can find the proper training course, find a tutor, or find a student. SpaceToStude doesn’t receive any commission for classes between a tutor and a student, that’s why education with us becomes even closer and more financially available."
-    },
-
+    }
+  },
   "faq": {
     "title": "Frequently Asked Questions",
     "description": "Everything you need to know about learning journey in Space2Study as a student",
@@ -134,5 +131,4 @@
       "description": "Payments can be made through our secure online payment system using a credit card or PayPal."
     }
   }
-} 
-  
+}
