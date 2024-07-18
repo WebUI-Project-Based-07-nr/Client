@@ -31,7 +31,7 @@ jobs:
         if: always()
         continue-on-error: true
         run: |
-          npm test -- --coverage
+          npx vitest --coverage
 
       - name: List Coverage Directory
         if: always()
