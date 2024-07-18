@@ -23,13 +23,19 @@ jobs:
 
       - name : Npm Install
         run: npm install
-        
+
       - name : Lint
         run : npm run lint
         
-      - name : Test
-        if: success() || failure()
-        run: npm test -- --coverage
+#      - name : Test
+#        if: success() || failure()
+#        run: npm test -- --coverage
+
+      - name: Run Tests Manually
+        run: |
+          npx vitest --coverage
+          echo "List files in coverage directory"
+          ls src/tests/coverage
 
       - name: Adjust LCOV paths
         if: success()
