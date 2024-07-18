@@ -38,7 +38,13 @@ const PopupDialog: FC<PopupDialogProps> = ({
       disableRestoreFocus
       fullScreen={isMobile}
       maxWidth='xl'
+      onClose={handleClose}
       open
+      slotProps={{
+        backdrop: {
+          onClick: handleClose
+        }
+      }}
     >
       <Box
         data-testid='popupContent'
