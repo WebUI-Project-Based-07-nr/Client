@@ -1,4 +1,5 @@
-import { render, fireEvent, screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import QuestionEditor from '~/components/question-editor/QuestionEditor'
 import { vi } from 'vitest'
 import useMenu from '~/hooks/use-menu'
@@ -37,7 +38,7 @@ const onEdit = vi.fn()
 const onSave = vi.fn()
 
 describe('QuestionEditor', () => {
-  test('should render question input field', () => {
+  beforeEach(() => {
     render(
       <QuestionEditor
         data={mockData}
@@ -50,7 +51,9 @@ describe('QuestionEditor', () => {
         onSave={onSave}
       />
     )
+  })
 
+  test('should render question input field', () => {
     const questionInput = screen.getByLabelText('questionPage.question')
     expect(questionInput).toBeInTheDocument()
   })
@@ -78,25 +81,14 @@ describe('QuestionEditor', () => {
     expect(openAnswerInput).toBeInTheDocument()
   })
 
-  test('should change question type', () => {
-    render(
-      <QuestionEditor
-        data={mockData}
-        handleInputChange={handleInputChange}
-        handleNonInputValueChange={handleNonInputValueChange}
-        isQuizQuestion
-        loading={false}
-        onCancel={onCancel}
-        onEdit={onEdit}
-        onSave={onSave}
-      />
-    )
+  test('should change question type', async () => {
+    const user = userEvent.setup()
 
     const select = screen.getByText(/multipleChoice/i)
-    fireEvent.mouseDown(select)
+    await user.click(select)
 
-    const listItem = screen.getByText(/openAnswer/i)
-    fireEvent.click(listItem)
+    const listItem = await screen.findByText(/openAnswer/i)
+    await user.click(listItem)
 
     expect(handleNonInputValueChange).toHaveBeenCalledWith(
       'type',
@@ -104,48 +96,23 @@ describe('QuestionEditor', () => {
     )
   })
 
-  test('should change question and answer input fields', () => {
-    render(
-      <QuestionEditor
-        data={mockData}
-        handleInputChange={handleInputChange}
-        handleNonInputValueChange={handleNonInputValueChange}
-        isQuizQuestion
-        loading={false}
-        onCancel={onCancel}
-        onEdit={onEdit}
-        onSave={onSave}
-      />
-    )
-
+  test('should change question and answer input fields', async () => {
     const questionInput = screen.getByLabelText('questionPage.question')
-    fireEvent.change(questionInput, { target: { value: 'Updated Question?' } })
+    await userEvent.type(questionInput, 'Updated Question?')
     expect(handleInputChange).toHaveBeenCalledWith('text')
 
     const answerInput = screen.getAllByPlaceholderText(
       'questionPage.writeYourAnswer'
     )[0]
-    fireEvent.change(answerInput, { target: { value: 'Updated Answer 1' } })
+    await userEvent.type(answerInput, 'Updated Answer 1')
     expect(handleNonInputValueChange).toHaveBeenCalled()
   })
 
-  test('should click on edit title and category', () => {
+  test('should click on edit title and category', async () => {
     const { openMenu } = useMenu()
-    render(
-      <QuestionEditor
-        data={mockData}
-        handleInputChange={handleInputChange}
-        handleNonInputValueChange={handleNonInputValueChange}
-        isQuizQuestion
-        loading={false}
-        onCancel={onCancel}
-        onEdit={onEdit}
-        onSave={onSave}
-      />
-    )
 
     const moreIcon = screen.getByTestId('more-options-button')
-    fireEvent.click(moreIcon)
+    await userEvent.click(moreIcon)
     expect(openMenu).toHaveBeenCalled()
   })
 })
