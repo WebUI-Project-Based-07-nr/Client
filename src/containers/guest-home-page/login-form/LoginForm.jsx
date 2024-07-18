@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import useInputVisibility from '~/hooks/use-input-visibility'
 import { useSelector } from 'react-redux'
-import { useRef, useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import Box from '@mui/material/Box'
 import ButtonBase from '@mui/material/ButtonBase'
 import Typography from '@mui/material/Typography'
@@ -26,8 +26,6 @@ const LoginForm = ({
   const { inputVisibility: passwordVisibility, showInputText: showPassword } =
     useInputVisibility(errors.password)
 
-  const emailRef = useRef(null)
-  const passwordRef = useRef(null)
   const [formValues, setFormValues] = useState({ email: '', password: '' })
 
   useEffect(() => {
@@ -62,7 +60,6 @@ const LoginForm = ({
         label={t('common.labels.email')}
         onBlur={handleBlur('email')}
         onChange={handleInputChange('email')}
-        ref={emailRef}
         required
         size='large'
         sx={{ mb: '5px' }}
@@ -77,7 +74,6 @@ const LoginForm = ({
         label={t('common.labels.password')}
         onBlur={handleBlur('password')}
         onChange={handleInputChange('password')}
-        ref={passwordRef}
         required
         type={showPassword ? 'text' : 'password'}
         value={formValues.password}
