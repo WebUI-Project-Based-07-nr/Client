@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { expect, vi } from 'vitest'
+import { beforeEach, expect, vi } from 'vitest'
 import EnhancedTablePagination from '~/components/enhanced-table/enhanced-table-pagination/EnhancedTablePagination'
 
 describe('EnhacedTablePagination', () => {
@@ -19,14 +19,15 @@ describe('EnhacedTablePagination', () => {
     handleChangePageInput: vi.fn(),
     handlePageSubmit: vi.fn()
   }
-  test('should render the first page', () => {
-    render(<EnhancedTablePagination pagination={paginationProps} />)
 
+  beforeEach(() => {
+    render(<EnhancedTablePagination pagination={paginationProps}/>)
+  })
+  test('should render the first page', () => {
     expect(screen.getByText(/1-10.*of .*50/)).toBeInTheDocument()
   })
-  test('should change page from 1 to 2', async () => {
-    render(<EnhancedTablePagination pagination={paginationProps} />)
 
+  test('should change page from 1 to 2', async () => {
     const nextPageButton = screen.getByLabelText('Go to next page')
     await userEvent.click(nextPageButton)
 
