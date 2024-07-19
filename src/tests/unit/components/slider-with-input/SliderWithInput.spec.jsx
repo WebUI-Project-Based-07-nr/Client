@@ -44,8 +44,8 @@ describe('SliderWithInput', () => {
 
   test('update inputValue correctly when input value empty', async () => {
     const inputElement = screen.getByRole('textbox')
-    userEvent.clear(inputElement)
-    userEvent.tab()
+   await userEvent.clear(inputElement)
+    await userEvent.tab()
 
     await waitFor(() => {
       expect(mockOnChange).toHaveBeenCalledWith(0)
@@ -54,9 +54,9 @@ describe('SliderWithInput', () => {
 
   test('update prices when input is blurred and input is greater than max value', async () => {
     const inputElement = screen.getByRole('textbox')
-    userEvent.clear(inputElement)
-    userEvent.type(inputElement, '150')
-    userEvent.tab()
+    await userEvent.clear(inputElement)
+   await userEvent.type(inputElement, '150')
+    await userEvent.tab()
 
     await waitFor(() => {
       expect(mockOnChange).toHaveBeenCalledWith(100)
@@ -65,7 +65,7 @@ describe('SliderWithInput', () => {
 
   test('not update prices when input is blurred and value in input has not changed', async () => {
     const inputElement = screen.getByRole('textbox')
-    userEvent.tab()
+    await userEvent.tab()
 
     await waitFor(() => {
       expect(mockOnChange).not.toHaveBeenCalled()
