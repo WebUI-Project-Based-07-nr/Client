@@ -13,7 +13,7 @@ describe('SliderWithInput', () => {
     onChange: vi.fn()
   }
 
-  let mockOnChange;
+  let mockOnChange
 
   beforeEach(() => {
     mockOnChange = vi.fn()
@@ -44,7 +44,7 @@ describe('SliderWithInput', () => {
 
   test('update inputValue correctly when input value empty', async () => {
     const inputElement = screen.getByRole('textbox')
-   await userEvent.clear(inputElement)
+    await userEvent.clear(inputElement)
     await userEvent.tab()
 
     await waitFor(() => {
@@ -55,7 +55,7 @@ describe('SliderWithInput', () => {
   test('update prices when input is blurred and input is greater than max value', async () => {
     const inputElement = screen.getByRole('textbox')
     await userEvent.clear(inputElement)
-   await userEvent.type(inputElement, '150')
+    await userEvent.type(inputElement, '150')
     await userEvent.tab()
 
     await waitFor(() => {
