@@ -3,17 +3,23 @@
     "description": "An educational platform that offers professional courses, empowering students with essential skills for career success.",
     "getStarted": "Get started for free"
   },
-  "individualTime": {
-    "title": "Individual Time",
-    "description": "Space2Study platform provides the opportunity to study lessons at any time convenient for you, pause and continue again."
-  },
-  "freeChoiceOfTeachers": {
-    "title": "Free Choice of Tutors",
-    "description": "Space2Study platform has a wide range of criteria and will help you find the best tutor for education."
-  },
-  "digitalCommunication": {
-    "title": "Digital Communication",
-    "description": "Space2Study platform offers extensive opportunities for meaningful communication not only with tutors but also with students."
+  "accordion": {
+    "flexibleLocation": {
+      "title": "Flexible Location",
+      "description": "Space2Study platform has no boundaries and can be used anywhere in the world, all you need is aspiration."
+    },
+    "individualTime": {
+      "title": "Individual Time",
+      "description": "Space2Study platform provides the opportunity to study lessons at any time convenient for you, pause and continue again."
+    },
+    "freeChoiceOfTeachers": {
+      "title": "Free Choice of Tutors",
+      "description": "Space2Study platform has a wide range of criteria and will help you find the best tutor for education."
+    },
+    "digitalCommunication": {
+      "title": "Digital Communication",
+      "description": "Space2Study platform offers extensive opportunities for meaningful communication not only with tutors but also with students."
+    }
   },
   "whatCanYouDo": {
     "title": "What can you do",
@@ -25,7 +31,7 @@
     },
     "teach": {
       "title": "Share your experience",
-      "description": "Sharing your experience as an expert will be incredibly rewarding, helping students unlock their potential and achieve their goals. Don't waste your time 📚",
+      "description": "Sharing your experience as an expert will be incredibly rewarding, helping students unlock their pоtential and achieve their goals. Don't waste your time 📚",
       "actionLabel": "Become a tutor"
     }
   },
