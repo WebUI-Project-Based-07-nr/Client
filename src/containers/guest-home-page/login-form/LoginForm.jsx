@@ -89,6 +89,7 @@ const LoginForm = ({
       </Typography>
 
       <AppButton
+        data-testid={'loginBtn'}
         disabled={!isFormValid()}
         loading={authLoading}
         sx={styles.loginButton}
