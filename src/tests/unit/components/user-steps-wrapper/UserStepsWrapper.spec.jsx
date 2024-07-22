@@ -1,4 +1,4 @@
-import { screen, fireEvent, waitFor } from '@testing-library/react'
+import { screen, waitFor } from '@testing-library/react'
 import UserStepsWrapper from '~/components/user-steps-wrapper/UserStepsWrapper'
 import { StepProvider } from '~/context/step-context'
 import {
@@ -7,6 +7,7 @@ import {
 } from '~/components/user-steps-wrapper/constants'
 import { vi } from 'vitest'
 import { renderWithProviders } from '~tests/test-utils'
+import userEvent from '@testing-library/user-event'
 
 vi.mock(
   '~/containers/tutor-home-page/general-info-step/GeneralInfoStep',
@@ -28,6 +29,7 @@ vi.mock('~/containers/tutor-home-page/add-photo-step/AddPhotoStep', () => {
     default: ({ btnsBox }) => {
       const handleFileChange = (event) => {
         const file = event.target.files[0]
+
         if (file.size > 50000) {
           const errorElement = document.createElement('div')
           errorElement.textContent = 'File size is too large'
@@ -78,33 +80,29 @@ describe('UserStepsWrapper', () => {
   })
 
   it('should render second tab', async () => {
-    fireEvent.click(screen.getByText('step.stepLabels.subjects'))
+    await userEvent.click(screen.getByText('step.stepLabels.subjects'))
     await waitFor(() => {
       expect(screen.getByText('Subjects step')).toBeInTheDocument()
     })
   })
 
   it('should open photo render error after add wrong file size', async () => {
-    fireEvent.click(screen.getByText('step.stepLabels.photo'))
+    await userEvent.click(screen.getByText('step.stepLabels.photo'))
 
     const file = createFile(5000000)
 
-    fireEvent.change(screen.getByTestId('file-input'), {
-      target: { files: [file] }
-    })
+    await userEvent.upload(screen.getByTestId('file-input'), file)
     await waitFor(() => {
       expect(screen.getByText('File size is too large')).toBeInTheDocument()
     })
   })
 
   it('should resize and show photo after adding photo', async () => {
-    fireEvent.click(screen.getByText('step.stepLabels.photo'))
+    await userEvent.click(screen.getByText('step.stepLabels.photo'))
 
     const file = createFile(50000)
 
-    fireEvent.change(screen.getByTestId('file-input'), {
-      target: { files: [file] }
-    })
+    await userEvent.upload(screen.getByTestId('file-input'), file)
     await waitFor(() => {
       expect(
         screen.getByText('Photo uploaded successfully')
