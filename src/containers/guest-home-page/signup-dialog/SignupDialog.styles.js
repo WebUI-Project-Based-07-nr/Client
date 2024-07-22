@@ -43,6 +43,16 @@ const style = {
     pr: { xs: '8px', sm: '96px', md: '80px', lg: '96px' },
     pb: { xs: '24px', sm: '64px' },
     ...scrollbar
+  },
+  closeButton: {
+    position: 'absolute',
+    top: 15,
+    right: 20,
+    color: 'black',
+    backgroundColor: 'white',
+    '&:hover': {
+      backgroundColor: 'transparent'
+    }
   }
 }
 
