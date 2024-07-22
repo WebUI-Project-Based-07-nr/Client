@@ -24,23 +24,17 @@ vi.mock('~/containers/tutor-home-page/subjects-step/SubjectsStep', () => {
   return { default: SubjectsStep }
 })
 
+function handleFileChange(event) {
+  const file = event.target.files[0]
+  const errorElement = document.createElement('div')
+  errorElement.textContent =
+    file.size > 50000 ? 'File size is too large' : 'Photo uploaded successfully'
+  document.body.appendChild(errorElement)
+}
+
 vi.mock('~/containers/tutor-home-page/add-photo-step/AddPhotoStep', () => {
   return {
     default: ({ btnsBox }) => {
-      const handleFileChange = (event) => {
-        const file = event.target.files[0]
-
-        if (file.size > 50000) {
-          const errorElement = document.createElement('div')
-          errorElement.textContent = 'File size is too large'
-          document.body.appendChild(errorElement)
-        } else {
-          const successElement = document.createElement('div')
-          successElement.textContent = 'Photo uploaded successfully'
-          document.body.appendChild(successElement)
-        }
-      }
-
       return (
         <div>
           <input
