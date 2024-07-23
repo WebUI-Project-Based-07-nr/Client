@@ -8,8 +8,15 @@ import AppSelect from '~/components/app-select/AppSelect'
 import AppButton from '~/components/app-button/AppButton'
 import { categoryService } from '~/services/category-service'
 import { subjectService } from '~/services/subject-service'
+import AppChipList from '~/components/app-chips-list/AppChipList'
 
 const SubjectsStep = ({ btnsBox }) => {
+  const mockItems = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5']
+
+  const handleChipsDelete = (item) => {
+    console.log(`Delete ${item}`)
+  }
+
   const { t } = useTranslation()
 
   const [selectedCategory, setSelectedCategory] = useState('')
@@ -84,14 +91,20 @@ const SubjectsStep = ({ btnsBox }) => {
           />
         </Box>
         <AppButton
-          disabled={false}
+          disabled
           loading={loading}
           sx={styles.submitButton}
           title='ok'
         >
           {t('becomeTutor.categories.btnText')}
         </AppButton>
-        <Box sx={styles.btnsBoxWrapper}>{btnsBox}</Box>
+        <AppChipList
+          defaultQuantity={3}
+          handleChipDelete={handleChipsDelete}
+          items={mockItems}
+          wrapperStyle={styles.chips}
+        />
+        <Box sx={styles.btnsWrapper}>{btnsBox}</Box>
       </Box>
     </Box>
   )

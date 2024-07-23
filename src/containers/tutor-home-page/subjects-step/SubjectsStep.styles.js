@@ -49,7 +49,10 @@ export const styles = {
   submitButton: {
     mt: '20px'
   },
-  btnsBoxWrapper: {
+  btnsWrapper: {
     mt: 'auto'
+  },
+  chips: {
+    mt: '20px'
   }
 }
