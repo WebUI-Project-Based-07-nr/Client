@@ -24,7 +24,6 @@ const TitleWithDescription = ({
   isDescriptionTooltip = false
 }: TitleWithDescriptionProps) => {
   const [tooltipVisible, setTooltipVisible] = useState<boolean>(false)
-
   const handleTooltip = () => setTooltipVisible((prevState) => !prevState)
 
   return (
