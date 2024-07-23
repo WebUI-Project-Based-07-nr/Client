@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react'
 import Box from '@mui/material/Box'
 import { styles } from '~/containers/tutor-home-page/subjects-step/SubjectsStep.styles'
 import TitleWithDescription from '~/components/title-with-description/TitleWithDescription'
@@ -5,12 +6,54 @@ import subjectsImage from '~/assets/img/tutor-home-page/become-tutor/study-categ
 import { useTranslation } from 'react-i18next'
 import AppSelect from '~/components/app-select/AppSelect'
 import AppButton from '~/components/app-button/AppButton'
-import { useState } from 'react'
-import { categoriesMock, languagesMock } from './constants'
+import { categoryService } from '~/services/category-service'
+import { subjectService } from '~/services/subject-service'
 
 const SubjectsStep = ({ btnsBox }) => {
   const { t } = useTranslation()
+
+  const [selectedCategory, setSelectedCategory] = useState('')
+  const [selectedSubject, setSelectedSubject] = useState('')
+  const [categoryOptions, setCategoryOptions] = useState([])
+  const [subjectOptions, setSubjectOptions] = useState([])
   const [loading] = useState(false)
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await categoryService.getCategoriesNames()
+        const categories = response.data.map((category) => ({
+          title: `${category.name} Category: ${category.name}`,
+          value: category.name
+        }))
+        setCategoryOptions(categories)
+      } catch (error) {
+        console.error('Error fetching categories:', error)
+      }
+    }
+
+    fetchCategories()
+  }, [])
+
+  const handleCategoryChange = async (value) => {
+    setSelectedCategory(value)
+
+    try {
+      const response = await subjectService.getSubjectsNames(value)
+      const subjects = response.data.map((subject) => ({
+        title: `${subject.name} Category: ${value}`,
+        value: subject.name
+      }))
+      setSubjectOptions(subjects)
+    } catch (error) {
+      console.error('Error fetching subjects:', error)
+    }
+    setSelectedSubject('')
+  }
+
+  const handleSubjectChange = (value) => {
+    setSelectedSubject(value)
+  }
 
   return (
     <Box sx={styles.container}>
@@ -24,14 +67,20 @@ const SubjectsStep = ({ btnsBox }) => {
         />
         <Box sx={styles.selectContainer}>
           <AppSelect
-            fields={languagesMock}
+            fields={categoryOptions}
+            hideTriangleIcon
             label={t('becomeTutor.categories.mainSubjectsLabel')}
+            setValue={handleCategoryChange}
             sx={styles.select}
+            value={selectedCategory}
           />
           <AppSelect
-            fields={categoriesMock}
+            fields={subjectOptions}
+            hideTriangleIcon
             label={t('becomeTutor.categories.subjectLabel')}
+            setValue={handleSubjectChange}
             sx={styles.select}
+            value={selectedSubject}
           />
         </Box>
         <AppButton
