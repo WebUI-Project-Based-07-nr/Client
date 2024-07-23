@@ -30,7 +30,7 @@ export const styles = {
   },
   titleWithDescription: {
     wrapper: {
-      textAlign: 'start',
+      textAlign: 'left',
       m: 0
     },
     description: {

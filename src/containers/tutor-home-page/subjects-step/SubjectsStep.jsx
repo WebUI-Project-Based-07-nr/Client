@@ -19,7 +19,7 @@ const SubjectsStep = ({ btnsBox }) => {
       </Box>
       <Box sx={styles.rightBox}>
         <TitleWithDescription
-          sx={styles.titleWithDescription}
+          style={styles.titleWithDescription}
           title={t('becomeTutor.categories.title')}
         />
         <Box sx={styles.selectContainer}>
