@@ -59,19 +59,8 @@ const SignupForm = ({
   const { authLoading } = useSelector((state) => state.appMain)
   const { t } = useTranslation()
 
-  let passwordType
-  if (showPassword) {
-    passwordType = 'text'
-  } else {
-    passwordType = 'password'
-  }
-
-  let confirmPasswordType
-  if (showConfirmPassword) {
-    confirmPasswordType = 'text'
-  } else {
-    confirmPasswordType = 'password'
-  }
+  const passwordType = showPassword ? 'text' : 'password'
+  const confirmPasswordType = showConfirmPassword ? 'text' : 'password'
 
   return (
     <Box component='form' onSubmit={handleSubmit} sx={styles.form}>
