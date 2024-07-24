@@ -1,104 +1,129 @@
 import { useTranslation } from 'react-i18next'
 import useInputVisibility from '~/hooks/use-input-visibility'
 import { useSelector } from 'react-redux'
-
 import Box from '@mui/material/Box'
-
 import Typography from '@mui/material/Typography'
 import { Checkbox, FormControlLabel } from '@mui/material'
-
 import AppTextField from '~/components/app-text-field/AppTextField'
 import AppButton from '~/components/app-button/AppButton'
-
 import { styles } from '~/containers/guest-home-page/signup-form/SignupForm.styles'
 
-const SignupForm = ({
-  handleSubmit,
-  handleChange,
+const useInputVisibilityWithErrors = (error) => {
+  return useInputVisibility(error)
+}
+
+const InputField = ({
+  error,
   handleBlur,
+  handleChange,
+  id,
+  label,
+  type,
+  value,
+  visibilityProps
+}) => {
+  const { t } = useTranslation()
+
+  return (
+    <AppTextField
+      InputProps={visibilityProps}
+      data-testid={id}
+      errorMsg={t(error)}
+      fullWidth
+      label={t(label)}
+      onBlur={handleBlur(id)}
+      onChange={handleChange(id)}
+      required
+      size='large'
+      sx={{ mb: '5px' }}
+      type={type}
+      value={value}
+    />
+  )
+}
+
+const SignupForm = ({
   data,
-  errors
+  errors,
+  handleBlur,
+  handleChange,
+  handleSubmit
 }) => {
   const { inputVisibility: passwordVisibility, showInputText: showPassword } =
-    useInputVisibility(errors.password)
+    useInputVisibilityWithErrors(errors.password)
   const {
     inputVisibility: confirmPasswordVisibility,
     showInputText: showConfirmPassword
-  } = useInputVisibility(errors.password)
+  } = useInputVisibilityWithErrors(errors.confirmPassword)
 
   const { authLoading } = useSelector((state) => state.appMain)
-
   const { t } = useTranslation()
+
+  let passwordType
+  if (showPassword) {
+    passwordType = 'text'
+  } else {
+    passwordType = 'password'
+  }
+
+  let confirmPasswordType
+  if (showConfirmPassword) {
+    confirmPasswordType = 'text'
+  } else {
+    confirmPasswordType = 'password'
+  }
 
   return (
     <Box component='form' onSubmit={handleSubmit} sx={styles.form}>
       <Box sx={styles.nameBox}>
-        <AppTextField
-          autoFocus
-          data-testid={'firstName'}
-          errorMsg={t(errors.firstName)}
-          fullWidth
-          label={t('common.labels.firstName')}
-          onBlur={handleBlur('firstName')}
-          onChange={handleChange('firstName')}
-          required
-          size='large'
-          sx={{ mb: '5px' }}
+        <InputField
+          error={errors.firstName}
+          handleBlur={handleBlur}
+          handleChange={handleChange}
+          id='firstName'
+          label='common.labels.firstName'
           type='text'
           value={data.firstName}
         />
-        <AppTextField
-          autoFocus
-          data-testid={'lastName'}
-          errorMsg={t(errors.lastName)}
-          fullWidth
-          label={t('common.labels.lastName')}
-          onBlur={handleBlur('lastName')}
-          onChange={handleChange('lastName')}
-          required
-          size='large'
-          sx={{ mb: '5px' }}
+        <InputField
+          error={errors.lastName}
+          handleBlur={handleBlur}
+          handleChange={handleChange}
+          id='lastName'
+          label='common.labels.lastName'
           type='text'
           value={data.lastName}
         />
       </Box>
-      <AppTextField
-        data-testid={'email'}
-        errorMsg={t(errors.email)}
-        fullWidth
-        label={t('common.labels.email')}
-        onBlur={handleBlur('email')}
-        onChange={handleChange('email')}
-        required
-        size='large'
-        sx={{ mb: '5px' }}
+      <InputField
+        error={errors.email}
+        handleBlur={handleBlur}
+        handleChange={handleChange}
+        id='email'
+        label='common.labels.email'
         type='email'
         value={data.email}
       />
-
-      <AppTextField
-        InputProps={passwordVisibility}
-        errorMsg={t(errors.password)}
-        fullWidth
-        label={t('common.labels.password')}
-        onBlur={handleBlur('password')}
-        onChange={handleChange('password')}
-        required
-        type={showPassword ? 'text' : 'password'}
+      <InputField
+        error={errors.password}
+        handleBlur={handleBlur}
+        handleChange={handleChange}
+        id='password'
+        label='common.labels.password'
+        type={passwordType}
         value={data.password}
+        visibilityProps={passwordVisibility}
       />
-      <AppTextField
-        InputProps={confirmPasswordVisibility}
-        errorMsg={t(errors.confirmPassword)}
-        fullWidth
-        label={t('common.labels.confirmPassword')}
-        onBlur={handleBlur('confirmPassword')}
-        onChange={handleChange('confirmPassword')}
-        required
-        type={showConfirmPassword ? 'text' : 'password'}
+      <InputField
+        error={errors.confirmPassword}
+        handleBlur={handleBlur}
+        handleChange={handleChange}
+        id='confirmPassword'
+        label='common.labels.confirmPassword'
+        type={confirmPasswordType}
         value={data.confirmPassword}
+        visibilityProps={confirmPasswordVisibility}
       />
-
       <FormControlLabel
         control={
           <Checkbox
@@ -122,7 +147,6 @@ const SignupForm = ({
         }
         sx={{ mb: '8px' }}
       />
-
       <AppButton loading={authLoading} sx={styles.loginButton} type='submit'>
         {t('common.labels.signup')}
       </AppButton>

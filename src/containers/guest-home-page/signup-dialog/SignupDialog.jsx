@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import PropTypes from 'prop-types'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
@@ -60,7 +61,6 @@ const SignupDialog = ({ isTutor = true }) => {
     Object.values(data).some(
       (value) => typeof value === 'string' && value.trim() !== ''
     )
-
   const handleClose = () => {
     if (!hasFilledFields()) {
       closeModal()
@@ -70,12 +70,26 @@ const SignupDialog = ({ isTutor = true }) => {
     }
   }
 
+  const stopPropagation = (e) => e.stopPropagation()
+
+  const emptyFunction = () => {}
+
+  let signupImgSrc
+  let signupHeadText
+  if (isTutor) {
+    signupImgSrc = signupTutorImg
+    signupHeadText = 'signup.head.tutor'
+  } else {
+    signupImgSrc = signupStudentImg
+    signupHeadText = 'signup.head.student'
+  }
+
   return (
     <PopupDialog
       closeModal={closeModal}
-      closeModalAfterDelay={() => {}}
+      closeModalAfterDelay={emptyFunction}
       content={
-        <Box onClick={(e) => e.stopPropagation()} sx={styles.root}>
+        <Box onClick={stopPropagation} sx={styles.root}>
           <IconButton
             aria-label='close'
             data-testid='close-button'
@@ -88,14 +102,14 @@ const SignupDialog = ({ isTutor = true }) => {
             <Box
               alt='login'
               component='img'
-              src={isTutor ? signupTutorImg : signupStudentImg}
+              src={signupImgSrc}
               sx={styles.img}
             />
           </Box>
 
           <Box sx={styles.formContainer}>
             <Typography sx={styles.title} variant='h2'>
-              {t(isTutor ? 'signup.head.tutor' : 'signup.head.student')}
+              {t(signupHeadText)}
             </Typography>
             <Box sx={styles.form}>
               <SignupForm
@@ -127,6 +141,10 @@ const SignupDialog = ({ isTutor = true }) => {
       timerId={null}
     />
   )
+}
+
+SignupDialog.propTypes = {
+  isTutor: PropTypes.bool
 }
 
 export default SignupDialog

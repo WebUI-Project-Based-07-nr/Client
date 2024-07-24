@@ -9,7 +9,7 @@ export const styles = {
   },
   loginButton: {
     width: '100%',
-    py: '14px'
+    py: '10px'
   },
   forgotPass: {
     cursor: 'pointer',
