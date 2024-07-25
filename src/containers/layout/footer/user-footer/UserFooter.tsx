@@ -31,7 +31,7 @@ const UserFooter = () => {
   )
 
   const logo = (
-    <Link component={HashLink} to={guestRoutes.home.path}>
+    <Link component={HashLink} to={guestRoutes.welcome.path}>
       <Logo light sx={styles.logo} />
     </Link>
   )

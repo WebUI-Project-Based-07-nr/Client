@@ -12,6 +12,7 @@ const Footer = () => {
 
   return (
     <Box component={ComponentEnum.Footer} sx={styles.footer}>
+      <UserFooter />
       {!pageLoad && (userRole ? <UserFooter /> : <GuestFooter />)}
     </Box>
   )
