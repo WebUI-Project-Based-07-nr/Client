@@ -99,7 +99,7 @@ const SubjectsStep = ({ btnsBox }) => {
           {t('becomeTutor.categories.btnText')}
         </AppButton>
         <AppChipList
-          defaultQuantity={3}
+          defaultQuantity={2}
           handleChipDelete={handleChipsDelete}
           items={mockItems}
           wrapperStyle={styles.chips}
