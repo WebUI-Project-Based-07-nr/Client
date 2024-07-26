@@ -13,7 +13,7 @@ import { styles } from '~/containers/guest-home-page/styles/WhatCanYouDo.styles'
 
 import { useModalContext } from '~/context/modal-context'
 
-import SignupDialog from './signup-dialog/SignupDialog'
+import SignupDialog from '~/containers/guest-home-page/signup-dialog/SignupDialog'
 
 const cardData = [
   {
