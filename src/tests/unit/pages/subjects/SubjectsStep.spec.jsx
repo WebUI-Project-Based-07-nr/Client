@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import SubjectsStep from '~/containers/tutor-home-page/subjects-step/SubjectsStep'
 import Box from '@mui/system/Box'
+import '~/tests/setup-tests'
 
 describe('SubjectsStep', () => {
   const mockBtnsBox = (
@@ -27,6 +28,18 @@ describe('SubjectsStep', () => {
   it('should renders two selects', () => {
     const selects = screen.getAllByTestId('app-select')
     expect(selects).toHaveLength(2)
+  })
+
+  it('should display correct label text in selects', () => {
+    const mainSubjectsLabel = screen.getAllByText(
+      'becomeTutor.categories.mainSubjectsLabel'
+    )[0]
+    expect(mainSubjectsLabel).toBeInTheDocument()
+
+    const subjectLabel = screen.getAllByText(
+      'becomeTutor.categories.subjectLabel'
+    )[1]
+    expect(subjectLabel).toBeInTheDocument()
   })
 
   it('should renders "Add one more subject" button ', () => {

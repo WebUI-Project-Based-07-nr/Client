@@ -13,7 +13,7 @@ import AppChipList from '~/components/app-chips-list/AppChipList'
 const SubjectsStep = ({ btnsBox }) => {
   const mockItems = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5']
 
-  const handleChipsDelete = (item) => {
+  const handleChipDelete = (item) => {
     console.log(`Delete ${item}`)
   }
 
@@ -100,7 +100,7 @@ const SubjectsStep = ({ btnsBox }) => {
         </AppButton>
         <AppChipList
           defaultQuantity={2}
-          handleChipDelete={handleChipsDelete}
+          handleChipDelete={handleChipDelete}
           items={mockItems}
           wrapperStyle={styles.chips}
         />

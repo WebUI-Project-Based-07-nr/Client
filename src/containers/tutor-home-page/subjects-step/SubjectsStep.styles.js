@@ -21,10 +21,10 @@ export const styles = {
     m: { sm: 0, xs: '0 auto' }
   },
   rightBox: {
-    maxWidth: '600px',
-    width: '50%',
+    maxWidth: '432px',
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'space-between',
     m: { md: 0, xs: '0 auto' },
     pt: 0
   },
