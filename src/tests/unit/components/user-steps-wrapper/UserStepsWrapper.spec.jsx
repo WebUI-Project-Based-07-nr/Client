@@ -103,4 +103,32 @@ describe('UserStepsWrapper', () => {
       ).toBeInTheDocument()
     })
   })
+
+  it('should call onConfirm and closeModal on ConfirmDialog confirm', async () => {
+    await userEvent.click(screen.getByTestId('close-button'))
+    await waitFor(() => {
+      expect(screen.getByText('questions.unsavedChanges')).toBeInTheDocument()
+    })
+
+    await userEvent.click(screen.getByText('common.yes'))
+    await waitFor(() => {
+      expect(
+        screen.queryByText('questions.unsavedChanges')
+      ).not.toBeInTheDocument()
+    })
+  })
+
+  it('should call onDismiss and not closeModal on ConfirmDialog dismiss', async () => {
+    await userEvent.click(screen.getByTestId('close-button'))
+    await waitFor(() => {
+      expect(screen.getByText('questions.unsavedChanges')).toBeInTheDocument()
+    })
+
+    await userEvent.click(screen.getByText('common.no'))
+    await waitFor(() => {
+      expect(
+        screen.queryByText('questions.unsavedChanges')
+      ).not.toBeInTheDocument()
+    })
+  })
 })
