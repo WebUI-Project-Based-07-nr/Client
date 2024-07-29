@@ -11,18 +11,13 @@ import { subjectService } from '~/services/subject-service'
 import AppChipList from '~/components/app-chips-list/AppChipList'
 
 const SubjectsStep = ({ btnsBox }) => {
-  const mockItems = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5']
-
-  const handleChipDelete = (item) => {
-    console.log(`Delete ${item}`)
-  }
-
   const { t } = useTranslation()
 
   const [selectedCategory, setSelectedCategory] = useState('')
   const [selectedSubject, setSelectedSubject] = useState('')
   const [categoryOptions, setCategoryOptions] = useState([])
   const [subjectOptions, setSubjectOptions] = useState([])
+  const [selectedSubjects, setSelectedSubjects] = useState([])
   const [loading] = useState(false)
 
   useEffect(() => {
@@ -62,6 +57,17 @@ const SubjectsStep = ({ btnsBox }) => {
     setSelectedSubject(value)
   }
 
+  const handleAddSubject = () => {
+    if (selectedSubject && !selectedSubjects.includes(selectedSubject)) {
+      setSelectedSubjects([...selectedSubjects, selectedSubject])
+      setSelectedSubject('')
+    }
+  }
+
+  const handleChipDelete = (item) => {
+    setSelectedSubjects(selectedSubjects.filter((subject) => subject !== item))
+  }
+
   return (
     <Box sx={styles.container}>
       <Box sx={styles.imgContainer}>
@@ -91,8 +97,9 @@ const SubjectsStep = ({ btnsBox }) => {
           />
         </Box>
         <AppButton
-          disabled
+          disabled={!(Boolean(selectedCategory) && Boolean(selectedSubject))}
           loading={loading}
+          onClick={handleAddSubject}
           sx={styles.submitButton}
           title='ok'
         >
@@ -101,7 +108,7 @@ const SubjectsStep = ({ btnsBox }) => {
         <AppChipList
           defaultQuantity={2}
           handleChipDelete={handleChipDelete}
-          items={mockItems}
+          items={selectedSubjects}
           wrapperStyle={styles.chips}
         />
         <Box sx={styles.btnsWrapper}>{btnsBox}</Box>
