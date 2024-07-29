@@ -25,7 +25,7 @@ const GuestHomePage = () => {
   useEffect(() => {
     const confirmToken = searchParams.get('confirmToken')
     const resetToken = searchParams.get('resetToken')
-    confirmToken &&
+    if (confirmToken) {
       openModal({
         component: (
           <EmailConfirmModal
@@ -34,14 +34,17 @@ const GuestHomePage = () => {
           />
         )
       })
-    resetToken &&
+    }
+    if (resetToken) {
       openModal({
         component: (
           <ResetPassword openModal={openModal} resetToken={resetToken} />
         )
       })
-    searchParams.get('login') !== null &&
+    }
+    if (searchParams.get('login') !== null) {
       openModal({ component: <LoginDialog /> })
+    }
 
     setSearchParams([])
   }, [searchParams, setSearchParams, openModal])
@@ -52,9 +55,8 @@ const GuestHomePage = () => {
       <PageWrapper sx={styles.sectionsWrapper}>
         <FeatureBlock items={descriptionTimes} />
         <Box id={guestRoutes.navBar.whatCanYouDo.path}>
-          <WhatCanYouDo />{' '}
+          <WhatCanYouDo />
         </Box>
-
         <HowItWorks />
         <Faq />
         <WhoWeAre />
@@ -62,4 +64,5 @@ const GuestHomePage = () => {
     </Box>
   )
 }
+
 export default GuestHomePage

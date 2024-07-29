@@ -55,4 +55,5 @@ const CarouselWithImage: FC<CarouselWithImageProps> = ({ items }) => {
     </Box>
   )
 }
+
 export default CarouselWithImage

@@ -56,7 +56,7 @@ const Accordions: FC<AccordionsProps> = ({
         key={item.title}
         onChange={() => onChange(index)}
         square={props.square}
-        sx={{ ...activeAccordionStyle }}
+        sx={activeAccordionStyle}
         {...props}
       >
         <AccordionSummary expandIcon={icon} sx={accordionStyle.summary}>

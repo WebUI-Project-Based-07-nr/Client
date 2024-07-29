@@ -2,10 +2,8 @@ import welcomeBgMd from '~/assets/img/guest-home-page/welcomeBgMd.svg'
 import welcomeBgSm from '~/assets/img/guest-home-page/welcomeBgSm.svg'
 import welcomeBgXs from '~/assets/img/guest-home-page/welcomeBgXs.svg'
 
-// import { mainShadow } from '~/styles/app-theme/custom-shadows'
-
 const gradient =
-  'radial-gradient(ellipse at top, rgba(192, 229, 228, 0.4), transparent 80%'
+  'radial-gradient(ellipse at top, rgba(192, 229, 228, 0.4), transparent 80%)'
 
 export const styles = {
   container: {
@@ -16,9 +14,9 @@ export const styles = {
       xs: '404px'
     },
     backgroundImage: {
-      md: `url(${welcomeBgMd}), ${gradient})`,
-      sm: `url(${welcomeBgSm}), ${gradient})`,
-      xs: `url(${welcomeBgXs}), ${gradient})`
+      md: `url(${welcomeBgMd}), ${gradient}`,
+      sm: `url(${welcomeBgSm}), ${gradient}`,
+      xs: `url(${welcomeBgXs}), ${gradient}`
     },
     background: 'center / contain no-repeat'
   },
@@ -31,14 +29,14 @@ export const styles = {
       sm: 'body1',
       xs: 'body2'
     },
-    px: '24px',
+    paddingX: '24px',
     maxWidth: { lg: '1000px', xs: '798px' },
     marginBottom: '32px',
     textAlign: 'center'
   },
   getStartBtn: {
-    py: '16px',
-    px: { lg: '60px', xs: '32px' },
+    paddingY: '16px',
+    paddingX: { lg: '60px', xs: '32px' },
     transition: 'background-color 0.3s ease',
     ':hover': {
       backgroundColor: '#ff7f50'
