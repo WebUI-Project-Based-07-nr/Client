@@ -1,1 +1,1 @@
-export const translationKey = 'tutorHomePage.findStudentBlock'
+export const translationKey = 'studentHomePage.findTutorBlock'
