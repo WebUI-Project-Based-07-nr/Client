@@ -16,6 +16,7 @@ import Faq from '~/containers/guest-home-page/faq/Faq'
 import WhoWeAre from '~/containers/guest-home-page/who-we-are/WhoWeAre'
 import { useModalContext } from '~/context/modal-context'
 import { styles } from '~/pages/guest-home-page/GuestHome.styles'
+import { guestRoutes } from '~/router/constants/guestRoutes'
 
 const GuestHomePage = () => {
   const { openModal } = useModalContext()
@@ -50,7 +51,10 @@ const GuestHomePage = () => {
       <Welcome />
       <PageWrapper sx={styles.sectionsWrapper}>
         <FeatureBlock items={descriptionTimes} />
-        <WhatCanYouDo />
+        <Box id={guestRoutes.navBar.whatCanYouDo.path}>
+          <WhatCanYouDo />{' '}
+        </Box>
+
         <HowItWorks />
         <Faq />
         <WhoWeAre />

@@ -1,13 +1,13 @@
 export const styles = {
   feature: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    mb: '16px'
+    position: 'relative',
+    overflow: 'hidden'
   },
   image: {
-    width: '100%'
+    width: '100%',
+    maxWidth: '860px',
+    margin: '0 auto',
+    display: 'block'
   },
   text: {
     display: 'flex',
@@ -18,7 +18,10 @@ export const styles = {
     backgroundColor: 'primary.800',
     borderRadius: '6px',
     p: '16px',
-    m: '0 1.5vw'
+    m: '0 1.5vw',
+    '&:hover': {
+      backgroundColor: 'none' // Убираем hover-эффект
+    }
   },
   steper: {
     display: 'flex',
