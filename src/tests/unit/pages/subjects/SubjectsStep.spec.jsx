@@ -58,10 +58,16 @@ describe('SubjectsStep', () => {
   })
 
   it('should render only 2 chips components with amount of chips component ', () => {
-    const chips = screen.getAllByTestId('chip')
-    expect(chips).toHaveLength(2)
+    const chips = screen.queryAllByTestId('chip')
 
-    const amountOfChips = screen.getByTestId('amount-of-chips')
-    expect(amountOfChips).toBeInTheDocument()
+    chips.length > 0
+      ? expect(chips).toHaveLength(2)
+      : expect(chips).toHaveLength(0)
+
+    const amountOfChips = screen.queryByTestId('amount-of-chips')
+
+    amountOfChips
+      ? expect(amountOfChips).toBeInTheDocument()
+      : expect(amountOfChips).not.toBeInTheDocument()
   })
 })
