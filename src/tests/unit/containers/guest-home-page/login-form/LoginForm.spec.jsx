@@ -11,6 +11,7 @@ vi.mock('~/hooks/use-confirm', () => {
 
 const errors = { email: false, password: false }
 const data = { email: 'email@mail.com', password: 'passTest1' }
+const errorData = { email: '', password: '' }
 const handleChange = vi.fn()
 const handleBlur = vi.fn()
 const handleSubmit = vi.fn()
@@ -101,5 +102,24 @@ describe('Login form test with loading', () => {
     const loader = screen.getByTestId('loader')
 
     expect(loader).toBeInTheDocument()
+  })
+})
+
+describe('Button disabled', () => {
+  const preloadedState = { appMain: { authLoading: false } }
+  it('Button should be disabled when nothing is entered', () => {
+    renderWithProviders(
+      <LoginForm
+        data={errorData}
+        errors={errors}
+        handleBlur={handleBlur}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+      />,
+      { preloadedState }
+    )
+
+    const button = screen.getByTestId('loginBtn')
+    expect(button).toBeDisabled()
   })
 })
