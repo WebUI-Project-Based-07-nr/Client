@@ -1,6 +1,7 @@
-import studentHomePage from '~/constants/translations/en/student-home-page'
+import studentHomePage from '~/constants/translations/en/student-home-page.json'
+import { accordionItem } from '~/types'
 
-export const accordionItems = [
+export const accordionItems: accordionItem[] = [
   {
     title: studentHomePage.faq.findTutor,
     description: studentHomePage.faq.findTutorDescription

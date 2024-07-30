@@ -6,7 +6,7 @@ import TitleWithDescription from '~/components/title-with-description/TitleWithD
 import { studentRoutes } from '~/router/constants/studentRoutes'
 import { styles } from '~/containers/student-home-page/faq/Faq.styles'
 import { useState } from 'react'
-import {accordionItems} from './accordionItems'
+import { accordionItems } from './accordionItems'
 
 const Faq = () => {
   const { t } = useTranslation()
