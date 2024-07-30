@@ -29,3 +29,23 @@ export type Media = {
   name: string
   path: string
 }
+
+export type File = {
+  name: string
+  url: string
+  size: string
+  createdAt: string
+}
+
+export type Link = {
+  name: string
+  url: string
+}
+
+export type Lesson = {
+  title: string
+  category: {
+    name: string
+  }
+  updatedAt: string
+}
