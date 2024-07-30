@@ -19,7 +19,8 @@ import {
   ApiMethodEnum,
   CreateQuizParams,
   UpdateQuizParams,
-  Quiz
+  Quiz,
+  Lesson
 } from '~/types'
 import { createUrlPath } from '~/utils/helper-functions'
 
@@ -28,6 +29,18 @@ export const ResourceService = {
     params?: GetResourcesParams
   ): Promise<AxiosResponse<ItemsWithCount<Question>>> => {
     return axiosClient.get(URLs.resources.questions.get, { params })
+  },
+  getAttachments: (): string => {
+    return 'Not implemented yet'
+  },
+  editLesson: (): Lesson => {
+    return {
+      title: '',
+      category: {
+        name: ''
+      },
+      updatedAt: ''
+    }
   },
   getQuestion: async (id?: string): Promise<AxiosResponse<GetQuestion>> =>
     await axiosClient.get(createUrlPath(URLs.resources.questions.get, id)),

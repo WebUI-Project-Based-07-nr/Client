@@ -1,4 +1,6 @@
+import { AxiosResponse } from 'axios'
 import { SortEnum } from '../common.index'
+import { Answer } from '~/types/questions/questions.index'
 
 export type Address = {
   country: string
@@ -47,6 +49,40 @@ export type Lesson = {
   category: {
     name: string
   }
+  updatedAt: string
+}
+
+export interface DefaultResponse {
+  attachments: []
+  author: string
+  createdAt: string
+  description: string
+  title: string
+  updatedAt: string
+  _id: string
+  content: string
+  category: null
+}
+
+export type LessonData = {
+  service: Promise<AxiosResponse>
+  fetchOnMount: boolean
+  defaultResponse: DefaultResponse
+  onResponse: boolean
+  onResponseError: boolean
+}
+
+export type Attachment = {
+  _id: string
+  size: string
+  title: string
+  fileName: string
+  text: string
+  answers: Answer[]
+  author: string
+  type: string
+  category: string
+  createdAt: CreatedAt
   updatedAt: string
 }
 
