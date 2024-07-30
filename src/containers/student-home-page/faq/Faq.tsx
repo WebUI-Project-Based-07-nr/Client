@@ -7,6 +7,7 @@ import { studentRoutes } from '~/router/constants/studentRoutes'
 import { styles } from '~/containers/student-home-page/faq/Faq.styles'
 import { useState } from 'react'
 import { accordionItems } from './accordionItems'
+import { accordionItem } from '~/types'
 
 const Faq = () => {
   const { t } = useTranslation()
@@ -28,7 +29,7 @@ const Faq = () => {
         title={t('studentHomePage.faq.title')}
       />
 
-      {accordionItems.map((item) => (
+      {accordionItems.map((item: accordionItem) => (
         <Box
           key={item.title}
           onClick={() => toggleQuestion(accordionItems.indexOf(item))}
