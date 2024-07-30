@@ -49,3 +49,19 @@ export type Lesson = {
   }
   updatedAt: string
 }
+
+export type resource = {
+  _id: string
+}
+
+export type CourseResources = {
+  resources: Array<resource>
+}
+
+export type item = {
+  title?: string
+  fileName?: string
+  category: {
+    _id: string
+  }
+}
