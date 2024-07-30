@@ -27,7 +27,7 @@ import { authRoutes } from '~/router/constants/authRoutes'
 import { styles } from '~/pages/subjects/Subjects.styles'
 import { CategoryNameInterface, SubjectInterface } from '~/types'
 
-const Subjects = () => {
+const Categories = () => {
   const [match, setMatch] = useState('')
   const [categoryName] = useState('')
   const [isFetched, setIsFetched] = useState(false)
@@ -162,4 +162,4 @@ const Subjects = () => {
   )
 }
 
-export default Subjects
+export default Categories
