@@ -101,3 +101,8 @@ export type item = {
     _id: string
   }
 }
+
+export type accordionItem = {
+  title: string
+  description: string
+}
