@@ -18,5 +18,11 @@ export const styles = {
       lineHeight: 'inherit',
       color: 'primary.500'
     }
+  },
+  clearIcon: {
+    position: 'absolute',
+    right: '8px',
+    top: '50%',
+    transform: 'translateY(-50%)'
   }
 }

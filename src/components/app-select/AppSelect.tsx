@@ -7,15 +7,21 @@ import Box from '@mui/material/Box'
 
 import InputLabel from '@mui/material/InputLabel'
 import Typography from '@mui/material/Typography'
+import IconButton from '@mui/material/IconButton'
+import ClearIcon from '@mui/icons-material/Clear'
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 
 import { SelectFieldType } from '~/types'
 import { styles } from '~/components/app-select/AppSelect.styles'
+
+const NoIcon = () => null
 
 interface AppSelectProps<T> extends SelectProps<T> {
   setValue: (value: T) => void
   value: T
   fields: SelectFieldType<T>[]
   selectTitle?: string
+  hideTriangleIcon?: boolean
 }
 
 const AppSelect = <T,>({
@@ -25,12 +31,17 @@ const AppSelect = <T,>({
   selectTitle,
   sx,
   label,
+  hideTriangleIcon,
   ...props
 }: AppSelectProps<T>) => {
   const { t } = useTranslation()
 
   const changeValue = (event: SelectChangeEvent<T>) =>
     setValue(event.target.value as T)
+
+  const handleClear = () => {
+    setValue('' as T)
+  }
 
   const fieldsList = fields.map(({ title, value }) => {
     if (typeof value === 'string' || typeof value === 'number') {
@@ -61,6 +72,19 @@ const AppSelect = <T,>({
           sx={styles.selectField}
           value={value}
           {...props}
+          IconComponent={hideTriangleIcon && value ? NoIcon : ArrowDropDownIcon}
+          endAdornment={
+            hideTriangleIcon &&
+            value && (
+              <IconButton
+                aria-label='clear'
+                onClick={handleClear}
+                sx={styles.clearIcon}
+              >
+                <ClearIcon />
+              </IconButton>
+            )
+          }
         >
           {fieldsList}
         </Select>
