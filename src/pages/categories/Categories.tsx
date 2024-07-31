@@ -1,9 +1,7 @@
-import CreateRequest from '~/components/create-request/CreateRequest'
-
-import { translationKey } from '~/components/create-request/create-request-student-constants'
+import PageWrapper from '~/components/page-wrapper/PageWrapper'
 
 const Categories = () => {
-  return <CreateRequest translationKey={translationKey} />
+  return <PageWrapper>Categories</PageWrapper>
 }
 
 export default Categories
