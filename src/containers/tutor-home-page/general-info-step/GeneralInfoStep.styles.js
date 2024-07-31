@@ -1,11 +1,6 @@
 import { fadeAnimation } from '~/styles/app-theme/custom-animations'
 
 export const styles = {
-  input: {
-    '@media (max-width:380px)': {
-      width:'100%'      
-    }
-  },
   container: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -29,22 +24,22 @@ export const styles = {
     justifyContent: 'center',
     marginRight: '70px',
     '@media (max-width:768px)': {
-
       display: 'none'
     },
-    '@media (max-width:380px )': {
-      display: 'block !important',
-      width:'70%',
-      maxWidth:'150px',
-      height:'auto',
-      margin:'0 auto 16px auto'
-
+    '@media (max-width:380px)': {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '100%',
+      margin: '0',
+      padding: '0',
     }
   },
   img: {
- 
     '@media (max-width:380px)': {
-      maxWidth: '100px' 
+      maxWidth: '200px',
+      height: 'auto',
+    marginBottom:'10%'
     },
   },
   desktopText: {
@@ -62,29 +57,26 @@ export const styles = {
       width: '100%'
     }
   },
-
   rightBox: {
     flex: 2,
     display: 'flex',
     flexDirection: 'column',
     gap: '16px',
     '@media (max-width:768px)': {
-
       textAlign: 'center',
       width: '100%',
     },
     '@media (max-width:380px)': {
-      textAlign:'left',
+      textAlign: 'left',
     }
   },
   row: {
     display: 'flex',
-flexWrap:'wrap',
+    flexWrap: 'wrap',
     gap: '16px',
-    justifyContent:'center',
+    justifyContent: 'center',
     '@media (max-width:768px)': {
       gap: '16px',
-
     }
   },
   halfWidth: {
@@ -94,15 +86,23 @@ flexWrap:'wrap',
     '@media (max-width:768px)': {
       flex: '0 1 48%',
       marginBottom: '16px'
+    },
+    '@media (max-width:380px)': {
+      width: '100%', 
+      minWidth: '300px', 
+      maxWidth: '300px' 
     }
   },
   fullWidth: {
     width: '100%',
     minWidth: '200px',
-    maxWidth:'500px',
-    margin:'0 auto',
+    maxWidth: '500px',
+    margin: '0 auto',
     '@media (max-width:768px)': {
       marginBottom: '16px'
+    },
+    '@media (max-width:380px)': {
+     
     }
   },
   charCount: {
@@ -110,38 +110,48 @@ flexWrap:'wrap',
     color: 'grey',
     '@media (max-width:768px)': {
       textAlign: 'center',
-      
+    },
+    '@media (max-width:380px)': {
+      textAlign: 'right',
+      position: 'absolute',
+      right: '5px',
+
     }
   },
   charCountWrapper: {
-    
-    '@media (max-width:768px)':{
-      display:'none'
+    position: 'relative',
+    '@media (max-width:768px)': {
+      display: 'none'
+    },
+    '@media (max-width:380px)': {
+      display: 'block',
     }
   },
   largeInput: {
     height: 'auto',
     maxHeight: '200px',
-    width:'100%',
+    width: '100%',
     '@media (max-width:768px)': {
       width: '100%'
-    }
+    },
   },
   buttonsContainer: {
-
     justifyContent: 'space-between',
     marginTop: '16px',
     '@media (max-width:768px)': {
- flexDirection:'column',
-     width:'100%',
-     marginTop:'20px',
-     bottom:'20px',
-  
+      flexDirection: 'column',
+      width: '100%',
+      marginTop: '20px',
+      bottom: '20px',
     },
     '@media (max-width:380px)': {
-      marginTop: '58px',
-      flexDirection:'column'
+      marginTop: '88px',
+      flexDirection: 'column'
     }
-  
+  },
+  requiredText: {
+    '@media (max-width:380px)': {
+      display: 'none'
+    }
   }
 }

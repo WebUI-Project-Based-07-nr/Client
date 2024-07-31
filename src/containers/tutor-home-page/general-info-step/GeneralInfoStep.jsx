@@ -77,7 +77,7 @@ const GeneralInfoStep = ({ btnsBox }) => {
         <Box sx={styles.row}>
           <TextField
             label='First Name'
-            sx={{...styles.halfWidth, ...styles.input}}
+            sx={styles.halfWidth}
             value={firstName}
             onChange={handleFirstNameChange}
             autoFocus
@@ -148,7 +148,7 @@ const GeneralInfoStep = ({ btnsBox }) => {
         <Box sx={styles.charCountWrapper}>
           <Typography
             color='textSecondary'
-            sx={{ fontWeight: 'bold', marginBottom: '21px', marginTop: '8px' }}
+            sx={styles.requiredText}
             variant='body2'
           >
             Inputs with the * sign are required
