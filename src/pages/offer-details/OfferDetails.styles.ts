@@ -7,13 +7,47 @@ export const styles = {
     padding: '31px 20px',
     maxWidth: '800px',
     alignItems: 'center',
-    gap: '24px'
+    gap: '24px',
+    '@media (max-width:600px)': {
+      padding: '0 20px 24px',
+      flexDirection: 'column',
+      width: '360px',
+      position: 'relative',
+      boxSizing: 'border-box',
+      gap: '0px'
+    }
+  },
+  cardHeader: {
+    display: 'flex',
+    flexDirection: 'column',
+    '@media (max-width:600px)': {
+      display: 'flex',
+      flexDirection: 'row',
+      width: '100%'
+    }
   },
   rating: {
     backgroundColor: 'rgba(236, 239, 241, 1)',
     display: 'flex',
     borderRadius: '4px',
-    p: '3.4px'
+    p: '3.4px',
+    '@media (max-width:600px)': {
+      display: 'none'
+    }
+  },
+  ratingPhoneContainer: {
+    marginTop: '16px',
+    '@media (max-width:600px)': {
+      display: 'flex',
+      width: '100%',
+      justifyContent: 'space-between'
+    }
+  },
+  ratingText: {
+    fontFamily: 'Rubik',
+    fontWeight: 400,
+    fontSize: '20px',
+    letterSpacing: '0.15px'
   },
   avatarContainer: {
     display: 'flex',
@@ -30,7 +64,11 @@ export const styles = {
     lineHeight: '24px',
     letterSpacing: '0.15px',
     fontFamily: 'Rubik',
-    m: '16px 0 10px'
+    m: '16px 0 10px',
+    '@media (max-width:600px)': {
+      display: 'flex',
+      m: '0px'
+    }
   },
   ratingContainer: {
     display: 'flex',
@@ -38,12 +76,31 @@ export const styles = {
     gap: '4px'
   },
   reviewText: {
-    color: '#90A4AE'
+    color: '#90A4AE',
+    '@media (max-width:600px)': {
+      display: 'none'
+    }
+  },
+  reviewPhoneText: {
+    color: '#90A4AE',
+    display: 'none',
+    '@media (max-width:600px)': {
+      display: 'block'
+    }
   },
   description: {
     fontSize: '14px',
     color: '#607D8B',
-    mb: '10px'
+    mb: '10px',
+    '@media (max-width:600px)': {
+      display: 'none'
+    }
+  },
+  line: {
+    '@media (max-width:600px)': {
+      borderBottom: '1px solid #CFD8DC',
+      pb: '20px'
+    }
   },
   chipContainer: {
     display: 'flex',
@@ -52,10 +109,26 @@ export const styles = {
     letterSpacing: '1.5px',
     fontSize: '10px',
     fontWeight: '500',
-    mb: '10px'
+    mb: '10px',
+    '@media (max-width:600px)': {
+      flexDirection: 'column'
+    }
+  },
+  chipBox: {
+    display: 'flex'
+  },
+  chipTitle: {
+    display: 'none',
+    fontFamily: 'Rubik',
+    fontSize: '10px',
+    letterSpacing: '1.5px',
+    color: '#607D8B',
+    mr: '10px',
+    '@media (max-width:600px)': {
+      display: 'flex'
+    }
   },
   chip: {
-    backgroundColor: '#C5E1A5',
     color: '#263238',
     borderRadius: '10px',
     padding: '3px 6px',
@@ -70,7 +143,18 @@ export const styles = {
   languageContainer: {
     display: 'flex',
     alignItems: 'center',
-    color: '#90A4AE'
+    color: '#90A4AE',
+    '@media (max-width:600px)': {
+      display: 'none'
+    }
+  },
+  languageContainerPhone: {
+    display: 'none',
+    color: '#90A4AE',
+    '@media (max-width:600px)': {
+      display: 'flex',
+      alignItems: 'center'
+    }
   },
   priceContainer: {
     display: 'flex',
@@ -80,11 +164,22 @@ export const styles = {
     gap: '8px',
     alignSelf: 'start',
     alignItems: 'flex-start',
-    position: 'relative'
+    position: 'relative',
+    '@media (max-width:600px)': {
+      position: 'initial',
+      width: '100%'
+    }
   },
   textContainer: {
     flex: '1 1 52%',
     p: '0'
+  },
+  starContainer: {
+    display: 'none',
+    '@media (max-width:600px)': {
+      display: 'flex',
+      alignItems: 'center'
+    }
   },
   price: {
     fontWeight: '500',
@@ -92,7 +187,10 @@ export const styles = {
     color: 'rgba(38, 50, 56, 1)',
     mb: '30px',
     letterSpacing: '0.15px',
-    fontFamily: 'Poppins, sans-serif'
+    fontFamily: 'Poppins, sans-serif',
+    '@media (max-width:600px)': {
+      mb: 0
+    }
   },
   priceHour: {
     fontWeight: '400',
@@ -128,6 +226,10 @@ export const styles = {
   iconPosition: {
     position: 'absolute',
     right: '0px',
-    top: '0px'
+    top: '16px',
+    '@media (max-width:600px)': {
+      top: '24px',
+      right: '20px'
+    }
   }
 }
