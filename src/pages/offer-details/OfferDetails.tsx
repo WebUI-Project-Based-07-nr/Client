@@ -25,9 +25,6 @@ const OfferDetails = ({ isSquare = false }) => {
   // }
   const styles = stylesFunc(isSquare)
 
-  const styles = stylesFunc(false)
-  const stylesPhone = stylesFunc(true)
-
   return (
     <Card sx={styles.card}>
       <CardHeader
