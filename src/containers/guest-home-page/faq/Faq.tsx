@@ -49,7 +49,7 @@ const Faq = () => {
       />
       {faqItems.map((item) => (
         <Box
-          key={item.question} ///question as key
+          key={item.question}
           onClick={() => toggleQuestion(faqItems.indexOf(item))}
           sx={styles.faqItem}
         >
