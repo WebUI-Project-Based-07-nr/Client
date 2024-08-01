@@ -12,7 +12,7 @@ import {
 import LanguageIcon from '@mui/icons-material/Language'
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
 
-import { styles } from '~/pages/offer-details/OfferDetails.styles'
+import { stylesFunc } from '~/pages/offer-details/OfferDetails.styles'
 
 import { useTranslation } from 'react-i18next'
 import AuthorProfileName from '~/components/author-profile-name/authorProfileName'
@@ -28,6 +28,9 @@ const OfferDetails = () => {
   // }
 
   const { t } = useTranslation()
+
+  const styles = stylesFunc(false)
+  const stylesPhone = stylesFunc(true)
 
   return (
     <Card sx={styles.card}>

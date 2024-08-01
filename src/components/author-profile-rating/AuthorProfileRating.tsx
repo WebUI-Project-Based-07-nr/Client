@@ -52,7 +52,6 @@ const AuthorProfileRating: FC<ProfileRating> = ({
         </Box>
       )}
 
-
     </>
   )
 }
