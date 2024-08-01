@@ -1,7 +1,8 @@
-export const stylesFunc = (isPhone:boolean) => {
-  const mediaQuery = isPhone
-    ? '@media (max-width:750px)'
-    : '@media (max-width:1500px)'
+export const stylesFunc = (isSquare:boolean) => {
+  const mediaQuery = isSquare
+    ? '@media (min-width:1px)'
+    : '@media (max-width:750px)'
+
   return {
     card: {
       display: 'flex',
@@ -12,7 +13,7 @@ export const stylesFunc = (isPhone:boolean) => {
       maxWidth: '800px',
       alignItems: 'center',
       gap: '24px',
-      mediaQuery: {
+      [mediaQuery]: {
         padding: '0 20px 24px',
         flexDirection: 'column',
         width: '360px',
@@ -24,7 +25,7 @@ export const stylesFunc = (isPhone:boolean) => {
     cardHeader: {
       display: 'flex',
       flexDirection: 'column',
-      mediaQuery: {
+      [mediaQuery]: {
         display: 'flex',
         flexDirection: 'row',
         width: '100%'
@@ -32,7 +33,7 @@ export const stylesFunc = (isPhone:boolean) => {
     },
     ratingPhoneContainer: {
       marginTop: '16px',
-      mediaQuery: {
+      [mediaQuery]: {
         display: 'flex',
         width: '100%',
         justifyContent: 'space-between'
@@ -54,7 +55,7 @@ export const stylesFunc = (isPhone:boolean) => {
       letterSpacing: '0.15px',
       fontFamily: 'Rubik',
       m: '16px 0 10px',
-      mediaQuery: {
+      [mediaQuery]: {
         display: 'flex',
         m: '0px'
       }
@@ -66,14 +67,14 @@ export const stylesFunc = (isPhone:boolean) => {
     },
     reviewText: {
       color: '#90A4AE',
-      mediaQuery: {
+      [mediaQuery]: {
         display: 'none'
       }
     },
     reviewPhoneText: {
       color: '#90A4AE',
       display: 'none',
-      mediaQuery: {
+      [mediaQuery]: {
         display: 'block'
       }
     },
@@ -81,12 +82,12 @@ export const stylesFunc = (isPhone:boolean) => {
       fontSize: '14px',
       color: '#607D8B',
       mb: '10px',
-      mediaQuery: {
+      [mediaQuery]: {
         display: 'none'
       }
     },
     line: {
-      mediaQuery: {
+      [mediaQuery]: {
         borderBottom: '1px solid #CFD8DC',
         pb: '20px'
       }
@@ -100,7 +101,7 @@ export const stylesFunc = (isPhone:boolean) => {
       alignSelf: 'start',
       alignItems: 'flex-start',
       position: 'relative',
-      mediaQuery: {
+      [mediaQuery]: {
         position: 'initial',
         width: '100%'
       }
@@ -111,7 +112,7 @@ export const stylesFunc = (isPhone:boolean) => {
     },
     starContainer: {
       display: 'none',
-      mediaQuery: {
+      [mediaQuery]: {
         display: 'flex',
         alignItems: 'center'
       }
@@ -145,7 +146,7 @@ export const stylesFunc = (isPhone:boolean) => {
       position: 'absolute',
       right: '0px',
       top: '16px',
-      mediaQuery: {
+      [mediaQuery]: {
         top: '24px',
         right: '20px'
       }

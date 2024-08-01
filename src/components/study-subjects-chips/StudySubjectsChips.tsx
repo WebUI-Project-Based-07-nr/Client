@@ -1,4 +1,4 @@
-import { styles } from '~/components/study-subjects-chips/StudySubjectsChips.style'
+import { styleFunc } from '~/components/study-subjects-chips/StudySubjectsChips.style'
 import { Typography, Chip, Box, Stack } from '@mui/material'
 import { FC } from 'react'
 
@@ -8,14 +8,17 @@ import { useTranslation } from 'react-i18next'
 interface StudySubjectsChipsProps {
   subjectName?: string
   level?: string
+  isSquare: boolean
 }
 
 const StudySubjectsChips: FC<StudySubjectsChipsProps> = ({
   subjectName = props.subjectName,
-  level = props.level
+  level = props.level,
+  isSquare
 }) => {
   const { t } = useTranslation()
-  
+  const styles = styleFunc(isSquare)
+
   return (
     <Stack direction='row' sx={styles.chipContainer}>
       <Box sx={styles.chipBox}>

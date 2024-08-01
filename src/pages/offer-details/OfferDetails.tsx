@@ -1,86 +1,60 @@
 import React from 'react'
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  Typography,
-  Box
-} from '@mui/material'
+import { Card, CardContent, CardHeader, Typography, Box } from '@mui/material'
 
 // import { useModalContext } from '~/context/modal-context'
 
-import LanguageIcon from '@mui/icons-material/Language'
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
 
 import { stylesFunc } from '~/pages/offer-details/OfferDetails.styles'
 
-import { useTranslation } from 'react-i18next'
 import AuthorProfileName from '~/components/author-profile-name/authorProfileName'
 import AuthorProfilePicture from '~/components/author-profile-picture/AuthorProfilePicture'
 import AuthorProfileRating from '~/components/author-profile-rating/AuthorProfileRating'
-import StudySubjectsChips from '~/components/study-subjects-chips/studySubjctsChips'
+import StudySubjectsChips from '~/components/study-subjects-chips/StudySubjectsChips'
+import PricePerHour from '~/components/price-per-hour/PricePerHour'
+import SpokenLanguages from '~/components/spoken-languages/SpokenLanguages'
+import OffersTitle from '~/components/offers-title/OffersTitle'
+
 import OfferButtons from '~/components/offer-buttons/OfferButtons'
-const OfferDetails = () => {
+const OfferDetails = ({isSquare = true }) => {
   // const { openModal } = useModalContext()
   // const openSendMessage = () => {
   // not implemented yet
   // openModal({ component: <InputSendMessage /> })
   // }
-
-  const { t } = useTranslation()
-
-  const styles = stylesFunc(false)
-  const stylesPhone = stylesFunc(true)
+  const styles = stylesFunc(isSquare)
 
   return (
     <Card sx={styles.card}>
       <CardHeader
-        avatar={<AuthorProfilePicture />}
+        avatar={<AuthorProfilePicture />} // no need for media query here
         subheader={
           <Box sx={styles.avatarContainer}>
-            <AuthorProfileName />
-            <Box sx={styles.languageContainerPhone}>
-              <LanguageIcon fontSize='small' />
-              <Typography sx={{ ml: 1 }} variant='body2'>
-                {t('common.languages.ukrainian')},{' '}
-                {t('common.languages.english')}
-              </Typography>
-            </Box>
-            <AuthorProfileRating phoneVersion={true}/>
+            <AuthorProfileName isSquare={isSquare}/>
+            <SpokenLanguages phoneVersion isSquare={isSquare} />
+            <AuthorProfileRating phoneVersion isSquare={isSquare} />
           </Box>
         }
+        // AuthorProfile - done
+        // spokenLanguages - done
         sx={styles.cardHeader}
       />
       <CardContent sx={styles.textContainer}>
-        <Typography gutterBottom sx={{ ...styles.name, ...styles.line }}>
-          Advanced Quantum Mechanics: Theoretical Concepts, Mathematical
-          Formulations in Modern Physics
-        </Typography>
-        <StudySubjectsChips />
+        <OffersTitle isSquare={isSquare}/>
+        <StudySubjectsChips isSquare={isSquare} />
         <Typography paragraph sx={styles.description} variant='body2'>
           Hello. There are many variations of passages of Lorem Ipsum available,
           but the majority have suffered alteration in some form, by injected
-          humour, or randomised words which don&apos;t look even slightly
+          humour, or randomized words which don&apos;t look even slightly
           believable...
         </Typography>
-        <Box sx={styles.languageContainer}>
-          <LanguageIcon fontSize='small' />
-          <Typography sx={{ ml: 1 }} variant='body2'>
-            {t('common.languages.ukrainian')}, {t('common.languages.english')}
-          </Typography>
-        </Box>
+        <SpokenLanguages phoneVersion={false} isSquare={isSquare} />
       </CardContent>
       <Box sx={styles.priceContainer}>
         <Box sx={styles.ratingPhoneContainer}>
-          <Typography sx={styles.price}>
-            75 UAH
-            <br />
-            <Typography component='span' sx={styles.priceHour}>
-              /{t('offerDetails.hour')}
-            </Typography>
-          </Typography>
+          <PricePerHour />
           <Box>
-            <AuthorProfileRating phoneVersion={false}/>
+            <AuthorProfileRating phoneVersion={false} isSquare={isSquare}/>
           </Box>
         </Box>
         <BookmarkBorderIcon sx={styles.iconPosition} />
