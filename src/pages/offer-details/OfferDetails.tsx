@@ -7,7 +7,7 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
 
 import { stylesFunc } from '~/pages/offer-details/OfferDetails.styles'
 
-import AuthorProfileName from '~/components/author-profile-name/authorProfileName'
+import AuthorProfileName from '~/components/author-profile-name/AuthorProfileName'
 import AuthorProfilePicture from '~/components/author-profile-picture/AuthorProfilePicture'
 import AuthorProfileRating from '~/components/author-profile-rating/AuthorProfileRating'
 import StudySubjectsChips from '~/components/study-subjects-chips/StudySubjectsChips'
