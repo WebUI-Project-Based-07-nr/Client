@@ -1,4 +1,4 @@
-import { styles } from '~/components/author-profile-name/authorProfileName.styles'
+import { styles } from '~/components/author-profile-name/AuthorProfileName.styles'
 import { Typography } from '@mui/material'
 import { FC } from 'react'
 
