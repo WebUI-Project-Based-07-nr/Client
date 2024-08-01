@@ -8,7 +8,7 @@ export const styles = {
     maxWidth: '800px',
     alignItems: 'center',
     gap: '24px',
-    '@media (max-width:600px)': {
+    '@media (max-width:750px)': {
       padding: '0 20px 24px',
       flexDirection: 'column',
       width: '360px',
@@ -20,7 +20,7 @@ export const styles = {
   cardHeader: {
     display: 'flex',
     flexDirection: 'column',
-    '@media (max-width:600px)': {
+    '@media (max-width:750px)': {
       display: 'flex',
       flexDirection: 'row',
       width: '100%'
@@ -31,13 +31,13 @@ export const styles = {
     display: 'flex',
     borderRadius: '4px',
     p: '3.4px',
-    '@media (max-width:600px)': {
+    '@media (max-width:750px)': {
       display: 'none'
     }
   },
   ratingPhoneContainer: {
     marginTop: '16px',
-    '@media (max-width:600px)': {
+    '@media (max-width:750px)': {
       display: 'flex',
       width: '100%',
       justifyContent: 'space-between'
@@ -65,7 +65,7 @@ export const styles = {
     letterSpacing: '0.15px',
     fontFamily: 'Rubik',
     m: '16px 0 10px',
-    '@media (max-width:600px)': {
+    '@media (max-width:750px)': {
       display: 'flex',
       m: '0px'
     }
@@ -77,14 +77,14 @@ export const styles = {
   },
   reviewText: {
     color: '#90A4AE',
-    '@media (max-width:600px)': {
+    '@media (max-width:750px)': {
       display: 'none'
     }
   },
   reviewPhoneText: {
     color: '#90A4AE',
     display: 'none',
-    '@media (max-width:600px)': {
+    '@media (max-width:750px)': {
       display: 'block'
     }
   },
@@ -92,12 +92,12 @@ export const styles = {
     fontSize: '14px',
     color: '#607D8B',
     mb: '10px',
-    '@media (max-width:600px)': {
+    '@media (max-width:750px)': {
       display: 'none'
     }
   },
   line: {
-    '@media (max-width:600px)': {
+    '@media (max-width:750px)': {
       borderBottom: '1px solid #CFD8DC',
       pb: '20px'
     }
@@ -110,7 +110,7 @@ export const styles = {
     fontSize: '10px',
     fontWeight: '500',
     mb: '10px',
-    '@media (max-width:600px)': {
+    '@media (max-width:750px)': {
       flexDirection: 'column'
     }
   },
@@ -124,7 +124,7 @@ export const styles = {
     letterSpacing: '1.5px',
     color: '#607D8B',
     mr: '10px',
-    '@media (max-width:600px)': {
+    '@media (max-width:750px)': {
       display: 'flex'
     }
   },
@@ -144,14 +144,14 @@ export const styles = {
     display: 'flex',
     alignItems: 'center',
     color: '#90A4AE',
-    '@media (max-width:600px)': {
+    '@media (max-width:750px)': {
       display: 'none'
     }
   },
   languageContainerPhone: {
     display: 'none',
     color: '#90A4AE',
-    '@media (max-width:600px)': {
+    '@media (max-width:750px)': {
       display: 'flex',
       alignItems: 'center'
     }
@@ -165,7 +165,7 @@ export const styles = {
     alignSelf: 'start',
     alignItems: 'flex-start',
     position: 'relative',
-    '@media (max-width:600px)': {
+    '@media (max-width:750px)': {
       position: 'initial',
       width: '100%'
     }
@@ -176,7 +176,7 @@ export const styles = {
   },
   starContainer: {
     display: 'none',
-    '@media (max-width:600px)': {
+    '@media (max-width:750px)': {
       display: 'flex',
       alignItems: 'center'
     }
@@ -188,7 +188,7 @@ export const styles = {
     mb: '30px',
     letterSpacing: '0.15px',
     fontFamily: 'Poppins, sans-serif',
-    '@media (max-width:600px)': {
+    '@media (max-width:750px)': {
       mb: 0
     }
   },
@@ -227,7 +227,7 @@ export const styles = {
     position: 'absolute',
     right: '0px',
     top: '16px',
-    '@media (max-width:600px)': {
+    '@media (max-width:750px)': {
       top: '24px',
       right: '20px'
     }

@@ -19,7 +19,11 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
 
 import { styles } from '~/pages/offer-details/OfferDetails.styles'
 
+import { useTranslation } from 'react-i18next'
+
 const OfferDetails = () => {
+
+  const { t } = useTranslation()
   return (
     <Card sx={styles.card}>
       <CardHeader
@@ -33,7 +37,7 @@ const OfferDetails = () => {
             <Box sx={styles.languageContainerPhone}>
               <LanguageIcon fontSize='small' />
               <Typography sx={{ ml: 1 }} variant='body2'>
-                Ukrainian, English
+                {t('common.languages.ukrainian')},  {t('common.languages.english')}
               </Typography>
             </Box>
             <Box sx={styles.ratingContainer}>
@@ -45,7 +49,7 @@ const OfferDetails = () => {
               </Box>
             </Box>
             <Typography sx={styles.reviewText} variant='body2'>
-              10 reviews
+              10 {t('offerDetails.review')}
             </Typography>
           </Box>
         }
@@ -57,11 +61,11 @@ const OfferDetails = () => {
         </Typography>
         <Stack direction='row' sx={styles.chipContainer}>
           <Box sx={styles.chipBox}>
-            <Typography sx={styles.chipTitle} variant='body2'>SUBJECT:</Typography>
+            <Typography sx={styles.chipTitle} variant='body2'>{t('offerDetails.subjectText')}:</Typography>
             <Chip label='GERMAN' sx={styles.chip} />
           </Box>
           <Box sx={styles.chipBox}>
-            <Typography sx={styles.chipTitle} variant='body2'>LEVEL:</Typography>
+            <Typography sx={styles.chipTitle} variant='body2'>{t('offerDetails.levelText')}:</Typography>
             <Chip
             label='BEGINNER - ADVANCED'
             sx={{
@@ -83,7 +87,7 @@ const OfferDetails = () => {
         <Box sx={styles.languageContainer}>
           <LanguageIcon fontSize='small' />
           <Typography sx={{ ml: 1 }} variant='body2'>
-            Ukrainian, English
+            {t('common.languages.ukrainian')},  {t('common.languages.english')}
           </Typography>
         </Box>
       </CardContent>
@@ -92,14 +96,14 @@ const OfferDetails = () => {
           <Typography sx={styles.price}>
             75 UAH
             <br />
-            <Typography component="span" sx={styles.priceHour}>/HOUR</Typography>
+            <Typography component="span" sx={styles.priceHour}>/{t('offerDetails.hour')}</Typography>
           </Typography>
           <Box>
             <Box sx={styles.starContainer}>
               <StarIcon sx={{color: '#FFB000'}}/>
               <Typography component="span" sx={styles.ratingText}>5.0</Typography>
             </Box>
-            <Typography sx={styles.reviewPhoneText} variant='body2'>23 reviews</Typography>
+            <Typography sx={styles.reviewPhoneText} variant='body2'>23 {t('offerDetails.review')}</Typography>
           </Box>
         </Box>
         <BookmarkBorderIcon sx={styles.iconPosition} />
@@ -116,10 +120,10 @@ const OfferDetails = () => {
             }}
             variant='contained'
           >
-            Show details
+            {t('offerDetails.showDetails')}
           </Button>
           <Button sx={styles.button} variant='outlined'>
-            Send message
+            {t('offerDetails.sendMessage')}
           </Button>
         </Box>
       </Box>
