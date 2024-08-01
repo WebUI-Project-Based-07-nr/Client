@@ -7,6 +7,7 @@ export const styles = {
     letterSpacing: '0.15px',
     fontFamily: 'Rubik',
     m: '16px 0 10px',
+    cursor: 'pointer',
     '@media (max-width:750px)': {
       display: 'flex',
       m: '0px'
