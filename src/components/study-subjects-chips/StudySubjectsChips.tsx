@@ -11,9 +11,9 @@ interface StudySubjectsChipsProps {
 }
 
 const StudySubjectsChips: FC<StudySubjectsChipsProps> = ({
-  subjectName,
-  level
-} = props) => {
+  subjectName = props.subjectName,
+  level = props.level
+}) => {
   const { t } = useTranslation()
 
   return (

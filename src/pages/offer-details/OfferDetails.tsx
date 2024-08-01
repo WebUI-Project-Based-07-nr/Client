@@ -1,19 +1,12 @@
 import React from 'react'
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  Typography,
-  Button,
-  Box
-} from '@mui/material'
+import { Card, CardContent, CardHeader, Typography, Box } from '@mui/material'
 
-import StarIcon from '@mui/icons-material/Star'
+// import { useModalContext } from '~/context/modal-context'
+
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
 
 import { styles } from '~/pages/offer-details/OfferDetails.styles'
 
-import { useTranslation } from 'react-i18next'
 import AuthorProfileName from '~/components/author-profile-name/authorProfileName'
 import AuthorProfilePicture from '~/components/author-profile-picture/AuthorProfilePicture'
 import AuthorProfileRating from '~/components/author-profile-rating/AuthorProfileRating'
@@ -24,14 +17,13 @@ import OffersTitle from '~/components/offers-title/OffersTitle'
 
 // import { useModalContext } from '~/context/modal-context'
 
+import OfferButtons from '~/components/offer-buttons/OfferButtons'
 const OfferDetails = () => {
   // const { openModal } = useModalContext()
   // const openSendMessage = () => {
   // not implemented yet
   // openModal({ component: <InputSendMessage /> })
   // }
-
-  const { t } = useTranslation()
 
   return (
     <Card sx={styles.card}>
@@ -41,7 +33,7 @@ const OfferDetails = () => {
           <Box sx={styles.avatarContainer}>
             <AuthorProfileName />
             <SpokenLanguages phoneVersion />
-            <AuthorProfileRating />
+            <AuthorProfileRating phoneVersion />
           </Box>
         }
         sx={styles.cardHeader}
@@ -61,37 +53,11 @@ const OfferDetails = () => {
         <Box sx={styles.ratingPhoneContainer}>
           <PricePerHour />
           <Box>
-            <Box sx={styles.starContainer}>
-              <StarIcon sx={{ color: '#FFB000' }} />
-              <Typography component='span' sx={styles.ratingText}>
-                5.0
-              </Typography>
-            </Box>
-            <Typography sx={styles.reviewPhoneText} variant='body2'>
-              23 {t('offerDetails.review')}
-            </Typography>
+            <AuthorProfileRating phoneVersion={false} />
           </Box>
         </Box>
         <BookmarkBorderIcon sx={styles.iconPosition} />
-        <Box sx={styles.buttonsContainer}>
-          <Button
-            sx={{
-              ...styles.button,
-              backgroundColor: 'rgba(38, 50, 56, 1)',
-              color: 'white',
-              '&:hover': {
-                backgroundColor: 'rgba(236, 239, 241, 1)',
-                color: 'rgba(38, 50, 56, 1)'
-              }
-            }}
-            variant='contained'
-          >
-            {t('offerDetails.showDetails')}
-          </Button>
-          <Button sx={styles.button} variant='outlined'>
-            {t('offerDetails.sendMessage')}
-          </Button>
-        </Box>
+        <OfferButtons />
       </Box>
     </Card>
   )

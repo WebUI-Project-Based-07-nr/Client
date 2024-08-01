@@ -26,7 +26,6 @@ export const styles = {
       width: '100%'
     }
   },
-
   ratingPhoneContainer: {
     marginTop: '16px',
     '@media (max-width:750px)': {
@@ -35,12 +34,6 @@ export const styles = {
       justifyContent: 'space-between'
     }
   },
-  ratingText: {
-    fontFamily: 'Rubik',
-    fontWeight: 400,
-    fontSize: '20px',
-    letterSpacing: '0.15px'
-  },
   avatarContainer: {
     display: 'flex',
     flexDirection: 'column',
@@ -48,6 +41,30 @@ export const styles = {
     flex: '1 1 13%',
     p: '0',
     gap: '4px'
+  },
+  name: {
+    fontWeight: '600',
+    color: 'rgba(69, 90, 100, 1)',
+    fontSize: '18px',
+    lineHeight: '24px',
+    letterSpacing: '0.15px',
+    fontFamily: 'Rubik',
+    m: '16px 0 10px',
+    '@media (max-width:750px)': {
+      display: 'flex',
+      m: '0px'
+    }
+  },
+  ratingContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '4px'
+  },
+  reviewText: {
+    color: '#90A4AE',
+    '@media (max-width:750px)': {
+      display: 'none'
+    }
   },
   reviewPhoneText: {
     color: '#90A4AE',
@@ -70,7 +87,6 @@ export const styles = {
       pb: '20px'
     }
   },
-
   priceContainer: {
     display: 'flex',
     flexDirection: 'column',

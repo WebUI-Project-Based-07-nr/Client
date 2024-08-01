@@ -13,10 +13,30 @@ export const styles = {
       display: 'none'
     }
   },
+  ratingText: {
+    fontFamily: 'Rubik',
+    fontWeight: 400,
+    fontSize: '20px',
+    letterSpacing: '0.15px'
+  },
+  reviewPhoneText: {
+    color: '#90A4AE',
+    display: 'none',
+    '@media (max-width:750px)': {
+      display: 'block'
+    }
+  },
   reviewText: {
     color: '#90A4AE',
     '@media (max-width:750px)': {
       display: 'none'
+    }
+  },
+  starContainer: {
+    display: 'none',
+    '@media (max-width:750px)': {
+      display: 'flex',
+      alignItems: 'center'
     }
   }
 }
