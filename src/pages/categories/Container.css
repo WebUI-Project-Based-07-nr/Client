@@ -1,0 +1,40 @@
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 22px;
+    padding: 20px;
+    justify-content: center;
+    column-gap: 16px;
+   
+}
+
+.card {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    overflow: hidden;
+    width: 350px;
+    min-height: 460px;
+}
+.card-header {
+    display: flex;
+
+    padding: 20px;
+border-bottom: 1px solid #eee;
+}
+.avatar 
+{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+
+}
+.card-body {
+    padding: 20px;
+}
+.card-body h4 {
+    margin: 0 0 10px;
+    font-size: 1.2em;
+}
+
