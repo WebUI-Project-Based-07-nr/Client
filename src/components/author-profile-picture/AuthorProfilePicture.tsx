@@ -5,7 +5,7 @@ import { FC } from 'react'
 import temp from './temp.svg'
 
 interface ProfileAvatar {
-  profileAvatar: string
+  profileAvatar?: string
 }
 
 const AuthorProfilePicture: FC<ProfileAvatar> = ({ profileAvatar = temp }) => {

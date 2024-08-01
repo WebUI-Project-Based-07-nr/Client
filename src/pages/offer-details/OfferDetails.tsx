@@ -3,56 +3,48 @@ import {
   Card,
   CardContent,
   CardHeader,
-  Avatar,
   Typography,
-  Chip,
   Button,
-  Box,
-  Stack,
-  Rating
+  Box
 } from '@mui/material'
 
 // import { useModalContext } from '~/context/modal-context'
 
-import temp from './temp.svg'
 import LanguageIcon from '@mui/icons-material/Language'
 import StarIcon from '@mui/icons-material/Star'
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
 
 import { styles } from '~/pages/offer-details/OfferDetails.styles'
 
+import { useTranslation } from 'react-i18next'
+import AuthorProfileName from '~/components/author-profile-name/authorProfileName'
+import AuthorProfilePicture from '~/components/author-profile-picture/AuthorProfilePicture'
+import AuthorProfileRating from '~/components/author-profile-rating/AuthorProfileRating'
+import StudySubjectsChips from '~/components/study-subjects-chips/studySubjctsChips'
 const OfferDetails = () => {
   // const { openModal } = useModalContext()
-  const openSendMessage = () => {
-    // not implemented yet
-    // openModal({ component: <InputSendMessage /> })
-  }
+  // const openSendMessage = () => {
+  // not implemented yet
+  // openModal({ component: <InputSendMessage /> })
+  // }
+
+  const { t } = useTranslation()
+
   return (
     <Card sx={styles.card}>
       <CardHeader
-        avatar={<Avatar alt='User' src={temp} sx={styles.avatarImg} />}
+        avatar={<AuthorProfilePicture />}
         subheader={
           <Box sx={styles.avatarContainer}>
-            <Typography sx={styles.name} variant='body2'>
-              Jennifer W.
-            </Typography>
+            <AuthorProfileName />
             <Box sx={styles.languageContainerPhone}>
               <LanguageIcon fontSize='small' />
               <Typography sx={{ ml: 1 }} variant='body2'>
-                Ukrainian, English
+                {t('common.languages.ukrainian')},{' '}
+                {t('common.languages.english')}
               </Typography>
             </Box>
-            <Box sx={styles.ratingContainer}>
-              <Box sx={styles.rating}>
-                <Rating precision={0.5} readOnly size='small' value={3.5} />
-                <Typography sx={styles.reviewText} variant='body2'>
-                  3.5
-                </Typography>
-              </Box>
-            </Box>
-            <Typography sx={styles.reviewText} variant='body2'>
-              10 reviews
-            </Typography>
+            <AuthorProfileRating />
           </Box>
         }
         sx={styles.cardHeader}
@@ -62,28 +54,7 @@ const OfferDetails = () => {
           Advanced Quantum Mechanics: Theoretical Concepts, Mathematical
           Formulations in Modern Physics
         </Typography>
-        <Stack direction='row' sx={styles.chipContainer}>
-          <Box sx={styles.chipBox}>
-            <Typography sx={styles.chipTitle} variant='body2'>
-              SUBJECT:
-            </Typography>
-            <Chip label='GERMAN' sx={styles.chip} />
-          </Box>
-          <Box sx={styles.chipBox}>
-            <Typography sx={styles.chipTitle} variant='body2'>
-              LEVEL:
-            </Typography>
-            <Chip
-              label='BEGINNER - ADVANCED'
-              sx={{
-                ...styles.chip,
-                backgroundColor: 'rgba(121, 178, 96, 0.2)',
-                fontWeight: '400',
-                ml: '17px'
-              }}
-            />
-          </Box>
-        </Stack>
+        <StudySubjectsChips />
         <Typography paragraph sx={styles.description} variant='body2'>
           Hello. There are many variations of passages of Lorem Ipsum available,
           but the majority have suffered alteration in some form, by injected
@@ -93,7 +64,7 @@ const OfferDetails = () => {
         <Box sx={styles.languageContainer}>
           <LanguageIcon fontSize='small' />
           <Typography sx={{ ml: 1 }} variant='body2'>
-            Ukrainian, English
+            {t('common.languages.ukrainian')}, {t('common.languages.english')}
           </Typography>
         </Box>
       </CardContent>
@@ -103,7 +74,7 @@ const OfferDetails = () => {
             75 UAH
             <br />
             <Typography component='span' sx={styles.priceHour}>
-              /HOUR
+              /{t('offerDetails.hour')}
             </Typography>
           </Typography>
           <Box>
@@ -114,7 +85,7 @@ const OfferDetails = () => {
               </Typography>
             </Box>
             <Typography sx={styles.reviewPhoneText} variant='body2'>
-              23 reviews
+              23 {t('offerDetails.review')}
             </Typography>
           </Box>
         </Box>
@@ -132,14 +103,10 @@ const OfferDetails = () => {
             }}
             variant='contained'
           >
-            Show details
+            {t('offerDetails.showDetails')}
           </Button>
-          <Button
-            onClick={openSendMessage}
-            sx={styles.button}
-            variant='outlined'
-          >
-            Send message
+          <Button sx={styles.button} variant='outlined'>
+            {t('offerDetails.sendMessage')}
           </Button>
         </Box>
       </Box>

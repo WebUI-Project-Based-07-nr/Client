@@ -3,16 +3,19 @@ import { Typography, Box, Rating } from '@mui/material'
 import { FC } from 'react'
 
 import { props } from './mockValues'
+import { useTranslation } from 'react-i18next'
 
 interface ProfileRating {
-  rating: number
-  reviewCount: number
+  rating?: number
+  reviewCount?: number
 }
 
 const AuthorProfileRating: FC<ProfileRating> = ({
   rating,
   reviewCount
 } = props) => {
+  const { t } = useTranslation()
+
   return (
     <>
       <Box sx={styles.ratingContainer}>
@@ -24,7 +27,7 @@ const AuthorProfileRating: FC<ProfileRating> = ({
         </Box>
       </Box>
       <Typography sx={styles.reviewText} variant='body2'>
-        {reviewCount} reviews
+        {reviewCount} {t('offerDetails.review')}
       </Typography>
     </>
   )
