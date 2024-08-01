@@ -7,15 +7,13 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
 
 import { styles } from '~/pages/offer-details/OfferDetails.styles'
 
-import AuthorProfileName from '~/components/author-profile-name/authorProfileName'
+import AuthorProfileName from '~/components/author-profile-name/AuthorProfileName'
 import AuthorProfilePicture from '~/components/author-profile-picture/AuthorProfilePicture'
 import AuthorProfileRating from '~/components/author-profile-rating/AuthorProfileRating'
 import StudySubjectsChips from '~/components/study-subjects-chips/StudySubjectsChips'
 import PricePerHour from '~/components/price-per-hour/PricePerHour'
 import SpokenLanguages from '~/components/spoken-languages/SpokenLanguages'
 import OffersTitle from '~/components/offers-title/OffersTitle'
-
-// import { useModalContext } from '~/context/modal-context'
 
 import OfferButtons from '~/components/offer-buttons/OfferButtons'
 const OfferDetails = () => {
