@@ -3,11 +3,11 @@ import { fadeAnimation } from '~/styles/app-theme/custom-animations'
 export const styles = {
   container: {
     display: 'flex',
-
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     alignItems: 'flex-start',
     height: { sm: '485px' },
     paddingBottom: { xs: '30px', sm: '0' },
+    marginLeft: '70px',
     ...fadeAnimation
   },
   imgContainer: {
@@ -15,7 +15,8 @@ export const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: '70px'
+    marginRight: '70px',
+    transform: 'translateX(-60px)'
   },
 
   rightBox: {
@@ -26,7 +27,8 @@ export const styles = {
   },
   row: {
     display: 'flex',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    gap: '16px'
   },
   halfWidth: {
     flex: 1,
