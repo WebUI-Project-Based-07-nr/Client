@@ -16,7 +16,7 @@ import SpokenLanguages from '~/components/spoken-languages/SpokenLanguages'
 import OffersTitle from '~/components/offers-title/OffersTitle'
 
 import OfferButtons from '~/components/offer-buttons/OfferButtons'
-const OfferDetails = ({isSquare = true }) => {
+const OfferDetails = ({ isSquare = false }) => {
   // const { openModal } = useModalContext()
   // const openSendMessage = () => {
   // not implemented yet
@@ -30,9 +30,9 @@ const OfferDetails = ({isSquare = true }) => {
         avatar={<AuthorProfilePicture />} // no need for media query here
         subheader={
           <Box sx={styles.avatarContainer}>
-            <AuthorProfileName isSquare={isSquare}/>
-            <SpokenLanguages phoneVersion isSquare={isSquare} />
-            <AuthorProfileRating phoneVersion isSquare={isSquare} />
+            <AuthorProfileName isSquare={isSquare} />
+            <SpokenLanguages isSquare={isSquare} phoneVersion />
+            <AuthorProfileRating isSquare={isSquare} phoneVersion />
           </Box>
         }
         // AuthorProfile - done
@@ -40,7 +40,7 @@ const OfferDetails = ({isSquare = true }) => {
         sx={styles.cardHeader}
       />
       <CardContent sx={styles.textContainer}>
-        <OffersTitle isSquare={isSquare}/>
+        <OffersTitle isSquare={isSquare} />
         <StudySubjectsChips isSquare={isSquare} />
         <Typography paragraph sx={styles.description} variant='body2'>
           Hello. There are many variations of passages of Lorem Ipsum available,
@@ -48,13 +48,13 @@ const OfferDetails = ({isSquare = true }) => {
           humour, or randomized words which don&apos;t look even slightly
           believable...
         </Typography>
-        <SpokenLanguages phoneVersion={false} isSquare={isSquare} />
+        <SpokenLanguages isSquare={isSquare} phoneVersion={false} />
       </CardContent>
       <Box sx={styles.priceContainer}>
         <Box sx={styles.ratingPhoneContainer}>
           <PricePerHour />
           <Box>
-            <AuthorProfileRating phoneVersion={false} isSquare={isSquare}/>
+            <AuthorProfileRating isSquare={isSquare} phoneVersion={false} />
           </Box>
         </Box>
         <BookmarkBorderIcon sx={styles.iconPosition} />

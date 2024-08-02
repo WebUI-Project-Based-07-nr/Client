@@ -1,4 +1,4 @@
-export const stylesFunc = (isSquare:boolean) => {
+export const stylesFunc = (isSquare: boolean) => {
   const mediaQuery = isSquare
     ? '@media (min-width:1px)'
     : '@media (max-width:750px)'
