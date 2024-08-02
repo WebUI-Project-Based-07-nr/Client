@@ -62,7 +62,20 @@ export const style = {
       borderColor: 'primary.200',
       borderRadius: '5px',
       maxWidth: '270px',
-      overflow: 'auto'
+      overflow: 'auto',
+      mt: '20px'
+    },
+    checkIcon: {
+      color: '#12A03A'
     }
+  },
+  btnsWrapper: {
+    mt: 'auto'
+  },
+  fileUploadContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: '20px'
   }
 }
