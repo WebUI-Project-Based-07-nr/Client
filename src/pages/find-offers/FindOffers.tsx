@@ -1,7 +1,7 @@
-import PageWrapper from '~/components/page-wrapper/PageWrapper'
+import ToggleButtons from '~/components/toggle-button/ToggleButtons'
 
 const FindOffers = () => {
-  return <PageWrapper>Find offers</PageWrapper>
+  return <ToggleButtons></ToggleButtons>
 }
 
 export default FindOffers
