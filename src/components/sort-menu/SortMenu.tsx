@@ -7,7 +7,7 @@ interface ItemsProp {
   items: string[]
 }
 export default function SortMenu(items: ItemsProp) {
-  const [sortBy, setSortBy] = React.useState('Newest')
+  const [sortBy, setSortBy] = React.useState(items.items[0])
 
   const handleChange = (event: SelectChangeEvent) => {
     setSortBy(event.target.value)
