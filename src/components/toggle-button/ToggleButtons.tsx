@@ -5,8 +5,8 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
 import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined'
 import { Box } from '@mui/material'
 interface ToggleButtonsProps {
-  alignment: string | null
-  setAlignment: (newAlignment: string | null) => void
+  alignment: string
+  setAlignment: (newAlignment: string) => void
 }
 const ToggleButtons: React.FC<ToggleButtonsProps> = ({
   alignment,
@@ -14,8 +14,12 @@ const ToggleButtons: React.FC<ToggleButtonsProps> = ({
 }) => {
   const handleAlignment = (
     event: React.MouseEvent<HTMLElement>,
-    newAlignment: string | null
+    newAlignment: string
   ) => {
+    if (!newAlignment) {
+      return
+    }
+
     setAlignment(newAlignment)
   }
 
