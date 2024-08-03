@@ -6,7 +6,7 @@ import { Box, Typography } from '@mui/material'
 interface ItemsProp {
   items: string[]
 }
-export default function SortMenu(items: ItemsProp) {
+export default function SortMenu(items: Readonly<ItemsProp>) {
   const [sortBy, setSortBy] = React.useState(items.items[0])
 
   const handleChange = (event: SelectChangeEvent) => {
