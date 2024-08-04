@@ -64,7 +64,6 @@ describe('SliderWithInput', () => {
   })
 
   test('not update prices when input is blurred and value in input has not changed', async () => {
-    const inputElement = screen.getByRole('textbox')
     await userEvent.tab()
 
     await waitFor(() => {
