@@ -9,6 +9,7 @@ export const styles = {
     marginBottom: '16px'
   },
   description: {
-    marginBottom: '0px'
+    marginBottom: '0px',
+    fontWeight: 'normal'
   }
 }
