@@ -7,67 +7,57 @@ import React, { useState } from 'react'
 import { validationData } from './constants'
 import FileUploader from '~/components/file-uploader/FileUploader'
 import DragAndDrop from '~/components/drag-and-drop/DragAndDrop'
-import CheckIcon from '@mui/icons-material/Check'
+// import CheckIcon from '@mui/icons-material/Check'
+import { ButtonVariantEnum } from '~/types'
 
 const AddPhotoStep = ({ btnsBox }) => {
   const { t } = useTranslation()
-  const [
-    files
-    // setFiles
-  ] = useState([])
-  const [fileSelected, setFileSelected] = useState(false)
+  const [file, setFile] = useState([])
+  // const [fileSelected, setFileSelected] = useState(false)
 
-  const handleFileChange = () => {
-    setFileSelected(true)
+  const handleFileChange = ({ files, error }) => {
+    if (!error) {
+      setFile(files)
+      // setFileSelected(file.length > 0)
+    } else {
+      console.error('Error', error)
+    }
   }
-
-  // const handleFileChange = ({ files, error }) => {
-  //   if (!error) {
-  //     setFiles(files);
-  //     setFileSelected(files.length > 0);
-  //   } else {
-  //     console.error('Error', error)
-  //   }
-  // }
 
   return (
     <Box sx={style.root}>
-      <Box sx={style.imgContainer}>
-        <Box alt={t('becomeTutor.photo.imageAlt')} sx={style.uploadBox}>
-          <DragAndDrop
-            emitter={handleFileChange}
-            initialState={files}
-            style={style.activeDrag}
-            validationData={validationData.maxQuantityFiles}
-          >
-            <Typography>{t('becomeTutor.photo.placeholder')}</Typography>
-          </DragAndDrop>
-        </Box>
-      </Box>
+      <DragAndDrop
+        emitter={handleFileChange}
+        initialState={file}
+        style={style}
+        validationData={validationData}
+      >
+        <Typography>{t('becomeTutor.photo.placeholder')}</Typography>
+      </DragAndDrop>
       <Box sx={style.rigthBox}>
         <TitleWithDescription
           style={style.description}
           title={t('becomeTutor.photo.description')}
         />
         <Box sx={style.fileUploadContainer}>
-          <Box onClick={handleFileChange}>
+          <Box>
             <FileUploader
               buttonText={t('becomeTutor.photo.button')}
               emitter={handleFileChange}
               initialError=''
-              initialState={files}
+              initialState={file}
               isImages={Boolean(true)}
               sx={{
                 root: style.fileUploader.root,
                 button: style.fileUploader.button
               }}
               validationData={validationData.maxFileSize}
-              variant='outlined'
+              variant={ButtonVariantEnum.Outlined}
             />
           </Box>
-          <Box sx={style.fileUploader.checkIcon}>
-            {fileSelected && <CheckIcon />}
-          </Box>
+          {/*<Box sx={style.fileUploader.checkIcon}>*/}
+          {/*  {fileSelected && <CheckIcon/>}*/}
+          {/*</Box>*/}
         </Box>
         <Box sx={style.btnsWrapper}>{btnsBox}</Box>
       </Box>
