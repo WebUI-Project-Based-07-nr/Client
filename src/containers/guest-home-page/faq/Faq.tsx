@@ -49,28 +49,18 @@ const Faq = () => {
       />
       {faqItems.map((item) => (
         <Box
-          key={item.question} ///question as key
+          key={item.question}
           onClick={() => toggleQuestion(faqItems.indexOf(item))}
-          sx={{
-            mb: 2,
-            cursor: 'pointer',
-            borderBottom: '1px solid #e0e0e0',
-            pb: 2
-          }}
+          sx={styles.faqItem}
         >
-          <Box
-            sx={{
-              fontWeight: 'bold',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center'
-            }}
-          >
-            {item.question}
-            <Box>{openIndex === faqItems.indexOf(item) ? '▲' : '▼'}</Box>
+          <Box sx={styles.questionRow}>
+            <Box sx={styles.question}>{item.question}</Box>
+            <Box sx={styles.icon}>
+              {openIndex === faqItems.indexOf(item) ? '▸' : '⌄'}
+            </Box>
           </Box>
           {openIndex === faqItems.indexOf(item) && (
-            <Box sx={{ mt: 2, pl: 2 }}>{item.answer}</Box>
+            <Box sx={styles.answer}>{item.answer}</Box>
           )}
         </Box>
       ))}
