@@ -6,28 +6,42 @@ import Typography from '@mui/material/Typography'
 import React, { useState } from 'react'
 import { validationData } from './constants'
 import FileUploader from '~/components/file-uploader/FileUploader'
-// import CheckIcon from '@mui/icons-material/Check';
+import DragAndDrop from '~/components/drag-and-drop/DragAndDrop'
+import CheckIcon from '@mui/icons-material/Check'
 
 const AddPhotoStep = ({ btnsBox }) => {
   const { t } = useTranslation()
-  const [files, setFiles] = useState([])
-  // const [fileSelected, setFileSelected] = useState(true);
+  const [
+    files
+    // setFiles
+  ] = useState([])
+  const [fileSelected, setFileSelected] = useState(false)
 
-  // const handleFileChange = (e) => {
-  //   if (e.target.files.length > 0) {
-  //     setFileSelected(true)
+  const handleFileChange = () => {
+    setFileSelected(true)
+  }
+
+  // const handleFileChange = ({ files, error }) => {
+  //   if (!error) {
+  //     setFiles(files);
+  //     setFileSelected(files.length > 0);
+  //   } else {
+  //     console.error('Error', error)
   //   }
   // }
-
-  const handleFileChange = ({ files }) => {
-    setFiles(files)
-  }
 
   return (
     <Box sx={style.root}>
       <Box sx={style.imgContainer}>
         <Box alt={t('becomeTutor.photo.imageAlt')} sx={style.uploadBox}>
-          <Typography>{t('becomeTutor.photo.placeholder')}</Typography>
+          <DragAndDrop
+            emitter={handleFileChange}
+            initialState={files}
+            style={style.activeDrag}
+            validationData={validationData.maxQuantityFiles}
+          >
+            <Typography>{t('becomeTutor.photo.placeholder')}</Typography>
+          </DragAndDrop>
         </Box>
       </Box>
       <Box sx={style.rigthBox}>
@@ -36,7 +50,7 @@ const AddPhotoStep = ({ btnsBox }) => {
           title={t('becomeTutor.photo.description')}
         />
         <Box sx={style.fileUploadContainer}>
-          <Box>
+          <Box onClick={handleFileChange}>
             <FileUploader
               buttonText={t('becomeTutor.photo.button')}
               emitter={handleFileChange}
@@ -51,9 +65,9 @@ const AddPhotoStep = ({ btnsBox }) => {
               variant='outlined'
             />
           </Box>
-          {/*<Box f sx={style.fileUploader.checkIcon}>*/}
-          {/*  {fileSelected && <CheckIcon/>}*/}
-          {/*</Box>*/}
+          <Box sx={style.fileUploader.checkIcon}>
+            {fileSelected && <CheckIcon />}
+          </Box>
         </Box>
         <Box sx={style.btnsWrapper}>{btnsBox}</Box>
       </Box>
