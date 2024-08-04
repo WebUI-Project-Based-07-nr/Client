@@ -1,4 +1,4 @@
-import { styles } from '~/components/price-per-hour/pricePerHour.style'
+import { styles } from '~/components/price-per-hour/PricePerHour.style'
 import { Typography } from '@mui/material'
 import { FC } from 'react'
 

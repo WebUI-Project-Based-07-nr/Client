@@ -1,4 +1,4 @@
-import { styles } from '~/components/spoken-languages/SpokenLanguages.style'
+import { stylesFunc } from '~/components/spoken-languages/SpokenLanguages.style'
 import { Typography, Box } from '@mui/material'
 import { FC } from 'react'
 import LanguageIcon from '@mui/icons-material/Language'
@@ -9,13 +9,16 @@ import { useTranslation } from 'react-i18next'
 interface ProfileName {
   spokenLanguages?: string[]
   phoneVersion: boolean
+  isSquare: boolean
 }
 
 const SpokenLanguages: FC<ProfileName> = ({
   spokenLanguages = props.spokenLanguages,
-  phoneVersion = props.phoneVersion
+  phoneVersion = props.phoneVersion,
+  isSquare
 }) => {
   const { t } = useTranslation()
+  const styles = stylesFunc(isSquare)
 
   return (
     <>

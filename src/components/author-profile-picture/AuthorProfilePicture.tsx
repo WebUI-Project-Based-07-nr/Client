@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router'
 import temp from './temp.svg'
 
 interface ProfileAvatar {
-  profileAvatar: string
+  profileAvatar?: string
 }
 
 const AuthorProfilePicture: FC<ProfileAvatar> = ({ profileAvatar = temp }) => {
@@ -15,6 +15,13 @@ const AuthorProfilePicture: FC<ProfileAvatar> = ({ profileAvatar = temp }) => {
     navigate('/')
   }
 
-  return <Avatar alt='User' src={profileAvatar} sx={styles.avatarImg} onClick={openProfile}/>
+  return (
+    <Avatar
+      alt='User'
+      onClick={openProfile}
+      src={profileAvatar}
+      sx={styles.avatarImg}
+    />
+  )
 }
 export default AuthorProfilePicture
