@@ -10,7 +10,8 @@ import {
   userProfile,
   newQuestion,
   editQuestion,
-  findOffers
+  findOffers,
+  newLesson
 } from '~/router/constants/crumbs'
 import PrivateRoute from '~/router/helpers/PrivateRoute'
 import { UserRoleEnum } from '~/types'
@@ -65,6 +66,11 @@ export const authRouter = (
       element={<CreateOrEditQuestion />}
       handle={{ crumb: [myResources, newQuestion] }}
       path={authRoutes.myResources.newQuestion.route}
+    />
+    <Route
+      element={<div>Hello</div>}
+      handle={{ crumb: [myResources, newLesson] }}
+      path={authRoutes.myResources.newLesson.route}
     />
     <Route
       element={<CreateOrEditQuestion />}
