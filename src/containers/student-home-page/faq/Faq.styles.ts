@@ -54,7 +54,7 @@ export const styles = {
   },
   icon: {
     marginLeft: '10px',
-    fontSize: '15px',
+    fontSize: '15px'
   },
   answer: {
     mt: 2,
