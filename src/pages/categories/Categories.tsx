@@ -6,7 +6,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import { useAppSelector } from '~/hooks/use-redux'
 import useLoadMore from '~/hooks/use-load-more'
 import useSubjectsNames from '~/hooks/use-subjects-names'
-import { subjectService } from '~/services/subject-service'
+import { categoryService } from '~/services/category-service'
 import { useModalContext } from '~/context/modal-context'
 import PageWrapper from '~/components/page-wrapper/PageWrapper'
 import SearchAutocomplete from '~/components/search-autocomplete/SearchAutocomplete'
@@ -15,10 +15,10 @@ import NotFoundResults from '~/components/not-found-results/NotFoundResults'
 import CardsList from '~/components/cards-list/CardsList'
 import CardWithLink from '~/components/card-with-link/CardWithLink'
 import DirectionLink from '~/components/direction-link/DirectionLink'
-import CreateSubjectModal from '~/containers/find-offer/create-new-subject/CreateNewSubject'
 import AppToolbar from '~/components/app-toolbar/AppToolbar'
 import OfferRequestBlock from '~/containers/find-offer/offer-request-block/OfferRequestBlock'
 import useBreakpoints from '~/hooks/use-breakpoints'
+import CreateSubjectModal from '~/containers/find-offer/create-new-subject/CreateNewSubject'
 import serviceIcon from '~/assets/img/student-home-page/service_icon.png'
 import { getOpositeRole, getScreenBasedLimit } from '~/utils/helper-functions'
 import { mapArrayByField } from '~/utils/map-array-by-field'
@@ -31,7 +31,7 @@ const Categories = () => {
   const [match, setMatch] = useState('')
   const [categoryName] = useState('')
   const [isFetched, setIsFetched] = useState(false)
-  const params = useMemo(() => ({ name: match }), [match])
+  const params = useMemo(() => ({ name: match, limit: 9, skip: 0 }), [match])
   const navigate = useNavigate()
 
   const { t } = useTranslation()
@@ -49,8 +49,8 @@ const Categories = () => {
   )
 
   const {
-    loading: subjectNamesLoading,
-    response: subjectsNamesItems,
+    loading: categoryNamesLoading,
+    response: categoriesNamesItems,
     fetchData
   } = useSubjectsNames({
     fetchOnMount: false,
@@ -58,27 +58,31 @@ const Categories = () => {
     transform
   })
 
-  const getSubjectNames = () => {
+  const getCategoryNames = async () => {
     if (!isFetched) {
-      fetchData()
+      try {
+        await fetchData()
+      } catch (error) {
+        console.error(error)
+      }
       setIsFetched(true)
     }
   }
 
-  const getSubjects = useCallback(
+  const getCategories = useCallback(
     (data: Pick<SubjectInterface, 'name'> | undefined) =>
-      subjectService.getSubjects(data, categoryId),
-    [categoryId]
+      categoryService.getCategories(data),
+    []
   )
 
   const {
-    data: subjects,
-    loading: subjectsLoading,
+    data: categories,
+    loading: categoriesLoading,
     resetData,
     loadMore,
     isExpandable
   } = useLoadMore({
-    service: getSubjects,
+    service: getCategories,
     limit: cardsLimit,
     params
   })
@@ -87,7 +91,7 @@ const Categories = () => {
 
   const cards = useMemo(
     () =>
-      subjects.map((item) => (
+      categories.map((item) => (
         <CardWithLink
           description={`${item.totalOffers[oppositeRole]} ${t('categoriesPage.offers')}`}
           img={serviceIcon}
@@ -96,15 +100,17 @@ const Categories = () => {
           title={item.name}
         />
       )),
-    [subjects, categoryId, oppositeRole, t]
+    [categories, categoryId, oppositeRole, t]
   )
 
-  const handleOpenModal = () => openModal({ component: <CreateSubjectModal /> })
+  const handleOpenModal = () => {
+    openModal({ component: <CreateSubjectModal /> })
+  }
 
   const handleSearch = async () => {
     resetData()
     try {
-      await getSubjects({ name: match })
+      await getCategories({ name: match })
     } catch (error) {
       console.error(error)
     }
@@ -112,7 +118,9 @@ const Categories = () => {
 
   const handleEnterKey = (event: { key: string }) => {
     if (event.key === 'Enter') {
-      handleSearch()
+      handleSearch().catch((error) => {
+        console.error(error)
+      })
     }
   }
 
@@ -130,7 +138,7 @@ const Categories = () => {
       />
       <Box sx={styles.navigation}>
         <DirectionLink linkTo='' title='' />
-        <Box onClick={handleShowAllOffers} sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+        <Box onClick={handleShowAllOffers}>
           <DirectionLink
             after={<ArrowForwardIcon fontSize='small' />}
             linkTo={authRoutes.findOffers.path}
@@ -140,10 +148,14 @@ const Categories = () => {
       </Box>
       <AppToolbar sx={styles.searchToolbar}>
         <SearchAutocomplete
-          loading={subjectNamesLoading}
-          onFocus={getSubjectNames}
+          loading={categoryNamesLoading}
+          onFocus={() => {
+            getCategoryNames().catch((error) => {
+              console.error(error)
+            })
+          }}
           onSearchChange={resetData}
-          options={subjectsNamesItems}
+          options={categoriesNamesItems}
           search={match}
           setSearch={setMatch}
           textFieldProps={{
@@ -152,10 +164,10 @@ const Categories = () => {
           }}
         />
       </AppToolbar>
-      {!subjects.length && !subjectsLoading ? (
+      {!categories.length && !categoriesLoading ? (
         <NotFoundResults
-          buttonText={t('errorMessages.buttonRequest', { name: 'subjects' })}
-          description={t('errorMessages.tryAgainText', { name: 'subjects' })}
+          buttonText={t('errorMessages.buttonRequest', { name: 'categories' })}
+          description={t('errorMessages.tryAgainText', { name: 'categories' })}
           onClick={handleOpenModal}
         />
       ) : (
@@ -163,7 +175,7 @@ const Categories = () => {
           btnText={t('categoriesPage.viewMore')}
           cards={cards}
           isExpandable={isExpandable}
-          loading={subjectsLoading}
+          loading={categoriesLoading}
           onClick={loadMore}
         />
       )}
