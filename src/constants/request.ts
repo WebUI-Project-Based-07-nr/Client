@@ -41,5 +41,13 @@ export const URLs = {
       post: '/resources-categories',
       delete: 'resources-categories'
     }
+  },
+  location: {
+    countries: {
+      get: '/location/countries'
+    },
+    cities: {
+      get: '/location/cities'
+    }
   }
 }
