@@ -1,13 +1,13 @@
 export const styles = {
   feature: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    mb: '16px'
+    position: 'relative',
+    overflow: 'hidden'
   },
   image: {
-    width: '100%'
+    width: '100%',
+    maxWidth: '860px',
+    margin: '0 auto',
+    display: 'block'
   },
   text: {
     display: 'flex',
@@ -17,16 +17,25 @@ export const styles = {
     minHeight: '144px',
     backgroundColor: 'primary.800',
     borderRadius: '6px',
-    p: '16px',
-    m: '0 1.5vw'
+    padding: '16px',
+    margin: '0 1.5vw',
+    '&:hover': {
+      backgroundColor: 'none'
+    }
   },
   steper: {
     display: 'flex',
     justifyContent: 'center',
     backgroundColor: 'backgroundColor',
-    pt: '16px',
+    paddingTop: '16px',
     boxShadow: 'none'
   },
-  description: { color: 'basic.white', typography: 'body2' },
-  title: { color: 'basic.white', typography: 'h6' }
+  description: {
+    color: 'basic.white',
+    typography: 'body2'
+  },
+  title: {
+    color: 'basic.white',
+    typography: 'h6'
+  }
 }
