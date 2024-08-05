@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import CategoryItemCard from '~/components/category-item-card/CategoryItemCard'
 
 const mockProps = {
@@ -9,10 +9,8 @@ const mockProps = {
 }
 
 describe('CategoryItemCard', () => {
-  beforeEach(async () => {
-    await waitFor(() => {
-      render(<CategoryItemCard {...mockProps} />)
-    })
+  beforeEach(() => {
+    render(<CategoryItemCard {...mockProps} />)
   })
 
   it('renders with correct link', () => {
