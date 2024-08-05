@@ -1,7 +1,7 @@
 import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
 
-import { styles } from './OfferButtons.styles'
+import { styles } from '~/components/offer-buttons/OfferButtons.styles'
 
 import { useTranslation } from 'react-i18next'
 
