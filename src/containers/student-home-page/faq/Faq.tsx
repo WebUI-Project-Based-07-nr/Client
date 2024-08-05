@@ -4,11 +4,17 @@ import Box from '@mui/material/Box'
 
 import TitleWithDescription from '~/components/title-with-description/TitleWithDescription'
 import { studentRoutes } from '~/router/constants/studentRoutes'
-
 import { styles } from '~/containers/student-home-page/faq/Faq.styles'
+import { useState } from 'react'
+import { accordionItems } from './accordionItems'
 
 const Faq = () => {
   const { t } = useTranslation()
+  const [openIndex, setOpenIndex] = useState<number | null>(null)
+
+  const toggleQuestion = (index: number) => {
+    setOpenIndex(openIndex === index ? null : index)
+  }
 
   return (
     <Box
@@ -21,6 +27,22 @@ const Faq = () => {
         style={styles.titleWithDescription}
         title={t('studentHomePage.faq.title')}
       />
+
+      {accordionItems.map((item) => (
+        <Box
+          key={item.title}
+          onClick={() => toggleQuestion(accordionItems.indexOf(item))}
+          sx={styles.faqItem}
+        >
+          <Box sx={styles.questionRow}>
+            <Box sx={styles.question}>{item.title}</Box>
+            <Box>{openIndex === accordionItems.indexOf(item) ? '▲' : '▼'}</Box>
+          </Box>
+          {openIndex === accordionItems.indexOf(item) && (
+            <Box sx={styles.answer}>{item.description}</Box>
+          )}
+        </Box>
+      ))}
     </Box>
   )
 }
