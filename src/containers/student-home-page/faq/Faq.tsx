@@ -1,6 +1,8 @@
 import { useTranslation } from 'react-i18next'
 
 import Box from '@mui/material/Box'
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 
 import TitleWithDescription from '~/components/title-with-description/TitleWithDescription'
 import { studentRoutes } from '~/router/constants/studentRoutes'
@@ -28,17 +30,23 @@ const Faq = () => {
         title={t('studentHomePage.faq.title')}
       />
 
-      {accordionItems.map((item) => (
+      {accordionItems.map((item, index) => (
         <Box
           key={item.title}
-          onClick={() => toggleQuestion(accordionItems.indexOf(item))}
+          onClick={() => toggleQuestion(index)}
           sx={styles.faqItem}
         >
           <Box sx={styles.questionRow}>
             <Box sx={styles.question}>{item.title}</Box>
-            <Box>{openIndex === accordionItems.indexOf(item) ? '▲' : '▼'}</Box>
+            <Box>
+              {openIndex === index ? (
+                <KeyboardArrowUpIcon />
+              ) : (
+                <KeyboardArrowDownIcon />
+              )}
+            </Box>
           </Box>
-          {openIndex === accordionItems.indexOf(item) && (
+          {openIndex === index && (
             <Box sx={styles.answer}>{item.description}</Box>
           )}
         </Box>
