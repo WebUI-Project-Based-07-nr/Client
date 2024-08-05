@@ -43,7 +43,7 @@ const AddPhotoStep = ({ btnsBox }) => {
 
   return (
     <Box sx={style.root}>
-      <Box sx={style.imgContainer}>
+      <Box data-testid='image-container' sx={style.imgContainer}>
         {file ? (
           <Box component='img' src={fileURL} sx={style.img} />
         ) : (
