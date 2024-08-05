@@ -1,42 +1,96 @@
 import { MenuItem, TextField, Typography, Box } from '@mui/material'
-
+import { useState, useEffect, useContext } from 'react'
+import { LocationService } from '~/services/location-service'
+import { LocationContext } from '~/context/location-context'
 import { styles } from '~/containers/tutor-home-page/general-info-step/GeneralInfoStep.styles'
 import translations from '~/constants/translations/en/become-tutor.json'
 import img from '~/assets/img/tutor-home-page/become-tutor/general-info.svg'
-import { useState } from 'react'
 
 const GeneralInfoStep = ({ btnsBox }) => {
-  const [countryList, setCountryList] = useState([])
-  const [cityList, setCityList] = useState([])
-  const [selectedCountry, setSelectedCountry] = useState('')
-  const [selectedCity, setSelectedCity] = useState('')
+  const {
+    selectedCountry,
+    setSelectedCountry,
+    selectedCity,
+    setSelectedCity,
+    countryList,
+    setCountryList,
+    cityCache,
+    setCityCache
+  } = useContext(LocationContext)
+
+  const [loadingCountries, setLoadingCountries] = useState(!countryList.length)
+  const [loadingCities, setLoadingCities] = useState(false)
   const [professionalStatus, setProfessionalStatus] = useState('')
   const [charCount, setCharCount] = useState(0)
 
-  const countryCityMap = {
-    'United States': ['New York', 'Los Angeles', 'Chicago'],
-    Canada: ['Toronto', 'Vancouver', 'Montreal'],
-    'United Kingdom': ['London', 'Manchester', 'Birmingham'],
-    Australia: ['Sydney', 'Melbourne', 'Brisbane'],
-    Germany: ['Berlin', 'Hamburg', 'Munich']
-  }
+  useEffect(() => {
+    if (!countryList.length) {
+      const fetchCountries = async () => {
+        try {
+          const response = await LocationService.getCountries()
+          setCountryList(response.data)
+        } catch (error) {
+          console.error('Error fetching countries:', error)
+        } finally {
+          setLoadingCountries(false)
+        }
+      }
 
-  const fetchCountries = async () => {
-    return ['United States', 'Canada', 'United Kingdom', 'Australia', 'Germany']
-  }
-  const handleCountryFocus = async () => {
-    const countries = await fetchCountries()
-    setCountryList(countries)
-  }
-  const handleCountryChange = (event) => {
-    const selected = event.target.value
-    setSelectedCountry(selected)
-    setCityList(countryCityMap[selected] || [])
+      fetchCountries()
+    } else {
+      setLoadingCountries(false)
+    }
+  }, [countryList, setCountryList])
+
+  useEffect(() => {
+    const fetchCities = async () => {
+      if (selectedCountry && !cityCache[selectedCountry]) {
+        setLoadingCities(true)
+        try {
+          const response = await LocationService.getCities({
+            countryCode: selectedCountry
+          })
+          setCityCache((prevCache) => ({
+            ...prevCache,
+            [selectedCountry]: response.data
+          }))
+        } catch (error) {
+          console.error('Error fetching cities:', error)
+        } finally {
+          setLoadingCities(false)
+        }
+      }
+    }
+
+    fetchCities()
+  }, [selectedCountry, cityCache, setCityCache])
+
+  const handleCountryChange = async (event) => {
+    const selectedIso2 = event.target.value
+    setSelectedCountry(selectedIso2)
     setSelectedCity('')
   }
+
   const handleCityChange = (event) => {
     setSelectedCity(event.target.value)
   }
+
+  const renderCountries = () => {
+    return countryList.map((country) => (
+      <MenuItem key={country.id} value={country.iso2}>
+        {country.name}
+      </MenuItem>
+    ))
+  }
+
+  const renderCities = () => {
+    return (cityCache[selectedCountry] || []).map((city) => (
+      <MenuItem key={city.code} value={city.name}>
+        {city.name}
+      </MenuItem>
+    ))
+  }
+
   const handleProfessionalStatusChange = (event) => {
     const value = event.target.value
     if (value.length <= 100) {
@@ -44,6 +98,7 @@ const GeneralInfoStep = ({ btnsBox }) => {
       setCharCount(value.length)
     }
   }
+
   return (
     <Box sx={styles.container}>
       <Box sx={styles.imgContainer}>
@@ -57,22 +112,19 @@ const GeneralInfoStep = ({ btnsBox }) => {
         </Box>
         <Box sx={styles.row}>
           <TextField
+            disabled={loadingCountries}
             label='Country'
             onChange={handleCountryChange}
-            onFocus={handleCountryFocus}
             select
             sx={styles.halfWidth}
             value={selectedCountry}
           >
             <MenuItem value=''></MenuItem>
-            {countryList.map((country, index) => (
-              <MenuItem key={index} value={country}>
-                {country}
-              </MenuItem>
-            ))}
+            {!loadingCountries && renderCountries()}
           </TextField>
 
           <TextField
+            disabled={!selectedCountry || loadingCities}
             label='City'
             onChange={handleCityChange}
             select
@@ -80,11 +132,7 @@ const GeneralInfoStep = ({ btnsBox }) => {
             value={selectedCity}
           >
             <MenuItem value=''></MenuItem>
-            {cityList.map((city, index) => (
-              <MenuItem key={index} value={city}>
-                {city}
-              </MenuItem>
-            ))}
+            {!loadingCities && renderCities()}
           </TextField>
         </Box>
         <TextField
