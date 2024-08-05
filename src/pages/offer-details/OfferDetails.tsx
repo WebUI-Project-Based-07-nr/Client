@@ -1,8 +1,6 @@
 import React from 'react'
 import { Card, CardContent, CardHeader, Typography, Box } from '@mui/material'
 
-// import { useModalContext } from '~/context/modal-context'
-
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
 
 import { stylesFunc } from '~/pages/offer-details/OfferDetails.styles'
@@ -18,11 +16,6 @@ import OffersTitle from '~/components/offers-title/OffersTitle'
 import OfferButtons from '~/components/offer-buttons/OfferButtons'
 
 const OfferDetails = ({ isSquare = false }) => {
-  // const { openModal } = useModalContext()
-  // const openSendMessage = () => {
-  // not implemented yet
-  // openModal({ component: <InputSendMessage /> })
-  // }
   const styles = stylesFunc(isSquare)
 
   return (
