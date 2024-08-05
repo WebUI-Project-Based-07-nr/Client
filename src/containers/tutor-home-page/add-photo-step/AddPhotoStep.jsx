@@ -14,10 +14,10 @@ const AddPhotoStep = ({ btnsBox }) => {
   const { t } = useTranslation()
   const [file, setFile] = useState(null)
   const [fileURL, setFileURL] = useState('')
-  const [error, setError] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
   const [fileSelected, setFileSelected] = useState(false)
 
-  const handleFileChange = ({ files, error }) => {
+  function handleFileChange({ files, error }) {
     if (!error && files.length > 0) {
       setFile(files[0])
 
@@ -29,7 +29,7 @@ const AddPhotoStep = ({ btnsBox }) => {
       setFile(null)
       setFileURL('')
       setFileSelected(false)
-      setError(error)
+      setErrorMessage(error)
     }
   }
 
@@ -67,7 +67,7 @@ const AddPhotoStep = ({ btnsBox }) => {
             <FileUploader
               buttonText={t('becomeTutor.photo.button')}
               emitter={handleFileChange}
-              initialError={error}
+              initialError={errorMessage}
               initialState={file ? [file] : []}
               isImages={Boolean(true)}
               sx={{
