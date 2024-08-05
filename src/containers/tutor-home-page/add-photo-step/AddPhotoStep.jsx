@@ -17,7 +17,7 @@ const AddPhotoStep = ({ btnsBox }) => {
   const [errorMessage, setErrorMessage] = useState('')
   const [fileSelected, setFileSelected] = useState(false)
 
-  function handleFileChange({ files, error }) {
+  const handleFileChange = ({ files, error }) => {
     if (!error && files.length > 0) {
       setFile(files[0])
 
