@@ -3,12 +3,11 @@ interface Validations {
   numberField: (value: string) => string
   password: (value: string) => string
   email: (value: string) => string
-  confirmPassword: (value: string, originalPassword: string) => string
 }
 
 const validations: Validations = {
   nameField: (value) => {
-    if (value.length < 2 || value.length > 15) {
+    if (value.length > 30) {
       return 'common.errorMessages.nameLength'
     }
     if (!RegExp(/^[a-zа-яєії ]+$/i).test(value)) {
@@ -43,22 +42,16 @@ const validations: Validations = {
       return 'common.errorMessages.emailValid'
     }
     return ''
-  },
-  confirmPassword: (value, originalPassword) => {
-    if (value !== originalPassword) {
-      return 'common.errorMessages.passwordsDontMatch'
-    }
-    return ''
   }
 }
 
 export const emptyField = (
   value: string | null,
-  emptyMessage = 'common.errorMessages.emptyField',
+  emtyMessage = 'common.errorMessages.emptyField',
   helperText?: string
 ) => {
   if (!value) {
-    return emptyMessage
+    return emtyMessage
   }
   return helperText
 }
@@ -85,27 +78,7 @@ export const textField =
 export const helperTextHandler = (
   value: string,
   marker: keyof Validations,
-  emptyMessage?: string,
-  originalPassword?: string
+  emptyMessage?: string
 ) => {
-  if (marker === 'confirmPassword') {
-    if (!originalPassword) {
-      throw new Error(
-        'originalPassword is required for confirmPassword validation'
-      )
-    }
-    return emptyField(
-      value,
-      emptyMessage,
-      validations[marker](value, originalPassword)
-    )
-  }
   return emptyField(value, emptyMessage, validations[marker](value))
-}
-
-export const confirmPasswordField = (
-  value: string,
-  originalPassword: string
-) => {
-  return validations.confirmPassword(value, originalPassword)
 }

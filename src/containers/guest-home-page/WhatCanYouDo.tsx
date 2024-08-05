@@ -11,39 +11,29 @@ import teachImg from '~/assets/img/guest-home-page/teachImg.png'
 import { UserRoleEnum } from '~/types'
 import { styles } from '~/containers/guest-home-page/styles/WhatCanYouDo.styles'
 
-import { useModalContext } from '~/context/modal-context'
-
-import SignupDialog from '~/containers/guest-home-page/signup-dialog/SignupDialog'
-
 const cardData = [
   {
     img: learnImg,
     title: 'guestHomePage.whatCanYouDo.learn.title',
     description: 'guestHomePage.whatCanYouDo.learn.description',
     actionLabel: 'guestHomePage.whatCanYouDo.learn.actionLabel',
-    actionType: UserRoleEnum.Student,
-    component: <SignupDialog isTutor={false} />
+    actionType: UserRoleEnum.Student
   },
   {
     img: teachImg,
     title: 'guestHomePage.whatCanYouDo.teach.title',
     description: 'guestHomePage.whatCanYouDo.teach.description',
     actionLabel: 'guestHomePage.whatCanYouDo.teach.actionLabel',
-    actionType: UserRoleEnum.Tutor,
-    component: <SignupDialog isTutor />
+    actionType: UserRoleEnum.Tutor
   }
 ]
 
 const WhatCanYouDo = () => {
-  const { openModal } = useModalContext()
-
   const { t } = useTranslation()
 
   const cards = cardData.map((item) => (
     <InfoCard
-      action={() => {
-        openModal({ component: item.component })
-      }}
+      action={() => {}}
       actionLabel={t(item.actionLabel)}
       cardWidth={460}
       description={t(item.description)}
