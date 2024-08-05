@@ -3,37 +3,60 @@ import { style } from '~/containers/tutor-home-page/add-photo-step/AddPhotoStep.
 import TitleWithDescription from '~/components/title-with-description/TitleWithDescription'
 import { useTranslation } from 'react-i18next'
 import Typography from '@mui/material/Typography'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { validationData } from './constants'
 import FileUploader from '~/components/file-uploader/FileUploader'
 import DragAndDrop from '~/components/drag-and-drop/DragAndDrop'
-// import CheckIcon from '@mui/icons-material/Check'
+import CheckIcon from '@mui/icons-material/Check'
 import { ButtonVariantEnum } from '~/types'
 
 const AddPhotoStep = ({ btnsBox }) => {
   const { t } = useTranslation()
-  const [file, setFile] = useState([])
-  // const [fileSelected, setFileSelected] = useState(false)
+  const [file, setFile] = useState(null)
+  const [fileURL, setFileURL] = useState('')
+  const [error, setError] = useState('')
+  const [fileSelected, setFileSelected] = useState(false)
 
   const handleFileChange = ({ files, error }) => {
-    if (!error) {
-      setFile(files)
-      // setFileSelected(file.length > 0)
+    if (!error && files.length > 0) {
+      setFile(files[0])
+
+      const objectURL = URL.createObjectURL(files[0])
+
+      setFileURL(objectURL)
+      setFileSelected(true)
     } else {
-      console.error('Error', error)
+      setFile(null)
+      setFileURL('')
+      setFileSelected(false)
+      setError(error)
     }
   }
 
+  useEffect(() => {
+    return () => {
+      if (fileURL) {
+        URL.revokeObjectURL(fileURL)
+      }
+    }
+  }, [fileURL])
+
   return (
     <Box sx={style.root}>
-      <DragAndDrop
-        emitter={handleFileChange}
-        initialState={file}
-        style={style}
-        validationData={validationData}
-      >
-        <Typography>{t('becomeTutor.photo.placeholder')}</Typography>
-      </DragAndDrop>
+      <Box sx={style.imgContainer}>
+        {file ? (
+          <Box component='img' src={fileURL} sx={style.img} />
+        ) : (
+          <DragAndDrop
+            emitter={handleFileChange}
+            initialState={file ? [file] : []}
+            style={style}
+            validationData={validationData}
+          >
+            <Typography>{t('becomeTutor.photo.placeholder')}</Typography>
+          </DragAndDrop>
+        )}
+      </Box>
       <Box sx={style.rigthBox}>
         <TitleWithDescription
           style={style.description}
@@ -44,8 +67,8 @@ const AddPhotoStep = ({ btnsBox }) => {
             <FileUploader
               buttonText={t('becomeTutor.photo.button')}
               emitter={handleFileChange}
-              initialError=''
-              initialState={file}
+              initialError={error}
+              initialState={file ? [file] : []}
               isImages={Boolean(true)}
               sx={{
                 root: style.fileUploader.root,
@@ -55,9 +78,9 @@ const AddPhotoStep = ({ btnsBox }) => {
               variant={ButtonVariantEnum.Outlined}
             />
           </Box>
-          {/*<Box sx={style.fileUploader.checkIcon}>*/}
-          {/*  {fileSelected && <CheckIcon/>}*/}
-          {/*</Box>*/}
+          <Box sx={style.fileUploader.checkIcon}>
+            {fileSelected && <CheckIcon />}
+          </Box>
         </Box>
         <Box sx={style.btnsWrapper}>{btnsBox}</Box>
       </Box>

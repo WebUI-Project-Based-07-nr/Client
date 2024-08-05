@@ -9,11 +9,6 @@ export const style = {
     paddingBottom: { sm: '210px', md: '0px' },
     ...fadeAnimation
   },
-  img: {
-    width: '100%',
-    borderRadius: '20px',
-    mt: { xs: '20px', md: '0px' }
-  },
   imgContainer: {
     display: 'flex',
     alignItems: 'center',
@@ -21,6 +16,13 @@ export const style = {
     width: '100%',
     flex: 1,
     pb: { xs: '16px', sm: '26px', md: '52px' }
+  },
+  img: {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+    borderRadius: '20px',
+    mt: { xs: '20px', md: '0px' }
   },
   uploadBox: {
     display: 'flex',
