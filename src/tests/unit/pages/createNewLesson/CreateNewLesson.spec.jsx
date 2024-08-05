@@ -1,4 +1,4 @@
-import { screen, waitFor } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import CreateNewLesson from '~/pages/createNewLesson/CreateNewLesson'
 import { renderWithProviders } from '~/tests/test-utils'
 import userEvent from '@testing-library/user-event'
@@ -16,8 +16,8 @@ const navigate = vi.fn()
 useNavigate.mockReturnValue(navigate)
 
 describe('CreateNewLesson', () => {
-  beforeEach(async () => {
-    await waitFor(() => renderWithProviders(<CreateNewLesson />))
+  beforeEach(() => {
+    renderWithProviders(<CreateNewLesson />)
   })
 
   it('renders the component correctly', () => {
