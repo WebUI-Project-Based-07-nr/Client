@@ -33,8 +33,8 @@ export interface Offer extends CommonEntityFields {
     | 'FAQ'
     | 'averageRating'
   >
-  subject?: SubjectNameInterface
-  category?: CategoryInterface
+  subject: SubjectNameInterface
+  category: CategoryInterface
   FAQ: Faq[]
   status: StatusEnum
 }
