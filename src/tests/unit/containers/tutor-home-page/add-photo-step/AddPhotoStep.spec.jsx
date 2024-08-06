@@ -51,13 +51,13 @@ describe('AddPhotoStep', () => {
     expect(imageContainer).toHaveStyle(style.activeDrag)
   })
 
-  it('should render file on drag and drop', async () => {
+  it('should render file on drag and drop', () => {
     const mockFile = new File(['dummy content'], 'test.png', {
       type: 'image/png'
     })
     const imageContainer = screen.getByTestId('image-container')
 
-    await waitFor(() => {
+    waitFor(() => {
       fireEvent.drop(imageContainer, { dataTransfer: { files: [mockFile] } })
 
       const image = screen.getByTestId('image-container')
