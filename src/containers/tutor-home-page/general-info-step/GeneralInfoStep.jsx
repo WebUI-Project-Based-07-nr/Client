@@ -1,17 +1,18 @@
 import { MenuItem, TextField, Typography, Box } from '@mui/material'
-
 import { styles } from '~/containers/tutor-home-page/general-info-step/GeneralInfoStep.styles'
 import translations from '~/constants/translations/en/become-tutor.json'
 import img from '~/assets/img/tutor-home-page/become-tutor/general-info.svg'
 import { useState } from 'react'
 
 const GeneralInfoStep = ({ btnsBox }) => {
-  const [countryList, setCountryList] = useState([])
-  const [cityList, setCityList] = useState([])
-  const [selectedCountry, setSelectedCountry] = useState('')
-  const [selectedCity, setSelectedCity] = useState('')
-  const [professionalStatus, setProfessionalStatus] = useState('')
-  const [charCount, setCharCount] = useState(0)
+  const [countryList, setCountryList] = useState([]);
+  const [cityList, setCityList] = useState([]);
+  const [selectedCountry, setSelectedCountry] = useState('');
+  const [selectedCity, setSelectedCity] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [professionalStatus, setProfessionalStatus] = useState('');
+  const [charCount, setCharCount] = useState(0);
 
   const countryCityMap = {
     'United States': ['New York', 'Los Angeles', 'Chicago'],
@@ -37,23 +38,60 @@ const GeneralInfoStep = ({ btnsBox }) => {
   const handleCityChange = (event) => {
     setSelectedCity(event.target.value)
   }
+  const handleFirstNameChange = (event) => {
+    const value = event.target.value;
+    if(/^[a-zA-Z\s]*$/.test(value) && value.length <= 30){
+      setFirstName(value.trim());
+    }
+  };
+  const handleLastNameChange = (event) => {
+    const value = event.target.value;
+    if(/^[a-zA-Z\s]*$/.test(value) && value.length <= 30){
+      setLastName(value.trim());
+    }
+  };
   const handleProfessionalStatusChange = (event) => {
     const value = event.target.value
-    if (value.length <= 100) {
+    if (value.length <= 200) {
       setProfessionalStatus(value)
       setCharCount(value.length)
     }
   }
+
   return (
     <Box sx={styles.container}>
       <Box sx={styles.imgContainer}>
         <Box component='img' src={img} sx={styles.img}></Box>
       </Box>
       <Box sx={styles.rightBox}>
-        <Typography variant='h6'>{translations.generalInfo.title}</Typography>
+        <Box sx={styles.desktopText}>
+        <Typography variant='body2' sx={{ marginBottom: '16px'}}>
+        Please complete the registration form for the best possible experience.
+        </Typography>
+        </Box>
+        <Box sx={styles.mobileText}>
+        <Typography variant='body2' sx={{ marginBottom: '16px'}}>
+        Please complete the registration form for the best possible experience.
+        </Typography>
+        </Box>
         <Box sx={styles.row}>
-          <TextField label='First Name*' sx={styles.halfWidth} />
-          <TextField label='Last Name*' sx={styles.halfWidth} />
+          <TextField
+            label='First Name'
+            sx={styles.halfWidth}
+            value={firstName}
+            onChange={handleFirstNameChange}
+            autoFocus
+            required
+            inputProps={{ maxLength: 30 }} 
+          />
+          <TextField
+            label='Last Name'
+            sx={styles.halfWidth}
+            value={lastName}
+            onChange={handleLastNameChange}
+            required
+            inputProps={{ maxLength: 30 }} 
+          />
         </Box>
         <Box sx={styles.row}>
           <TextField
@@ -63,6 +101,7 @@ const GeneralInfoStep = ({ btnsBox }) => {
             select
             sx={styles.halfWidth}
             value={selectedCountry}
+            placeholder='Country'
           >
             <MenuItem value=''></MenuItem>
             {countryList.map((country, index) => (
@@ -78,6 +117,8 @@ const GeneralInfoStep = ({ btnsBox }) => {
             select
             sx={styles.halfWidth}
             value={selectedCity}
+            placeholder='City'
+            disabled={!selectedCountry}
           >
             <MenuItem value=''></MenuItem>
             {cityList.map((city, index) => (
@@ -95,21 +136,28 @@ const GeneralInfoStep = ({ btnsBox }) => {
           sx={{ ...styles.fullWidth, ...styles.largeInput }}
           value={professionalStatus}
         />
-        <Typography
-          color='textSecondary'
-          sx={styles.charCount}
-          variant='caption'
-        >
-          {charCount}/100
-        </Typography>
-        <Typography
-          color='textSecondary'
-          sx={{ fontWeight: 'bold', marginBottom: '21px', marginTop: '8px' }}
-          variant='body2'
-        >
-          Inputs with the * sign are required
-        </Typography>
+        <Box sx={styles.charCountWrapper}>
+          <Typography
+            color='textSecondary'
+            sx={styles.charCount}
+            variant='caption'
+          >
+            {charCount}/200
+          </Typography>
+        </Box>
+        <Box sx={styles.charCountWrapper}>
+          <Typography
+            color='textSecondary'
+            sx={styles.requiredText}
+            variant='body2'
+          >
+            Inputs with the * sign are required
+          </Typography>
+        </Box>
+        <Box sx={styles.buttonsContainer}>
         {btnsBox}
+        </Box>
+   
       </Box>
     </Box>
   )
