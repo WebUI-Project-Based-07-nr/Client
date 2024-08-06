@@ -3,7 +3,7 @@ import { style } from '~/containers/tutor-home-page/add-photo-step/AddPhotoStep.
 import TitleWithDescription from '~/components/title-with-description/TitleWithDescription'
 import { useTranslation } from 'react-i18next'
 import Typography from '@mui/material/Typography'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { validationData } from './constants'
 import FileUploader from '~/components/file-uploader/FileUploader'
 import DragAndDrop from '~/components/drag-and-drop/DragAndDrop'
@@ -20,7 +20,6 @@ const AddPhotoStep = ({ btnsBox }) => {
   const handleFileChange = ({ files, error }) => {
     if (!error && files.length > 0) {
       setFile(files[0])
-      console.log([files])
       const objectURL = URL.createObjectURL(files[0])
 
       setFileURL(objectURL)
@@ -32,6 +31,8 @@ const AddPhotoStep = ({ btnsBox }) => {
       setErrorMessage(error)
     }
   }
+
+  const handleDragAndDrop = useCallback(handleFileChange, [])
 
   useEffect(() => {
     return () => {
@@ -53,7 +54,7 @@ const AddPhotoStep = ({ btnsBox }) => {
           />
         ) : (
           <DragAndDrop
-            emitter={handleFileChange}
+            emitter={handleDragAndDrop}
             initialState={file ? [file] : []}
             style={style}
             validationData={validationData}
@@ -71,7 +72,7 @@ const AddPhotoStep = ({ btnsBox }) => {
           <Box>
             <FileUploader
               buttonText={t('becomeTutor.photo.button')}
-              emitter={handleFileChange}
+              emitter={handleDragAndDrop}
               initialError={errorMessage}
               initialState={file ? [file] : []}
               isImages={Boolean(true)}
