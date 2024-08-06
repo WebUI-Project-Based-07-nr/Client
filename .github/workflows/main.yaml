@@ -31,11 +31,6 @@ jobs:
       - name : Test
         if: always()
         run: npm test
-        
-      - name : Check Path
-        if: always()
-        run: |
-          ls -la && pwd && ls -la coverage && ls -la coverage/lcov-report
       
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
