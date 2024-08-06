@@ -20,7 +20,7 @@ const AddPhotoStep = ({ btnsBox }) => {
   const handleFileChange = ({ files, error }) => {
     if (!error && files.length > 0) {
       setFile(files[0])
-
+      console.log([files])
       const objectURL = URL.createObjectURL(files[0])
 
       setFileURL(objectURL)
@@ -45,7 +45,12 @@ const AddPhotoStep = ({ btnsBox }) => {
     <Box sx={style.root}>
       <Box data-testid='image-container' sx={style.imgContainer}>
         {file ? (
-          <Box component='img' src={fileURL} sx={style.img} />
+          <Box
+            component='img'
+            data-testid='upload-image'
+            src={fileURL}
+            sx={style.img}
+          />
         ) : (
           <DragAndDrop
             emitter={handleFileChange}
