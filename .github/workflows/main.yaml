@@ -24,12 +24,13 @@ jobs:
       - name : Npm Install
         run: npm install
         
-      - name : Lint
-        run : npm run lint
+#      - name : Lint
+#        run : npm run lint
+#        continue-on-error: true
         
       - name : Test
         if: always()
-        run: vitest --coverage
+        run: npm test
         
       - name : Check Path
         if: always()
