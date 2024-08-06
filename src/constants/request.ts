@@ -47,5 +47,13 @@ export const URLs = {
       post: '/quizzes',
       patch: '/quizzes'
     }
+  },
+  location: {
+    countries: {
+      get: '/location/countries'
+    },
+    cities: {
+      get: '/location/cities'
+    }
   }
 }
