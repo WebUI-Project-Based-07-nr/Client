@@ -36,6 +36,7 @@ import SubjectIcon from '@mui/icons-material/Subject'
 import ScienceIcon from '@mui/icons-material/Science'
 import GradeIcon from '@mui/icons-material/Grade'
 import { Typography } from '@mui/material'
+import './Categories.css'
 
 const Categories: React.FC = () => {
   const [match, setMatch] = useState('')
@@ -43,14 +44,12 @@ const Categories: React.FC = () => {
   const [isFetched, setIsFetched] = useState(false)
   const params = useMemo(() => ({ name: match, limit: 9, skip: 0 }), [match])
   const navigate = useNavigate()
-
   const { t } = useTranslation()
   const { userRole } = useAppSelector((state) => state.appMain)
   const breakpoints = useBreakpoints()
   const { openModal } = useModalContext()
   const [searchParams] = useSearchParams()
   const categoryId = searchParams.get('categoryId') ?? ''
-
   const cardsLimit = getScreenBasedLimit(breakpoints, itemsLoadLimit)
 
   const transform = useCallback(
@@ -154,9 +153,17 @@ const Categories: React.FC = () => {
       offers: 234,
       icon: <ComputerIcon style={{ color: 'gray' }} />
     },
-    { name: 'Music', offers: 234, icon: <MusicNote style={{ color: 'red' }} /> },
+    {
+      name: 'Music',
+      offers: 234,
+      icon: <MusicNote style={{ color: 'red' }} />
+    },
     { name: 'Design', offers: 234, icon: <DesignServicesIcon /> },
-    { name: 'History', offers: 234, icon: <Language style={{ color: 'red' }} /> },
+    {
+      name: 'History',
+      offers: 234,
+      icon: <Language style={{ color: 'red' }} />
+    },
     { name: 'Biology', offers: 234, icon: <BiotechIcon /> },
     {
       name: 'Painting',
@@ -178,7 +185,33 @@ const Categories: React.FC = () => {
       offers: 234,
       icon: <ScienceIcon style={{ color: 'red' }} />
     },
-    { name: 'Astronomy', offers: 234, icon: <GradeIcon /> }
+    { name: 'Astronomy', offers: 234, icon: <GradeIcon /> },
+    {
+      name: 'Languages',
+      offers: 234,
+      icon: <Language style={{ color: 'green' }} />
+    },
+    {
+      name: 'Mathematics',
+      offers: 234,
+      icon: <Tag style={{ color: 'orange' }} />
+    },
+    {
+      name: 'Computer science',
+      offers: 234,
+      icon: <ComputerIcon style={{ color: 'gray' }} />
+    },
+    {
+      name: 'Music',
+      offers: 234,
+      icon: <MusicNote style={{ color: 'red' }} />
+    },
+    { name: 'Design', offers: 234, icon: <DesignServicesIcon /> },
+    {
+      name: 'History',
+      offers: 234,
+      icon: <Language style={{ color: 'red' }} />
+    }
   ]
 
   return (
@@ -250,8 +283,17 @@ const Categories: React.FC = () => {
               >
                 {category.name}
               </Typography>
-              <Typography component='p' variant='body2'>
-                {category.offers} Offers
+              <Typography
+                component='p'
+                style={{
+                  fontFamily: 'Rubik',
+                  fontWeight: 400,
+                  fontSize: '16px',
+                  lineHeight: '24px',
+                  letterSpacing: '0.15px'
+                }}
+              >
+                {category.offers} {t('categoriesPage.offers')}
               </Typography>
             </div>
           </div>
@@ -262,4 +304,3 @@ const Categories: React.FC = () => {
 }
 
 export default Categories
-
