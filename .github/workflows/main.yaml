@@ -24,13 +24,11 @@ jobs:
       - name : Npm Install
         run: npm install
         
-#      - name : Lint
-#        run : npm run lint
-#        continue-on-error: true
-        
+      - name : Lint
+        run : npm run lint
+
       - name : Test
-        if: always()
-        run: npm test
+        run: npm test -- --coverage
       
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
