@@ -47,5 +47,11 @@ export const URLs = {
       post: '/quizzes',
       patch: '/quizzes'
     }
+  },
+  offers: {
+    get: '/offers',
+    delete: '/offers',
+    post: '/offers',
+    patch: '/offers'
   }
 }
