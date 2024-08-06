@@ -66,7 +66,7 @@ const CreateOrEditQuizContainer = ({
     _: React.SyntheticEvent,
     value: CategoryNameInterface | null
   ) => {
-    setCategory(value?._id ?? null)
+    setCategory(value?._id ?? '')
   }
 
   const handleResponse = () => {
@@ -90,10 +90,12 @@ const CreateOrEditQuizContainer = ({
     })
   }
 
-  const createQuizService = useCallback(
-    (data?: CreateQuizParams) => ResourceService.addQuiz(data),
-    []
-  )
+  const createQuizService = useCallback((data?: CreateQuizParams) => {
+    if (!data) {
+      throw new Error('CreateQuizParams must be provided')
+    }
+    return ResourceService.addQuiz(data)
+  }, [])
 
   const { fetchData: addNewQuiz } = useAxios<Quiz, CreateQuizParams>({
     service: createQuizService,
@@ -104,7 +106,17 @@ const CreateOrEditQuizContainer = ({
   })
 
   const editQuizService = useCallback(
-    (params?: UpdateQuizParams) => ResourceService.editQuiz(params),
+    (params?: UpdateQuizParams): Promise<AxiosResponse<null>> => {
+      if (params) {
+        return ResourceService.editQuiz(params).then((response) => {
+          return {
+            ...response,
+            data: null
+          } as AxiosResponse<null>
+        })
+      }
+      return Promise.resolve({ data: null } as AxiosResponse<null>)
+    },
     []
   )
 
@@ -124,7 +136,8 @@ const CreateOrEditQuizContainer = ({
     setTitle(quiz.title)
     setDescription(quiz.description)
     setQuestions(quiz.items)
-    setCategory(quiz.category)
+    setCategory(quiz.category ? quiz.category._id : null)
+    // set to passed eslint. here was     setCategory(quiz.category)
   }
 
   const { loading: getQuizLoading, fetchData: fetchQuizData } = useAxios<
@@ -190,9 +203,21 @@ const CreateOrEditQuizContainer = ({
           title,
           description,
           items: questions,
-          category
+          category: category || ''
         })
-      : void addNewQuiz({ title, description, items: questions, category })
+      : void addNewQuiz({
+          title,
+          description,
+          items: questions.map((question) => ({
+            ...question,
+            category: question.category ? question.category._id : null,
+            answers: question.answers.map((answer, index) => ({
+              ...answer,
+              id: index
+            }))
+          })),
+          category: category || ''
+        })
 
   return (
     <PageWrapper sx={styles.container}>
