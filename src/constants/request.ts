@@ -53,5 +53,13 @@ export const URLs = {
     delete: '/offers',
     post: '/offers',
     patch: '/offers'
+  },
+  location: {
+    countries: {
+      get: '/location/countries'
+    },
+    cities: {
+      get: '/location/cities'
+    }
   }
 }
