@@ -10,11 +10,30 @@ import {
   UserRoleEnum
 } from '~/types'
 import { useSnackBarContext } from '~/context/snackbar-context'
-import { defaultResponses, snackbarVariants } from '~/constants'
+import { snackbarVariants } from '~/constants'
 import useAxios from '~/hooks/use-axios'
 
 interface ProfileAvatar {
   authorId: string
+}
+
+const defaultUserResponse: UserResponse = {
+  _id: '',
+  role: [],
+  firstName: '',
+  lastName: '',
+  email: '',
+  mainSubjects: [],
+  totalReviews: { student: 0, tutor: 0 },
+  averageRating: { student: 0, tutor: 0 },
+  nativeLanguage: '',
+  address: { country: '', city: '' },
+  professionalSummary: '',
+  photo: '',
+  lastLogin: '',
+  createdAt: '',
+  updatedAt: '',
+  FAQ: { student: [], tutor: [] }
 }
 
 const AuthorProfilePicture: FC<ProfileAvatar> = ({ authorId }) => {
@@ -41,14 +60,14 @@ const AuthorProfilePicture: FC<ProfileAvatar> = ({ authorId }) => {
 
   const { response, loading } = useAxios<UserResponse, GetUsersParams>({
     service: getOfferService,
-    defaultResponse: defaultResponses.object,
+    defaultResponse: defaultUserResponse,
     onResponseError
   })
 
   const placeholderImage =
     'https://cdn.vectorstock.com/i/500p/08/19/gray-photo-placeholder-icon-design-ui-vector-35850819.jpg'
 
-  const userPhoto = (response as UserResponse)?.photo ?? placeholderImage
+  const userPhoto = response?.photo ?? placeholderImage
 
   return (
     <Avatar
