@@ -11,7 +11,7 @@ describe('Card List', () => {
     const loader = screen.getAllByTestId('loader')[0]
     expect(loader).toBeInTheDocument()
   })
-  test('shows card when cards length is', () => {
+  test('shows card when there are cards', () => {
     let cards = ['test']
     render(<CardsList cards={cards} loading={loading} />)
     const card = screen.getByText('test')
