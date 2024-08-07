@@ -8,6 +8,12 @@ export const authRoutes = {
   userProfile: { route: 'user/:id', path: '/user' },
   myResources: {
     root: { route: 'my-resources', path: '/my-resources' },
+    lessons: { route: 'lessons', path: '/lessons' },
+    lessonDetail: { route: 'lesson/:lessonId', path: '/lesson/:lessonId' },
+    createOrEditLesson: {
+      route: 'edit-lesson/:lessonId',
+      path: '/edit-lesson/:lessonId'
+    },
     newQuestion: {
       route: 'my-resources/new-question',
       path: '/my-resources/new-question'
