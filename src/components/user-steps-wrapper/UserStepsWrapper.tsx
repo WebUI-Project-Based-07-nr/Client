@@ -4,6 +4,7 @@ import { markFirstLoginComplete } from '~/redux/reducer'
 import StepWrapper from '~/components/step-wrapper/StepWrapper'
 import { styles } from '~/components/user-steps-wrapper/UserStepsWrapper.styles'
 import { StepProvider } from '~/context/step-context'
+import { LocationProvider } from '~/context/location-context'
 
 import GeneralInfoStep from '~/containers/tutor-home-page/general-info-step/GeneralInfoStep'
 import AddPhotoStep from '~/containers/tutor-home-page/add-photo-step/AddPhotoStep'
@@ -65,9 +66,11 @@ const UserStepsWrapper: FC<UserStepsWrapperProps> = ({ userRole }) => {
           >
             <CloseIcon />
           </IconButton>
-          <StepProvider initialValues={initialValues} stepLabels={stepLabels}>
-            <StepWrapper steps={stepLabels}>{childrenArr}</StepWrapper>
-          </StepProvider>
+          <LocationProvider>
+            <StepProvider initialValues={initialValues} stepLabels={stepLabels}>
+              <StepWrapper steps={stepLabels}>{childrenArr}</StepWrapper>
+            </StepProvider>
+          </LocationProvider>
 
           <ConfirmDialog
             message={t('questions.unsavedChanges')}

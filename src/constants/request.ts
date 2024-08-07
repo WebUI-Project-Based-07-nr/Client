@@ -40,6 +40,26 @@ export const URLs = {
       patch: '/resources-categories',
       post: '/resources-categories',
       delete: 'resources-categories'
+    },
+    quizzes: {
+      get: '/quizzes',
+      delete: '/quizzes',
+      post: '/quizzes',
+      patch: '/quizzes'
+    }
+  },
+  offers: {
+    get: '/offers',
+    delete: '/offers',
+    post: '/offers',
+    patch: '/offers'
+  },
+  location: {
+    countries: {
+      get: '/location/countries'
+    },
+    cities: {
+      get: '/location/cities'
     }
   }
 }
