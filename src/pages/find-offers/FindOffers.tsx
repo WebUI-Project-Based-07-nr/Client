@@ -1,8 +1,14 @@
-// import PageWrapper from '~/components/page-wrapper/PageWrapper'
+import * as React from 'react'
 import OfferCards from '~/containers/offer-cards/OfferCards'
+import ToggleButtons from '~/components/toggle-button/ToggleButtons'
 
 const FindOffers = () => {
-  return <OfferCards />
+  const [alignment, setAlignment] = React.useState<string>('left')
+  return (
+    <>
+      <ToggleButtons alignment={alignment} setAlignment={setAlignment} />
+      <OfferCards />
+    </>
+  )
 }
-
 export default FindOffers

@@ -26,29 +26,13 @@ jobs:
         
       - name : Lint
         run : npm run lint
-        
+
       - name : Test
         run: npm test -- --coverage
-        
-      - name : Check Path
-        run: |
-          ls -la && pwd && ls -la coverage && ls -la coverage/lcov-report
       
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         if: success() || failure()
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          args: >
-            -Dsonar.projectKey=WebUI-Project-Based-07-nr_Client
-            -Dsonar.organization=webui-project-based-07-nr
-            -Dsonar.organizationKey=webui-project-based-07-nr
-            -Dsonar.host.url=https://sonarcloud.io
-            -Dsonar.sources=.
-            -Dsonar.exclusions=**/src/tests/**/*,**/build-story/*
-            -Dsonar.coverage.exclusions=**/src/constants/*,**/src/tests/**/*,**/*.styles.ts
-            -Dsonar.sourceEncoding=UTF-8
-            -Dsonar.javascript.lcov.reportPaths=coverage/lcov-report/lcov.info
-            -Dsonar.qualitygate.wait=true
