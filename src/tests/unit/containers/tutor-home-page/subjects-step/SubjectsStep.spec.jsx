@@ -1,6 +1,8 @@
-import { render, screen } from '@testing-library/react'
+import { act, render, screen, waitFor } from '@testing-library/react'
 import SubjectsStep from '~/containers/tutor-home-page/subjects-step/SubjectsStep'
 import Box from '@mui/system/Box'
+import { URLs } from '~/constants/request'
+import { mockAxiosClient } from '~/tests/test-utils'
 
 describe('SubjectsStep', () => {
   const mockBtnsBox = (
@@ -10,8 +12,21 @@ describe('SubjectsStep', () => {
     </Box>
   )
 
-  beforeEach(() => {
-    render(<SubjectsStep btnsBox={mockBtnsBox} />)
+  beforeEach(async () => {
+    await waitFor(() => {
+      mockAxiosClient
+        .onGet(URLs.categories.getNames)
+        .reply(200, [{ name: 'Math' }, { name: 'Science' }])
+      render(<SubjectsStep btnsBox={mockBtnsBox} />)
+    })
+
+    await act(async () => {
+      render(<SubjectsStep btnsBox={mockBtnsBox} />)
+    })
+  })
+
+  afterEach(() => {
+    mockAxiosClient.reset()
   })
 
   it('should renders image', () => {
