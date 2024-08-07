@@ -10,7 +10,7 @@ import { defaultResponses, snackbarVariants } from '~/constants'
 import { useSnackBarContext } from '~/context/snackbar-context'
 import Loader from '~/components/loader/Loader'
 
-const OfferCards: FC<{ isSquare: boolean }> = ({ isSquare = true }) => {
+const OfferCards: FC<{ isSquare?: boolean }> = ({ isSquare = true }) => {
   const { setAlert } = useSnackBarContext()
 
   const onResponseError = useCallback(
@@ -35,7 +35,7 @@ const OfferCards: FC<{ isSquare: boolean }> = ({ isSquare = true }) => {
   )
   console.log(response.items)
   const mappedCards = response.items.map((offer) => (
-    <OfferDetails isSquare key={offer._id} {...offer} />
+    <OfferDetails isSquare={isSquare} key={offer._id} {...offer} />
   ))
 
   return (

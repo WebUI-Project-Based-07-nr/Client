@@ -7,7 +7,7 @@ const FindOffers = () => {
   return (
     <>
       <ToggleButtons alignment={alignment} setAlignment={setAlignment} />
-      <OfferCards />
+      <OfferCards isSquare={alignment === 'left' ? false : true}/>
     </>
   )
 }
