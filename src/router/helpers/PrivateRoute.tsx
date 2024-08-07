@@ -12,9 +12,9 @@ const PrivateRoute: FC<PrivateRouteProps> = ({ role }) => {
   const context = useOutletContext()
   const { userRole } = useAppSelector((state) => state.appMain)
 
-  // if (!userRole || !role.includes(userRole)) {
-  //   return <Navigate replace to={errorRoutes.authPolicy.path} />
-  // }
+  if (!userRole || !role.includes(userRole)) {
+    return <Navigate replace to={errorRoutes.authPolicy.path} />
+  }
 
   return <Outlet context={context} />
 }
