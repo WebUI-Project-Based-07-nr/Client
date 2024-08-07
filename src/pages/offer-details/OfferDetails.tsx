@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { Card, CardContent, CardHeader, Typography, Box } from '@mui/material'
 
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
@@ -14,39 +14,67 @@ import SpokenLanguages from '~/components/spoken-languages/SpokenLanguages'
 import OffersTitle from '~/components/offers-title/OffersTitle'
 
 import OfferButtons from '~/components/offer-buttons/OfferButtons'
+import { Offer } from '~/types'
 
-const OfferDetails = ({ isSquare = false }) => {
+interface OfferDetailsProps extends Offer {
+  isSquare: boolean
+}
+
+const OfferDetails: FC<OfferDetailsProps> = ({
+  title,
+  price,
+  description,
+  languages,
+  author,
+  proficiencyLevel,
+  isSquare = false
+}) => {
   const styles = stylesFunc(isSquare)
 
   return (
     <Card sx={styles.card}>
       <CardHeader
-        avatar={<AuthorProfilePicture />}
+        avatar={<AuthorProfilePicture authorId={author._id} />}
         subheader={
           <Box sx={styles.avatarContainer}>
-            <AuthorProfileName />
-            <SpokenLanguages isSquare={isSquare} phoneVersion />
-            <AuthorProfileRating isSquare={isSquare} phoneVersion />
+            <AuthorProfileName author={author} />
+            <SpokenLanguages
+              isSquare={isSquare}
+              phoneVersion
+              spokenLanguages={languages}
+            />
+            <AuthorProfileRating
+              isSquare={isSquare}
+              phoneVersion
+              rating={author.averageRating}
+              reviewCount={author.totalReviews}
+            />
           </Box>
         }
         sx={styles.cardHeader}
       />
       <CardContent sx={styles.textContainer}>
-        <OffersTitle isSquare={isSquare} />
-        <StudySubjectsChips isSquare={isSquare} />
+        <OffersTitle isSquare={isSquare} title={description} />
+        <StudySubjectsChips
+          isSquare={isSquare}
+          level={proficiencyLevel}
+          subjectName={title}
+        />
         <Typography paragraph sx={styles.description} variant='body2'>
-          Hello. There are many variations of passages of Lorem Ipsum available,
-          but the majority have suffered alteration in some form, by injected
-          humour, or randomized words which don&apos;t look even slightly
-          believable...
+          {/* there must be author comment */}
         </Typography>
         <SpokenLanguages isSquare={isSquare} phoneVersion={false} />
       </CardContent>
       <Box sx={styles.priceContainer}>
         <Box sx={styles.ratingPhoneContainer}>
-          <PricePerHour />
+          <PricePerHour price={price} />
           <Box>
-            <AuthorProfileRating isSquare={isSquare} phoneVersion={false} />
+            <AuthorProfileRating
+              isSquare={isSquare}
+              phoneVersion={false}
+              rating={author.averageRating}
+              reviewCount={author.totalReviews}
+            />
           </Box>
         </Box>
         <BookmarkBorderIcon sx={styles.iconPosition} />

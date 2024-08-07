@@ -2,18 +2,17 @@ import { styleFunc } from '~/components/study-subjects-chips/StudySubjectsChips.
 import { Typography, Chip, Box, Stack } from '@mui/material'
 import { FC } from 'react'
 
-import { props } from './mockValues'
 import { useTranslation } from 'react-i18next'
 
 interface StudySubjectsChipsProps {
   subjectName?: string
-  level?: string
+  level: string
   isSquare: boolean
 }
 
 const StudySubjectsChips: FC<StudySubjectsChipsProps> = ({
-  subjectName = props.subjectName,
-  level = props.level,
+  subjectName,
+  level,
   isSquare
 }) => {
   const { t } = useTranslation()

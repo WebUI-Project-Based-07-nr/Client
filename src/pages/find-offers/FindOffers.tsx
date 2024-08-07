@@ -1,8 +1,8 @@
 // import PageWrapper from '~/components/page-wrapper/PageWrapper'
-import OfferDetails from '~/pages/offer-details/OfferDetails'
+import OfferCards from '~/containers/offer-cards/OfferCards'
 
 const FindOffers = () => {
-  return <OfferDetails />
+  return <OfferCards />
 }
 
 export default FindOffers
