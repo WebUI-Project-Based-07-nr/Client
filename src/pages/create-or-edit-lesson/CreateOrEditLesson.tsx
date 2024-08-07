@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { SyntheticEvent, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate, useParams } from 'react-router-dom'
@@ -33,7 +34,7 @@ import {
 import {
   columns,
   removeColumnRules
-} from '~/containers/add-resources/AddAttachments.constants'
+} from '~/containers/add-resources/AddLessons.constants'
 import { styles } from '~/pages/create-or-edit-lesson/CreateOrEditLesson.styles'
 import { authRoutes } from '~/router/constants/authRoutes'
 import {

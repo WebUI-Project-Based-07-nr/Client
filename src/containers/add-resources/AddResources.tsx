@@ -20,7 +20,9 @@ import {
   TableColumn,
   RemoveColumnRules,
   Question,
-  ServiceFunction
+  ServiceFunction,
+  resource,
+  item
 } from '~/types'
 
 interface AddResourcesProps<T extends CourseResources | Question> {
@@ -44,7 +46,7 @@ const AddResources = <T extends CourseResources | Question>({
   const { closeModal } = useModalContext()
   const { setAlert } = useSnackBarContext()
   const breakpoints = useBreakpoints()
-  const initialSelect = resources.map((resource) => resource._id)
+  const initialSelect = resources.map((resource: resource) => resource._id)
   const select = useSelect({ initialSelect })
   const sortOptions = useSort({ initialSort })
 
@@ -75,9 +77,9 @@ const AddResources = <T extends CourseResources | Question>({
   })
 
   const onRowClick = (item: T) => {
-    if (selectedRows.find((resource) => resource._id === item._id)) {
+    if (selectedRows.find((resource: resource) => resource._id === item._id)) {
       setSelectedRows((selectedRows) =>
-        selectedRows.filter((resource) => resource._id !== item._id)
+        selectedRows.filter((resource: resource) => resource._id !== item._id)
       )
     } else {
       setSelectedRows((selectedRows) => [...selectedRows, item])
@@ -92,7 +94,7 @@ const AddResources = <T extends CourseResources | Question>({
 
   const getItems = useCallback(
     (inputValue: string, selectedCategories: string[]) => {
-      return response.items.filter((item) => {
+      return response.items.filter((item: item) => {
         let titleMatch
         if ('title' in item) {
           titleMatch = item.title

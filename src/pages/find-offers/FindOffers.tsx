@@ -1,23 +1,19 @@
-import { Box } from '@mui/material'
-import PageWrapper from '~/components/page-wrapper/PageWrapper'
-import SortMenu from '~/components/sort-menu/SortMenu'
 
+import * as React from 'react'
+import SortMenu from '~/components/sort-menu/SortMenu'
+import OfferDetails from '~/pages/offer-details/OfferDetails'
+import ToggleButtons from '~/components/toggle-button/ToggleButtons'
+        
 const FindOffers = () => {
+  const [alignment, setAlignment] = React.useState<string>('left')
   const items = ['Newest', 'Rating', 'Price low-high', 'Price high-low']
   return (
-    <PageWrapper>
-      <Box
-        alignItems='center'
-        display='Flex'
-        flexDirection='row-reverse'
-        gap='5px'
-      >
-        <Box>
-          <SortMenu items={items} />
-        </Box>
-      </Box>
-    </PageWrapper>
-  )
+    <>
+      <SortMenu items={items} />
+      <ToggleButtons alignment={alignment} setAlignment={setAlignment} />
+      <OfferDetails />
+    </>   
+)
 }
 
 export default FindOffers
