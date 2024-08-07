@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { styles } from '~/components/author-profile-picture/AuthorProfilePicture.styles'
 import { Avatar } from '@mui/material'
 import { FC, useCallback } from 'react'
 import { useNavigate } from 'react-router'
-
 import { userService } from '~/services/user-service'
 import {
   ErrorResponse,
@@ -21,8 +19,8 @@ interface ProfileAvatar {
 
 const AuthorProfilePicture: FC<ProfileAvatar> = ({ authorId }) => {
   const { setAlert } = useSnackBarContext()
-
   const navigate = useNavigate()
+
   const openProfile = () => {
     navigate('/')
   }
@@ -36,6 +34,7 @@ const AuthorProfilePicture: FC<ProfileAvatar> = ({ authorId }) => {
     },
     [setAlert]
   )
+
   const getOfferService = useCallback(() => {
     return userService.getUserById(authorId, UserRoleEnum.Admin)
   }, [authorId])
@@ -46,17 +45,19 @@ const AuthorProfilePicture: FC<ProfileAvatar> = ({ authorId }) => {
     onResponseError
   })
 
+  const placeholderImage =
+    'https://cdn.vectorstock.com/i/500p/08/19/gray-photo-placeholder-icon-design-ui-vector-35850819.jpg'
+
+  const userPhoto = (response as UserResponse)?.photo ?? placeholderImage
+
   return (
     <Avatar
       alt='User'
       onClick={openProfile}
-      src={
-        !loading
-          ? response.photo
-          : 'https://cdn.vectorstock.com/i/500p/08/19/gray-photo-placeholder-icon-design-ui-vector-35850819.jpg'
-      }
+      src={!loading ? userPhoto : placeholderImage}
       sx={styles.avatarImg}
     />
   )
 }
+
 export default AuthorProfilePicture
