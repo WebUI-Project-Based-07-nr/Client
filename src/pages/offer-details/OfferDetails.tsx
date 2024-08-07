@@ -62,8 +62,15 @@ const OfferDetails: FC<OfferDetailsProps> = ({
         />
         <Typography paragraph sx={styles.description} variant='body2'>
           {/* there must be author comment */}
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Culpa minus
+          est nisi ipsa nihil quos, a placeat voluptas at quae voluptate eius
+          dolorem sapiente voluptatibus optio numquam cumque molestiae possimus!
         </Typography>
-        <SpokenLanguages isSquare={isSquare} phoneVersion={false} />
+        <SpokenLanguages
+          isSquare={isSquare}
+          phoneVersion={false}
+          spokenLanguages={languages}
+        />
       </CardContent>
       <Box sx={styles.priceContainer}>
         <Box sx={styles.ratingPhoneContainer}>
