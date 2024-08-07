@@ -21,7 +21,7 @@ describe('EnhacedTablePagination', () => {
   }
 
   beforeEach(() => {
-    render(<EnhancedTablePagination pagination={paginationProps}/>)
+    render(<EnhancedTablePagination pagination={paginationProps} />)
   })
   test('should render the first page', () => {
     expect(screen.getByText(/1-10.*of .*50/)).toBeInTheDocument()

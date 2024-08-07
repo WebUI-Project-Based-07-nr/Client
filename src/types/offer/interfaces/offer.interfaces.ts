@@ -1,4 +1,5 @@
 import { ButtonProps } from '@mui/material/Button'
+
 import {
   ProficiencyLevelEnum,
   CommonEntityFields,
@@ -8,7 +9,10 @@ import {
   Faq,
   UserRoleEnum,
   CategoryInterface,
-  StatusEnum
+  StatusEnum,
+  RequestParams,
+  CategoryNameInterface,
+  Answer
 } from '~/types'
 
 export interface Offer extends CommonEntityFields {
@@ -17,7 +21,6 @@ export interface Offer extends CommonEntityFields {
   proficiencyLevel: ProficiencyLevelEnum[]
   description: string
   languages: LanguagesEnum[]
-  enrolledUsers: string[]
   authorRole: UserRoleEnum.Tutor | UserRoleEnum.Student
   author: Pick<
     UserResponse,
@@ -55,4 +58,38 @@ export interface PriceRangeResponse {
 export interface GetOffersResponse {
   items: Offer[]
   count: number
+}
+
+export interface GetOfferParams extends Partial<RequestParams> {
+  title?: string
+  fileName?: string
+}
+
+export interface GetOffer extends Omit<Offer, 'category'> {
+  category: string | null
+}
+
+export interface OfferForm
+  extends Omit<Offer, 'author' | 'category' | keyof CommonEntityFields> {
+  openAnswer?: string
+  category: string | CategoryNameInterface | null
+  answers: OfferFormAnswer[]
+}
+
+export interface CreateOfferData extends Omit<OfferForm, 'answers'> {
+  answers: Answer[]
+}
+
+export interface OfferFormAnswer extends Offer {
+  id: number
+}
+
+export interface UpdateOfferParams {
+  title: Offer['title']
+  id: Offer['_id']
+  price: Offer['price']
+  category: CategoryNameInterface | string | null
+  languages: Offer['languages']
+  status: Offer['status']
+  subject: Offer['subject']
 }

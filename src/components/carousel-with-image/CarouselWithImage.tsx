@@ -21,29 +21,27 @@ const CarouselWithImage: FC<CarouselWithImageProps> = ({ items }) => {
     setActiveStep(step)
   }
 
-  const carouselWrapper = items.map((item) => (
-    <Box data-testid='carousel' key={item.title} sx={styles.feature}>
+  return (
+    <Box data-testid='carousel' sx={styles.feature}>
       <Box
-        alt={item.image}
+        alt={items[0].image}
         component='img'
-        src={item.image}
+        src={items[0].image}
         sx={styles.image}
       />
-      <Box sx={styles.text}>
-        <Typography sx={styles.title}>{t(item.title)}</Typography>
-        <Typography sx={styles.description}>{t(item.description)}</Typography>
-      </Box>
-    </Box>
-  ))
-
-  return (
-    <>
       <SwipeableViews
         enableMouseEvents
         index={activeStep}
         onChangeIndex={handleStepChange}
       >
-        {carouselWrapper}
+        {items.map((item, index) => (
+          <Box key={index} sx={styles.text}>
+            <Typography sx={styles.title}>{t(item.title)}</Typography>
+            <Typography sx={styles.description}>
+              {t(item.description)}
+            </Typography>
+          </Box>
+        ))}
       </SwipeableViews>
       <MobileStepper
         activeStep={activeStep}
@@ -54,7 +52,8 @@ const CarouselWithImage: FC<CarouselWithImageProps> = ({ items }) => {
         sx={styles.steper}
         variant='dots'
       />
-    </>
+    </Box>
   )
 }
+
 export default CarouselWithImage
