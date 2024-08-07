@@ -32,15 +32,15 @@ export const styles = {
       alignItems: 'center',
       width: '100%',
       margin: '0',
-      padding: '0',
+      padding: '0'
     }
   },
   img: {
     '@media (max-width:380px)': {
       maxWidth: '200px',
       height: 'auto',
-    marginBottom:'10%'
-    },
+      marginBottom: '10%'
+    }
   },
   desktopText: {
     display: 'block',
@@ -64,10 +64,10 @@ export const styles = {
     gap: '16px',
     '@media (max-width:768px)': {
       textAlign: 'center',
-      width: '100%',
+      width: '100%'
     },
     '@media (max-width:380px)': {
-      textAlign: 'left',
+      textAlign: 'left'
     }
   },
   row: {
@@ -76,7 +76,7 @@ export const styles = {
     gap: '16px',
     justifyContent: 'center',
     '@media (max-width:768px)': {
-      gap: '16px',
+      gap: '16px'
     }
   },
   halfWidth: {
@@ -88,9 +88,9 @@ export const styles = {
       marginBottom: '16px'
     },
     '@media (max-width:380px)': {
-      width: '100%', 
-      minWidth: '300px', 
-      maxWidth: '300px' 
+      width: '100%',
+      minWidth: '300px',
+      maxWidth: '300px'
     }
   },
   fullWidth: {
@@ -101,21 +101,18 @@ export const styles = {
     '@media (max-width:768px)': {
       marginBottom: '16px'
     },
-    '@media (max-width:380px)': {
-     
-    }
+    '@media (max-width:380px)': {}
   },
   charCount: {
     textAlign: 'left',
     color: 'grey',
     '@media (max-width:768px)': {
-      textAlign: 'center',
+      textAlign: 'center'
     },
     '@media (max-width:380px)': {
       textAlign: 'right',
       position: 'absolute',
-      right: '5px',
-
+      right: '5px'
     }
   },
   charCountWrapper: {
@@ -124,7 +121,7 @@ export const styles = {
       display: 'none'
     },
     '@media (max-width:380px)': {
-      display: 'block',
+      display: 'block'
     }
   },
   largeInput: {
@@ -133,7 +130,7 @@ export const styles = {
     width: '100%',
     '@media (max-width:768px)': {
       width: '100%'
-    },
+    }
   },
   buttonsContainer: {
     justifyContent: 'space-between',
@@ -142,7 +139,7 @@ export const styles = {
       flexDirection: 'column',
       width: '100%',
       marginTop: '20px',
-      bottom: '20px',
+      bottom: '20px'
     },
     '@media (max-width:380px)': {
       marginTop: '88px',
