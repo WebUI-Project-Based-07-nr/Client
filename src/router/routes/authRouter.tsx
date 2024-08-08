@@ -21,6 +21,7 @@ const Subjects = lazy(() => import('~/pages/subjects/Subjects'))
 const FindOffers = lazy(() => import('~/pages/find-offers/FindOffers'))
 const TutorProfile = lazy(() => import('~/pages/tutor-profile/TutorProfile'))
 const MyResources = lazy(() => import('~/pages/my-resources/MyResources'))
+const Category = lazy(() => import('~/pages/categories/Category'))
 
 const CreateOrEditQuestion = lazy(
   () => import('~/pages/create-or-edit-question/CreateOrEditQuestion')
@@ -34,6 +35,11 @@ export const authRouter = (
       element={<Categories />}
       handle={{ crumb: categories }}
       path={authRoutes.categories.route}
+    />
+     <Route
+      element={<Category />}
+      handle={{ crumb: categories }}
+      path={authRoutes.category.route}
     />
     <Route
       element={<Subjects />}

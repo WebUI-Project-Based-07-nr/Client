@@ -16,6 +16,7 @@ import Faq from '~/containers/guest-home-page/faq/Faq'
 import WhoWeAre from '~/containers/guest-home-page/who-we-are/WhoWeAre'
 import { useModalContext } from '~/context/modal-context'
 import { styles } from '~/pages/guest-home-page/GuestHome.styles'
+import Categories from '~/pages/categories/Categories'
 
 const GuestHomePage = () => {
   const { openModal } = useModalContext()
@@ -52,6 +53,8 @@ const GuestHomePage = () => {
         <FeatureBlock items={descriptionTimes} />
         <WhatCanYouDo />
         <HowItWorks />
+        {/* <Category/> */}
+        <Categories/>
         <Faq />
         <WhoWeAre />
       </PageWrapper>
