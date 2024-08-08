@@ -32,14 +32,10 @@ const TitleWithDescription = ({
       <Typography sx={style.title}>{title}</Typography>
       {isDescriptionTooltip ? (
         <Tooltip open={tooltipVisible} placement='bottom' title={description}>
-          <Typography onClick={handleTooltip} sx={style.description}>
-            {description}
-          </Typography>
+          <Typography onClick={handleTooltip}>{description}</Typography>
         </Tooltip>
       ) : (
-        <Typography onClick={handleTooltip} sx={style.description}>
-          {description}
-        </Typography>
+        <Typography onClick={handleTooltip}>{description}</Typography>
       )}
     </Box>
   )
