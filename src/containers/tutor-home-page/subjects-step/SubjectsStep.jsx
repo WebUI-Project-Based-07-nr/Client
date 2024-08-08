@@ -81,7 +81,6 @@ const SubjectsStep = ({ btnsBox }) => {
         <Box sx={styles.selectContainer}>
           <AppSelect
             fields={categoryOptions}
-            hideTriangleIcon
             label={t('becomeTutor.categories.mainSubjectsLabel')}
             setValue={handleCategoryChange}
             sx={styles.select}
@@ -89,7 +88,6 @@ const SubjectsStep = ({ btnsBox }) => {
           />
           <AppSelect
             fields={subjectOptions}
-            hideTriangleIcon
             label={t('becomeTutor.categories.subjectLabel')}
             setValue={handleSubjectChange}
             sx={styles.select}
