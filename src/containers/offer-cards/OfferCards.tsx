@@ -33,7 +33,7 @@ const OfferCards: FC<{ isSquare?: boolean }> = ({ isSquare = true }) => {
       onResponseError
     }
   )
-  console.log(response.items)
+
   const mappedCards = response.items.map((offer) => (
     <OfferDetails isSquare={isSquare} key={offer._id} {...offer} />
   ))
