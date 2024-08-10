@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { createElement, useCallback } from 'react'
 import PageWrapper from '~/components/page-wrapper/PageWrapper'
 import { MusicNote, Language, Tag } from '@mui/icons-material'
 import DesignServicesIcon from '@mui/icons-material/DesignServices'
@@ -9,53 +9,60 @@ import AccountBalanceIcon from '@mui/icons-material/AccountBalance'
 import SubjectIcon from '@mui/icons-material/Subject'
 import ScienceIcon from '@mui/icons-material/Science'
 import GradeIcon from '@mui/icons-material/Grade'
-import { Typography } from '@mui/material'
+import { Typography, Icon } from '@mui/material'
 import Box from '@mui/material/Box'
 import { Link } from 'react-router-dom'
 import { styles } from './Categories.styles'
 import { categoryService } from '~/services/category-service'
-
-const categories = [
-  { name: 'Languages', offers: 234, icon: <Language style={{ color: 'green' }} /> },
-  { name: 'Mathematics', offers: 234, icon: <Tag style={{ color: 'orange' }} /> },
-  { name: 'Computer science', offers: 234, icon: <ComputerIcon style={{ color: 'gray' }} /> },
-  { name: 'Music', offers: 234, icon: <MusicNote style={{ color: 'red' }} /> },
-  { name: 'Design', offers: 234, icon: <DesignServicesIcon /> },
-  { name: 'History', offers: 234, icon: <Language style={{ color: 'red' }} /> },
-  { name: 'Biology', offers: 234, icon: <BiotechIcon /> },
-  { name: 'Painting', offers: 234, icon: <ColorLensIcon style={{ color: 'green' }} /> },
-  { name: 'Finances', offers: 234, icon: <AccountBalanceIcon style={{ color: 'orange' }} /> },
-  { name: 'Audit', offers: 234, icon: <SubjectIcon style={{ color: 'red' }} /> },
-  { name: 'Chemistry', offers: 234, icon: <ScienceIcon style={{ color: 'red' }} /> },
-  { name: 'Astronomy', offers: 234, icon: <GradeIcon /> },
-  { name: 'Languages', offers: 234, icon: <Language style={{ color: 'green' }} /> },
-  { name: 'Mathematics', offers: 234, icon: <Tag style={{ color: 'orange' }} /> },
-  { name: 'Computer science', offers: 234, icon: <ComputerIcon style={{ color: 'gray' }} /> },
-  { name: 'Music', offers: 234, icon: <MusicNote style={{ color: 'red' }} /> },
-  { name: 'Design', offers: 234, icon: <DesignServicesIcon /> },
-  { name: 'History', offers: 234, icon: <Language style={{ color: 'red' }} /> },
-]
+import useAxios from '~/hooks/use-axios'
+import { ItemsWithCount, ErrorResponse, GetResourcesCategoriesParams, CategoryInterface } from '~/types'
+import { defaultResponses, snackbarVariants } from '~/constants'
+import { useSnackBarContext } from '~/context/snackbar-context'
+import DynamicIcon from './DynamicIcon'
+import * as MuiIcons from '@mui/icons-material';
+import IconResolver from './DynamicIcon'
 
 const Categories: React.FC = () => {
-  useEffect(() => {
-     const getData = async() => {
-      await categoryService.getCategories()
-    }
+  const { setAlert } = useSnackBarContext()
 
-    getData()
+  const onResponseError = useCallback(
+    (error: ErrorResponse) => {
+      setAlert({
+        severity: snackbarVariants.error,
+        message: error ? `errors.${error.code}` : ''
+      })
+    },
+    [setAlert]
+  )
+  
+  const getCategories = useCallback(() => {
+    return categoryService.getCategories()
   }, [])
+
+
+  const { response, loading, fetchData } = useAxios<
+    ItemsWithCount<CategoryInterface>,
+    GetResourcesCategoriesParams
+  >({
+    service : getCategories,
+    defaultResponse: defaultResponses.itemsWithCount,
+    onResponseError
+  })
 
   return (
     <PageWrapper>
       <Box sx={styles.categoriesGrid}>
-        {categories.map((category, index) => (
+        {response.items.map((category, index) => (
           <Link
             to={`/subject/${category.name.toLowerCase()}`}
             state={{ categoryName: category.name }}
             key={index}
+            style={{textDecoration: 'none'}}
           >
             <Box sx={styles.categoryCard}>
-              <Box sx={styles.categoryIcon}>{category.icon}</Box>
+              <Box sx={{...styles.categoryIcon}}>
+                <IconResolver sx={{color: category.appearance.color}} iconName={category.appearance.icon} fontSize="large" />
+              </Box>
               <Box sx={styles.categoryInfo}>
                 <Typography
                   component="h3"
@@ -65,6 +72,7 @@ const Categories: React.FC = () => {
                     fontSize: '20px',
                     lineHeight: '28px',
                     letterSpacing: '0.15px',
+                    color: 'black'
                   }}
                   variant="h6"
                 >
@@ -81,7 +89,7 @@ const Categories: React.FC = () => {
                   }}
                   variant="body2"
                 >
-                  {category.offers} Offers
+                  Offers 234
                 </Typography>
               </Box>
             </Box>

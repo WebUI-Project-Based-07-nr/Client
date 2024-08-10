@@ -27,6 +27,7 @@ export interface CategoryInterface {
   totalOffers: DataByRole<number>
   createdAt: string
   updatedAt: string
+  icon: string
 }
 
 export interface CategoryNameInterface {

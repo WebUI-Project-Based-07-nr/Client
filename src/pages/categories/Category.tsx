@@ -15,80 +15,25 @@ import useBreakpoints from '~/hooks/use-breakpoints'
 import AppToolbar from '~/components/app-toolbar/AppToolbar'
 import AsyncAutocomplete from '~/components/async-autocomlete/AsyncAutocomplete'
 import { useSearchParams } from 'react-router-dom'
-import { subjectService } from '~/services/subject-service'
 import useLoadMore from '~/hooks/use-load-more'
 import { getScreenBasedLimit } from '~/utils/helper-functions'
-import { itemsLoadLimit } from '~/constants'
+import { itemsLoadLimit, snackbarVariants } from '~/constants'
 import { categoryService } from '~/services/category-service'
+import { subjectService } from '~/services/subject-service'
 import useSubjectsNames from '~/hooks/use-subjects-names'
 import { mapArrayByField } from '~/utils/map-array-by-field'
 import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router-dom'
 import { useCallback, useMemo, useState } from 'react'
 import SearchAutocomplete from '~/components/search-autocomplete/SearchAutocomplete'
-
-const categories = [
-  {
-    name: 'Languages',
-    offers: 234,
-    icon: <Language style={{ color: 'green' }} />
-  },
-  {
-    name: 'Mathematics',
-    offers: 234,
-    icon: <Tag style={{ color: 'orange' }} />
-  },
-  {
-    name: 'Computer science',
-    offers: 234,
-    icon: <ComputerIcon style={{ color: 'gray' }} />
-  },
-  { name: 'Music', offers: 234, icon: <MusicNote style={{ color: 'red' }} /> },
-  { name: 'Design', offers: 234, icon: <DesignServicesIcon /> },
-  { name: 'History', offers: 234, icon: <Language style={{ color: 'red' }} /> },
-  { name: 'Biology', offers: 234, icon: <BiotechIcon /> },
-  {
-    name: 'Painting',
-    offers: 234,
-    icon: <ColorLensIcon style={{ color: 'green' }} />
-  },
-  {
-    name: 'Finances',
-    offers: 234,
-    icon: <AccountBalanceIcon style={{ color: 'orange' }} />
-  },
-  {
-    name: 'Audit',
-    offers: 234,
-    icon: <SubjectIcon style={{ color: 'red' }} />
-  },
-  {
-    name: 'Chemistry',
-    offers: 234,
-    icon: <ScienceIcon style={{ color: 'red' }} />
-  },
-  { name: 'Astronomy', offers: 234, icon: <GradeIcon /> },
-  {
-    name: 'Languages',
-    offers: 234,
-    icon: <Language style={{ color: 'green' }} />
-  },
-  {
-    name: 'Mathematics',
-    offers: 234,
-    icon: <Tag style={{ color: 'orange' }} />
-  },
-  {
-    name: 'Computer science',
-    offers: 234,
-    icon: <ComputerIcon style={{ color: 'gray' }} />
-  },
-  { name: 'Music', offers: 234, icon: <MusicNote style={{ color: 'red' }} /> },
-  { name: 'Design', offers: 234, icon: <DesignServicesIcon /> },
-  { name: 'History', offers: 234, icon: <Language style={{ color: 'red' }} /> }
-]
+import { defaultResponses } from '~/constants'
+import { useSnackBarContext } from '~/context/snackbar-context'
+import { CategoryInterface, ErrorResponse, GetResourcesCategoriesParams, ItemsWithCount, SubjectInterface } from '~/types'
+import IconResolver from './DynamicIcon'
+import useAxios from '~/hooks/use-axios'
 
 const Category = () => {
+  
   const location = useLocation()
   const breakpoints = useBreakpoints()
   const [match, setMatch] = useState('')
@@ -102,10 +47,6 @@ const Category = () => {
   const [isFetched, setIsFetched] = useState(false)
   const { t } = useTranslation()
 
-  const getSubjects = useCallback(
-    (data) => subjectService.getSubjects(data, categoryId),
-    [categoryId]
-  )
 
   const {
     data: subjects,
@@ -118,6 +59,8 @@ const Category = () => {
     limit: cardsLimit,
     params
   })
+
+  const { setAlert } = useSnackBarContext()
 
   const onCategoryChange = (_, value) => {
     setIsFetched(false)
@@ -166,12 +109,38 @@ const Category = () => {
   const handleCategoryClick = () => {}
   const handleSubjectClick = () => {}
 
+  const onResponseError = useCallback(
+    (error: ErrorResponse) => {
+      setAlert({
+        severity: snackbarVariants.error,
+        message: error ? `errors.${error.code}` : ''
+      })
+    },
+    [setAlert]
+  )
+  
+  const getSubjects = useCallback(() => {
+    return subjectService.getSubjects()
+  }, [])
+
+
+
+  const { response, loading } = useAxios<
+    ItemsWithCount<SubjectInterface>,
+    GetResourcesCategoriesParams
+  >({
+    service : getSubjects,
+    defaultResponse: defaultResponses.itemsWithCount,
+    onResponseError
+  })
+
+ 
+console.log('response', response)
+
+
   return (
     <PageWrapper>
-      <Typography
-        sx={{ margin:'0 auto', marginBottom: '40px' }}
-        variant='h4'
-      >
+      <Typography sx={{ margin: '0 auto', marginBottom: '40px' }} variant='h4'>
         {categoryName} Subjects
       </Typography>
 
@@ -214,38 +183,51 @@ const Category = () => {
         </Typography>
       </Box>
       <Box sx={styles.categoriesGrid}>
-        {categories.map((category, index) => (
-          <Box key={index} sx={styles.categoryCard}>
-            <Box sx={styles.categoryIcon}>{category.icon}</Box>
-            <Box sx={styles.categoryInfo}>
-              <Typography
-                component='h3'
-                style={{
-                  fontFamily: 'Rubik',
-                  fontWeight: 500,
-                  fontSize: '20px',
-                  lineHeight: '28px',
-                  letterSpacing: '0.15px'
-                }}
-                variant='h6'
-              >
-                {category.name}
-              </Typography>
-              <Typography
-                style={{
-                  fontFamily: 'Rubik',
-                  fontWeight: 400,
-                  fontSize: '14px',
-                  lineHeight: '20px',
-                  letterSpacing: '0.0025em',
-                  color: '#888'
-                }}
-                variant='body2'
-              >
-                {category.offers} Offers
-              </Typography>
+        {response.items.map((category, index) => (
+          <Link
+            to={`/subject/${subjects.name.toLowerCase()}`}
+            key={index}
+            style={{ textDecoration: 'none' }}
+          >
+            <Box sx={styles.categoryCard}>
+              <Box sx={{ ...styles.categoryIcon }}>
+                <IconResolver
+                  sx={{ color: category.appearance.color }}
+                  iconName={category.appearance.icon}
+                  fontSize='large'
+                />
+              </Box>
+              <Box sx={styles.categoryInfo}>
+                <Typography
+                  component='h3'
+                  style={{
+                    fontFamily: 'Rubik',
+                    fontWeight: 500,
+                    fontSize: '20px',
+                    lineHeight: '28px',
+                    letterSpacing: '0.15px',
+                    color: 'black'
+                  }}
+                  variant='h6'
+                >
+                  {category.name}
+                </Typography>
+                <Typography
+                  style={{
+                    fontFamily: 'Rubik',
+                    fontWeight: 400,
+                    fontSize: '14px',
+                    lineHeight: '20px',
+                    letterSpacing: '0.0025em',
+                    color: '#888'
+                  }}
+                  variant='body2'
+                >
+                  Offers 234
+                </Typography>
+              </Box>
             </Box>
-          </Box>
+          </Link>
         ))}
       </Box>
     </PageWrapper>
