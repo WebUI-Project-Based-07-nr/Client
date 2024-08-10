@@ -6,12 +6,12 @@ export const stylesFunc = (isSquare: boolean) => {
   return {
     card: {
       display: 'flex',
+      alignItems: 'flex-start',
       flexDirection: 'row',
       boxShadow: 3,
       margin: 'auto',
       padding: '31px 20px',
       maxWidth: '800px',
-      alignItems: 'center',
       gap: '24px',
       [mediaQuery]: {
         padding: '0 20px 24px',

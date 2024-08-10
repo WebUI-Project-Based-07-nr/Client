@@ -27,7 +27,8 @@ const OfferDetails: FC<OfferDetailsProps> = ({
   languages,
   author,
   proficiencyLevel,
-  isSquare = false
+  isSquare = false,
+  subject
 }) => {
   const styles = stylesFunc(isSquare)
 
@@ -54,17 +55,14 @@ const OfferDetails: FC<OfferDetailsProps> = ({
         sx={styles.cardHeader}
       />
       <CardContent sx={styles.textContainer}>
-        <OffersTitle isSquare={isSquare} title={description} />
+        <OffersTitle isSquare={isSquare} title={title} />
         <StudySubjectsChips
           isSquare={isSquare}
           level={proficiencyLevel}
-          subjectName={title}
+          subjectName={subject?.name}
         />
         <Typography paragraph sx={styles.description} variant='body2'>
-          {/* there must be author comment */}
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Culpa minus
-          est nisi ipsa nihil quos, a placeat voluptas at quae voluptate eius
-          dolorem sapiente voluptatibus optio numquam cumque molestiae possimus!
+          {description}
         </Typography>
         <SpokenLanguages
           isSquare={isSquare}
