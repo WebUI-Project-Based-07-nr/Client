@@ -5,22 +5,43 @@ import OfferCards from '~/containers/offer-cards/OfferCards'
 import ToggleButtons from '~/components/toggle-button/ToggleButtons'
 import SortMenu from '~/components/sort-menu/SortMenu'
 import { useTranslation } from 'react-i18next'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import AppContentSwitcher from '~/components/app-content-switcher/AppContentSwitcher'
 
 import { GetOfferParams, TypographyVariantEnum } from '~/types'
+import { useSearchParams } from 'react-router-dom'
+import { student, tutor } from '~/constants'
 import { styles } from '~/containers/guest-home-page/how-it-works/HowItWorks.styles'
 
 const FindOffers = () => {
-  const [alignment, setAlignment] = React.useState<string>('left')
+  const { t } = useTranslation()
+  const [alignment, setAlignment] = useState<string>('left')
+  const [searchParams, setSearchParams] = useSearchParams()
+  const [isTutor, setIsTutor] = useState(
+    searchParams.get('authorRole') === tutor
+  )
+
+  const [requestParams, setRequestParams] = useState<GetOfferParams>({
+    authorRole: isTutor ? tutor : student
+  })
+
+  useEffect(() => {
+    const queryParams: Record<string, string> = {
+      authorRole: requestParams.authorRole || student
+    }
+    setSearchParams(queryParams)
+  }, [requestParams, setSearchParams])
+
   const items = ['Newest', 'Rating', 'Price low-high', 'Price high-low']
 
-  const { t } = useTranslation()
-
-  const [isTutor, setIsTutor] = useState(false)
-
   const onChange = () => {
-    setIsTutor(!isTutor)
+    const newIsTutor = !isTutor
+    setIsTutor(newIsTutor)
+
+    setRequestParams((prevParams) => ({
+      ...prevParams,
+      authorRole: newIsTutor ? tutor : student
+    }))
   }
 
   const switchOptions = {
@@ -30,9 +51,6 @@ const FindOffers = () => {
     right: {
       text: t('findOffers.topMenu.studentsRequests')
     }
-  }
-  const requestParams: GetOfferParams = {
-    authorRole: isTutor ? 'tutor' : 'student'
   }
 
   return (
@@ -51,4 +69,5 @@ const FindOffers = () => {
     </>
   )
 }
+
 export default FindOffers
