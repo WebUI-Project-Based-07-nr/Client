@@ -1,5 +1,5 @@
 import { Box } from '@mui/material'
-import { FC, useCallback } from 'react'
+import { FC, useCallback, useEffect } from 'react'
 import OfferDetails from '~/pages/offer-details/OfferDetails'
 import { styles } from './OfferCards.style'
 
@@ -10,7 +10,10 @@ import { defaultResponses, snackbarVariants } from '~/constants'
 import { useSnackBarContext } from '~/context/snackbar-context'
 import Loader from '~/components/loader/Loader'
 
-const OfferCards: FC<{ isSquare?: boolean }> = ({ isSquare = true }) => {
+const OfferCards: FC<{ isSquare?: boolean; params?: GetOfferParams }> = ({
+  isSquare = true,
+  params
+}) => {
   const { setAlert } = useSnackBarContext()
 
   const onResponseError = useCallback(
@@ -22,17 +25,23 @@ const OfferCards: FC<{ isSquare?: boolean }> = ({ isSquare = true }) => {
     },
     [setAlert]
   )
-  const getOfferService = useCallback(() => {
-    return OfferService.getOffers()
+
+  const getOfferService = useCallback((params?: GetOfferParams) => {
+    return OfferService.getOffers(params)
   }, [])
 
-  const { response, loading } = useAxios<ItemsWithCount<Offer>, GetOfferParams>(
-    {
-      service: getOfferService,
-      defaultResponse: defaultResponses.itemsWithCount,
-      onResponseError
-    }
-  )
+  const { response, loading, fetchData } = useAxios<
+    ItemsWithCount<Offer>,
+    GetOfferParams
+  >({
+    service: getOfferService,
+    defaultResponse: defaultResponses.itemsWithCount,
+    onResponseError
+  })
+
+  useEffect(() => {
+    void fetchData(params)
+  }, [params, fetchData])
 
   const mappedCards = response.items.map((offer) => (
     <OfferDetails isSquare={isSquare} key={offer._id} {...offer} />
