@@ -1,30 +1,20 @@
 import PageWrapper from '~/components/page-wrapper/PageWrapper'
-import { MusicNote, Language, Tag } from '@mui/icons-material'
-import DesignServicesIcon from '@mui/icons-material/DesignServices'
-import ComputerIcon from '@mui/icons-material/Computer'
-import BiotechIcon from '@mui/icons-material/Biotech'
-import ColorLensIcon from '@mui/icons-material/ColorLens'
-import AccountBalanceIcon from '@mui/icons-material/AccountBalance'
-import SubjectIcon from '@mui/icons-material/Subject'
-import ScienceIcon from '@mui/icons-material/Science'
-import GradeIcon from '@mui/icons-material/Grade'
 import { Typography, Link } from '@mui/material'
 import { styles } from './Categories.styles'
 import Box from '@mui/material/Box'
 import useBreakpoints from '~/hooks/use-breakpoints'
 import AppToolbar from '~/components/app-toolbar/AppToolbar'
 import AsyncAutocomplete from '~/components/async-autocomlete/AsyncAutocomplete'
-import { useSearchParams } from 'react-router-dom'
 import useLoadMore from '~/hooks/use-load-more'
 import { getScreenBasedLimit } from '~/utils/helper-functions'
 import { itemsLoadLimit, snackbarVariants } from '~/constants'
-import { categoryService } from '~/services/category-service'
+// import { categoryService } from '~/services/category-service'
 import { subjectService } from '~/services/subject-service'
-import useSubjectsNames from '~/hooks/use-subjects-names'
+// import { useSubjectsNames } from '~/hooks/use-subjects-names'
 import { mapArrayByField } from '~/utils/map-array-by-field'
 import { useTranslation } from 'react-i18next'
-import { useLocation } from 'react-router-dom'
-import { useCallback, useMemo, useState } from 'react'
+import { useLocation, useSearchParams} from 'react-router-dom'
+import { useCallback, useMemo, useState, useEffect } from 'react'
 import SearchAutocomplete from '~/components/search-autocomplete/SearchAutocomplete'
 import { defaultResponses } from '~/constants'
 import { useSnackBarContext } from '~/context/snackbar-context'
@@ -33,32 +23,32 @@ import IconResolver from './DynamicIcon'
 import useAxios from '~/hooks/use-axios'
 
 const Category = () => {
-  
+
   const location = useLocation()
   const breakpoints = useBreakpoints()
   const [match, setMatch] = useState('')
   const cardsLimit = getScreenBasedLimit(breakpoints, itemsLoadLimit)
   const params = useMemo(() => ({ name: match }), [match])
   const [searchParams, setSearchParams] = useSearchParams()
-  const categoryId = searchParams.get('categoryId') ?? ''
+  const categoryId = searchParams.get('category')
   const [categoryName, setCategoryName] = useState(
     location.state?.categoryName || ''
   )
   const [isFetched, setIsFetched] = useState(false)
   const { t } = useTranslation()
+  console.log('hey')
 
-
-  const {
-    data: subjects,
-    loading: subjectsLoading,
-    resetData,
-    loadMore,
-    isExpandable
-  } = useLoadMore({
-    service: getSubjects,
-    limit: cardsLimit,
-    params
-  })
+  // const {
+  //   data: subjects,
+  //   loading: subjectsLoading,
+  //   resetData,
+  //   loadMore,
+  //   isExpandable
+  // } = useLoadMore({
+  //   service: d,
+  //   limit: cardsLimit,
+  //   params
+  // })
 
   const { setAlert } = useSnackBarContext()
 
@@ -67,20 +57,20 @@ const Category = () => {
     searchParams.set('categoryId', value._id ?? '')
     setCategoryName(value?.name ?? '')
     setSearchParams(searchParams)
-    resetData()
+    // resetData()
   }
 
   const transform = useCallback((data) => mapArrayByField(data, 'name'), [])
 
-  const {
-    loading: subjectNamesLoading,
-    response: subjectsNamesItems,
-    fetchData
-  } = useSubjectsNames({
-    fetchOnMount: false,
-    category: categoryId,
-    transform
-  })
+  // const {
+  //   loading: subjectNamesLoading,
+  //   response: subjectsNamesItems,
+  //   fetchData
+  // } = useSubjectsNames({
+  //   fetchOnMount: false,
+  //   category: categoryId,
+  //   transform
+  // })
 
   const onResponseCategory = (response) => {
     const category = response.find((option) => option._id === categoryId)
@@ -90,22 +80,22 @@ const Category = () => {
   const autoCompleteCategories = (
     <AsyncAutocomplete
       axiosProps={{ onResponse: onResponseCategory }}
-      labelField='name'
+      // labelField='name'
       onChange={onCategoryChange}
-      service={categoryService.getCategoriesNames}
+      // service={categoryService.getCategoriesNames}
       sx={styles.categoryInput}
       textFieldProps={{
         label: t('breadCrumbs.categories')
       }}
-      value={categoryId}
-      valueField='_id'
+      // value={categoryId}
+      // valueField='_id'
     />
   )
 
-  const getSubjectNames = () => {
-    !isFetched && void fetchData()
-    setIsFetched(true)
-  }
+  // const getSubjectNames = () => {
+  //   !isFetched && void fetchData()
+  //   setIsFetched(true)
+  // }
   const handleCategoryClick = () => {}
   const handleSubjectClick = () => {}
 
@@ -118,12 +108,10 @@ const Category = () => {
     },
     [setAlert]
   )
-  
+
   const getSubjects = useCallback(() => {
-    return subjectService.getSubjects()
+    return subjectService.getSubjects(categoryId)
   }, [])
-
-
 
   const { response, loading } = useAxios<
     ItemsWithCount<SubjectInterface>,
@@ -134,7 +122,7 @@ const Category = () => {
     onResponseError
   })
 
- 
+
 console.log('response', response)
 
 
@@ -147,10 +135,10 @@ console.log('response', response)
       <AppToolbar sx={styles.searchToolbar}>
         {!breakpoints.isMobile && autoCompleteCategories}
         <SearchAutocomplete
-          loading={subjectNamesLoading}
-          onFocus={getSubjectNames}
-          onSearchChange={resetData}
-          options={subjectsNamesItems}
+          // loading={subjectNamesLoading}
+          // onFocus={getSubjectNames}
+          // onSearchChange={resetData}
+          // options={subjectsNamesItems}
           search={match}
           setSearch={setMatch}
           textFieldProps={{
@@ -183,19 +171,19 @@ console.log('response', response)
         </Typography>
       </Box>
       <Box sx={styles.categoriesGrid}>
-        {response.items.map((category, index) => (
-          <Link
-            to={`/subject/${subjects.name.toLowerCase()}`}
-            key={index}
-            style={{ textDecoration: 'none' }}
-          >
-            <Box sx={styles.categoryCard}>
+        {response.items.map((subject, index) => (
+          // <Link
+          //   to={`/subject/${subjects.name.toLowerCase()}`}
+          //   key={index}
+          //   style={{ textDecoration: 'none' }}
+          // >
+            <Box key={index} sx={styles.categoryCard}>
               <Box sx={{ ...styles.categoryIcon }}>
-                <IconResolver
-                  sx={{ color: category.appearance.color }}
-                  iconName={category.appearance.icon}
+                {/* <IconResolver
+                  sx={{ color: subject.appearance.color }}
+                  iconName={subject.appearance.icon}
                   fontSize='large'
-                />
+                /> */}
               </Box>
               <Box sx={styles.categoryInfo}>
                 <Typography
@@ -210,7 +198,7 @@ console.log('response', response)
                   }}
                   variant='h6'
                 >
-                  {category.name}
+                  {subject.name}
                 </Typography>
                 <Typography
                   style={{
@@ -227,7 +215,7 @@ console.log('response', response)
                 </Typography>
               </Box>
             </Box>
-          </Link>
+          // </Link>
         ))}
       </Box>
     </PageWrapper>

@@ -42,6 +42,10 @@ export interface SubjectInterface {
   totalOffers: DataByRole<number>
   createdAt: string
   updatedAt: string
+  appearance: {
+    color: string,
+    icon: string
+  }
 }
 
 export interface SubjectNameInterface {

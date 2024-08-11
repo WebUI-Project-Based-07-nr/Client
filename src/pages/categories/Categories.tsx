@@ -34,7 +34,7 @@ const Categories: React.FC = () => {
     },
     [setAlert]
   )
-  
+
   const getCategories = useCallback(() => {
     return categoryService.getCategories()
   }, [])
@@ -54,7 +54,7 @@ const Categories: React.FC = () => {
       <Box sx={styles.categoriesGrid}>
         {response.items.map((category, index) => (
           <Link
-            to={`/subject/${category.name.toLowerCase()}`}
+            to={`/categories/subjects?category=${category._id}`}
             state={{ categoryName: category.name }}
             key={index}
             style={{textDecoration: 'none'}}

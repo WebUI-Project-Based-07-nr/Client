@@ -10,6 +10,9 @@ export const subjectService = {
     params?: Pick<SubjectInterface, 'name'>,
     categoryId?: string
   ): Promise<AxiosResponse<ItemsWithCount<SubjectInterface>>> => {
+    console.log('URLs.categories.get', URLs.categories.get);
+    // console.log('URLs.categories.categoryID', categoryId);
+
     const category = createUrlPath(URLs.categories.get, categoryId)
     return axiosClient.get(`${category}${URLs.subjects.get}`, { params })
   },
@@ -19,5 +22,5 @@ export const subjectService = {
     const category = createUrlPath(URLs.categories.get, categoryId)
     return axiosClient.get(`${category}${URLs.subjects.getNames}`)
   },
- 
+
 }
