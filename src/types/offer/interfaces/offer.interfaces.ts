@@ -62,8 +62,15 @@ export interface GetOffersResponse {
 }
 
 export interface GetOfferParams extends Partial<RequestParams> {
-  title?: string
-  fileName?: string
+  authorRole?: string
+  price?: string
+  proficiencyLevel?: string
+  rating?: string
+  language?: string
+  languages?: string
+  nativeLanguage?: string
+  category?: string
+  subject?: string
 }
 
 export interface GetOffer extends Omit<Offer, 'category'> {
