@@ -61,9 +61,19 @@ export interface GetOffersResponse {
   count: number
 }
 
+export interface RequestOfferParams {
+  limit: number
+  skip: number
+}
+
 export interface GetOfferParams extends Partial<RequestParams> {
   title?: string
   fileName?: string
+}
+
+export interface OfferParams {
+  skip: number
+  limit: number
 }
 
 export interface GetOffer extends Omit<Offer, 'category'> {

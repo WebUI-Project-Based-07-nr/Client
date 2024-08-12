@@ -7,13 +7,16 @@ import {
   GetOffer,
   ItemsWithCount,
   Offer,
+  RequestOfferParams,
   UpdateOfferParams
 } from '~/types'
 import { createUrlPath } from '~/utils/helper-functions'
 
 export const OfferService = {
-  getOffers: (): Promise<AxiosResponse<ItemsWithCount<Offer>>> => {
-    return axiosClient.get(URLs.offers.get)
+  getOffers: (
+    params: RequestOfferParams
+  ): Promise<AxiosResponse<ItemsWithCount<Offer>>> => {
+    return axiosClient.get(URLs.offers.get, { params })
   },
   getOffer: async (id?: string): Promise<AxiosResponse<GetOffer>> =>
     await axiosClient.get(createUrlPath(URLs.offers.get, id)),
