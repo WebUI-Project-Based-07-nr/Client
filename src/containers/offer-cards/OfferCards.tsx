@@ -6,7 +6,6 @@ import { styles } from './OfferCards.style'
 import Loader from '~/components/loader/Loader'
 import { GetOffersResponse } from '~/types'
 
-
 const OfferCards: FC<{
   isSquare: boolean
   itemsPerPage: number

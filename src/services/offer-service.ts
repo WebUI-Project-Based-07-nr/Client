@@ -8,7 +8,6 @@ import {
   GetOfferParams,
   ItemsWithCount,
   Offer,
-  RequestOfferParams,
   UpdateOfferParams
 } from '~/types'
 import { createUrlPath } from '~/utils/helper-functions'
