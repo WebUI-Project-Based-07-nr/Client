@@ -75,11 +75,12 @@ const Subjects = () => {
   }
 
   const getSubjects = useCallback(
-    (data?: Pick<SubjectInterface, 'name'>) =>
-      subjectService.getSubjects(data, categoryId),
+    (data?: Pick<SubjectInterface, 'name'>) => {
+   
+      return subjectService.getSubjects(data, categoryId);
+    },
     [categoryId]
-  )
-
+  );
   const {
     data: subjects,
     loading: subjectsLoading,
