@@ -6,6 +6,7 @@ import {
 } from '~/types'
 
 export interface Quiz extends CommonEntityFields {
+  _id: string
   title: string
   description: string
   items: Question[]
