@@ -14,7 +14,7 @@ import { createUrlPath } from '~/utils/helper-functions'
 
 export const OfferService = {
   getOffers: (
-    params?: GetOfferParams
+    params: GetOfferParams
   ): Promise<AxiosResponse<ItemsWithCount<Offer>>> => {
     return axiosClient.get(URLs.offers.get, { params })
   },
