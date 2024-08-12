@@ -64,7 +64,7 @@ const SubjectsStep = ({ btnsBox }) => {
     }
   }
 
-  const handleChipsDelete = (item) => {
+  const handleChipDelete = (item) => {
     setSelectedSubjects(selectedSubjects.filter((subject) => subject !== item))
   }
 
@@ -81,7 +81,6 @@ const SubjectsStep = ({ btnsBox }) => {
         <Box sx={styles.selectContainer}>
           <AppSelect
             fields={categoryOptions}
-            hideTriangleIcon
             label={t('becomeTutor.categories.mainSubjectsLabel')}
             setValue={handleCategoryChange}
             sx={styles.select}
@@ -89,7 +88,6 @@ const SubjectsStep = ({ btnsBox }) => {
           />
           <AppSelect
             fields={subjectOptions}
-            hideTriangleIcon
             label={t('becomeTutor.categories.subjectLabel')}
             setValue={handleSubjectChange}
             sx={styles.select}
@@ -106,8 +104,8 @@ const SubjectsStep = ({ btnsBox }) => {
           {t('becomeTutor.categories.btnText')}
         </AppButton>
         <AppChipList
-          defaultQuantity={3}
-          handleChipDelete={handleChipsDelete}
+          defaultQuantity={2}
+          handleChipDelete={handleChipDelete}
           items={selectedSubjects}
           wrapperStyle={styles.chips}
         />

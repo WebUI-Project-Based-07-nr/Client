@@ -5,5 +5,9 @@
     "language": "Language",
     "subjects": "Subjects",
     "photo": "Photo"
+  },
+  "languageStep": {
+    "selectLabel": "Your native language",
+    "title": "Please select the language in which you would like to study and cooperate."
   }
 }

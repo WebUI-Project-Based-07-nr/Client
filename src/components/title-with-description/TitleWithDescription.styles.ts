@@ -7,8 +7,5 @@ export const styles = {
   },
   title: {
     marginBottom: '16px'
-  },
-  description: {
-    marginBottom: '0px'
   }
 }

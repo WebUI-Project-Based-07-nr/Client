@@ -26,5 +26,13 @@ export const styles = {
     justifyContent: 'space-between',
     m: { md: 0, xs: '0 auto' },
     pt: 0
+  },
+  title: {
+    fontSize: '16px',
+    color: '#263238',
+    fontFamily: 'Rubik'
+  },
+  placeholder: {
+    color: '#90A4AE'
   }
 }
