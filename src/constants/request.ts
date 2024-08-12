@@ -48,6 +48,12 @@ export const URLs = {
       patch: '/quizzes'
     }
   },
+  offers: {
+    get: '/offers',
+    delete: '/offers',
+    post: '/offers',
+    patch: '/offers'
+  },
   location: {
     countries: {
       get: '/location/countries'

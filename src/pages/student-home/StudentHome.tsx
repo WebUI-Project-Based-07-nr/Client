@@ -6,7 +6,6 @@ import { useModalContext } from '~/context/modal-context'
 import UserStepsWrapper from '~/components/user-steps-wrapper/UserStepsWrapper'
 import FindBlock from '~/components/find-block/FindBlock'
 import Faq from '~/containers/student-home-page/faq/Faq'
-
 import { translationKey } from '~/components/find-block/find-tutor-constants'
 
 const StudentHome = () => {
