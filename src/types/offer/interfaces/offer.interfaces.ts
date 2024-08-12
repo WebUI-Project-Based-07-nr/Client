@@ -12,13 +12,14 @@ import {
   StatusEnum,
   RequestParams,
   CategoryNameInterface,
-  Answer
+  Answer,
+  CreateOrEditQuestionForm
 } from '~/types'
 
 export interface Offer extends CommonEntityFields {
   title: string
   price: number
-  proficiencyLevel: ProficiencyLevelEnum[]
+  proficiencyLevel: ProficiencyLevelEnum
   description: string
   languages: LanguagesEnum[]
   authorRole: UserRoleEnum.Tutor | UserRoleEnum.Student
@@ -33,8 +34,8 @@ export interface Offer extends CommonEntityFields {
     | 'FAQ'
     | 'averageRating'
   >
-  subject: SubjectNameInterface
-  category: CategoryInterface
+  subject?: SubjectNameInterface
+  category?: CategoryInterface
   FAQ: Faq[]
   status: StatusEnum
 }
@@ -92,4 +93,11 @@ export interface UpdateOfferParams {
   languages: Offer['languages']
   status: Offer['status']
   subject: Offer['subject']
+}
+
+export interface CreateOfferParams {
+  title: string
+  description: string
+  items: CreateOrEditQuestionForm[]
+  category: string
 }
