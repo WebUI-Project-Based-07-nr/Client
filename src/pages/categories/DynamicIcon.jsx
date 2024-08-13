@@ -1,15 +1,15 @@
 import React from 'react';
-import * as Icons from '@mui/icons-material';
+import * as Icons from '@mui/icons-material'
 
 const IconResolver = ({ iconName, ...props }) => {
-  const IconComponent = Icons[iconName];
+  const IconComponent = Icons[iconName]
 
   if (!IconComponent) {
-    console.error(`Icon "${iconName}" not found`);
-    return null; // You can return a default icon or an empty element here
+    console.error(`Icon "${iconName}" not found`)
+    return null
   }
 
-  return <IconComponent {...props} />;
+  return <IconComponent {...props} />
 };
 
-export default IconResolver;
+export default IconResolver

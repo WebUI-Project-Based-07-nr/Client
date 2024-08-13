@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
 
@@ -8,10 +8,13 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
 import { useAppSelector } from '~/hooks/use-redux'
 import useLoadMore from '~/hooks/use-load-more'
-import useSubjectsNames from '~/hooks/use-subjects-names'
 import { subjectService } from '~/services/subject-service'
 import { categoryService } from '~/services/category-service'
 import { useModalContext } from '~/context/modal-context'
+import useSubjectsNames from '~/hooks/use-subjects-names'
+import { Link } from 'react-router-dom'
+import { Typography, Icon } from '@mui/material'
+import IconResolver from '~/pages/categories/DynamicIcon'
 
 import PageWrapper from '~/components/page-wrapper/PageWrapper'
 import SearchAutocomplete from '~/components/search-autocomplete/SearchAutocomplete'
@@ -30,27 +33,34 @@ import { getOpositeRole, getScreenBasedLimit } from '~/utils/helper-functions'
 import { mapArrayByField } from '~/utils/map-array-by-field'
 
 import {
+  CategoryInterface,
   CategoryNameInterface,
+  ErrorResponse,
+  GetResourcesCategoriesParams,
+  ItemsWithCount,
   SizeEnum,
   SubjectInterface,
   SubjectNameInterface
 } from '~/types'
-import { itemsLoadLimit } from '~/constants'
+import { defaultResponses, itemsLoadLimit, snackbarVariants } from '~/constants'
 import { authRoutes } from '~/router/constants/authRoutes'
 import { styles } from '~/pages/subjects/Subjects.styles'
+import useAxios from '~/hooks/use-axios'
+import { useSnackBarContext } from '~/context/snackbar-context'
 
 const Subjects = () => {
   const [match, setMatch] = useState<string>('')
   const [categoryName, setCategoryName] = useState<string>('')
   const [isFetched, setIsFetched] = useState<boolean>(false)
   const params = useMemo(() => ({ name: match }), [match])
+  const { setAlert } = useSnackBarContext()
 
   const { t } = useTranslation()
   const { userRole } = useAppSelector((state) => state.appMain)
   const breakpoints = useBreakpoints()
   const { openModal } = useModalContext()
   const [searchParams, setSearchParams] = useSearchParams()
-  const categoryId = searchParams.get('categoryId') ?? ''
+  const categoryId = searchParams.get('category') ?? ''
 
   const cardsLimit = getScreenBasedLimit(breakpoints, itemsLoadLimit)
 
@@ -76,11 +86,29 @@ const Subjects = () => {
 
   const getSubjects = useCallback(
     (data?: Pick<SubjectInterface, 'name'>) => {
-   
-      return subjectService.getSubjects(data, categoryId);
+      return subjectService.getSubjects(categoryId);
     },
     [categoryId]
-  );
+  )
+
+  const onResponseError = useCallback(
+    (error: ErrorResponse) => {
+      setAlert({
+        severity: snackbarVariants.error,
+        message: error ? `errors.${error.code}` : ''
+      })
+    },
+    [setAlert]
+  )
+
+  const { response, loading } = useAxios<
+    ItemsWithCount<SubjectInterface>
+  >({
+    service : getSubjects,
+    defaultResponse: defaultResponses.itemsWithCount,
+    onResponseError
+  })
+
   const {
     data: subjects,
     loading: subjectsLoading,
@@ -92,26 +120,6 @@ const Subjects = () => {
     limit: cardsLimit,
     params
   })
-
-  const oppositeRole = getOpositeRole(userRole)
-
-  const cards = useMemo(
-    () =>
-      subjects.map((item: SubjectInterface) => {
-        return (
-          <CardWithLink
-            description={`${item.totalOffers[oppositeRole]} ${t(
-              'categoriesPage.offers'
-            )}`}
-            img={serviceIcon}
-            key={item._id}
-            link={`${authRoutes.categories.path}?categoryId=${categoryId}&subjectId=${item._id}`}
-            title={item.name}
-          />
-        )
-      }),
-    [subjects, categoryId, oppositeRole, t]
-  )
 
   const onCategoryChange = (
     _: React.SyntheticEvent,
@@ -192,13 +200,44 @@ const Subjects = () => {
           onClick={handleOpenModal}
         />
       ) : (
-        <CardsList
-          btnText={t('categoriesPage.viewMore')}
-          cards={cards}
-          isExpandable={isExpandable}
-          loading={subjectsLoading}
-          onClick={loadMore}
-        />
+        <Box sx={styles.categoriesGrid}>
+        {response.items.map((subject, index) => (
+            <Box key={index} sx={styles.categoryCard}>
+              <Box sx={{...styles.categoryIcon}}>
+                <IconResolver sx={{color: subject.category.appearance.color}} iconName={subject.category.appearance.icon} fontSize="large" />
+              </Box>
+              <Box sx={styles.categoryInfo}>
+                <Typography
+                  component="h3"
+                  style={{
+                    fontFamily: 'Rubik',
+                    fontWeight: 500,
+                    fontSize: '20px',
+                    lineHeight: '28px',
+                    letterSpacing: '0.15px',
+                    color: 'black'
+                  }}
+                  variant="h6"
+                >
+                  {subject.name}
+                </Typography>
+                <Typography
+                  style={{
+                    fontFamily: 'Rubik',
+                    fontWeight: 400,
+                    fontSize: '14px',
+                    lineHeight: '20px',
+                    letterSpacing: '0.0025em',
+                    color: '#888',
+                  }}
+                  variant="body2"
+                >
+                  {`${subject.totalOffers} Offers`}
+                </Typography>
+              </Box>
+            </Box>
+        ))}
+      </Box>
       )}
     </PageWrapper>
   )

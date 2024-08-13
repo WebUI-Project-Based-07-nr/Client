@@ -21,6 +21,13 @@ export const styles = {
     alignItems: 'center',
     justifyContent: 'center'
   },
+  categoriesGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
+    gap: '24px',
+    justifyContent: 'center',
+    boxSizing: 'border-box'
+  },
   categoryCard: {
     backgroundColor: 'white',
     borderRadius: '5px',
@@ -28,19 +35,14 @@ export const styles = {
     padding: '16px',
     display: 'flex',
     alignItems: 'center',
-    height: '75px',
+    height: '112px',
     width: '360px',
+    boxSizing: 'border-box',
     transition: 'transform 0.2s ease',
+    cursor: 'pointer',
     '&:hover': {
       transform: 'translateY(-5px)'
     }
-  },
-  categoriesGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
-    gap: '24px',
-    rowGap: '25px',
-    padding: '20px',
   },
   searchToolbar: {
     borderRadius: '70px'
@@ -56,10 +58,5 @@ export const styles = {
     label: {
       lineHeight: '20px'
     }
-  },
-  someStyle: {
-    display: 'flex',
-    alignItems: 'center',
-    width: '100%'
   }
 }

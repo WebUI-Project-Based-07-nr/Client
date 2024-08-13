@@ -89,7 +89,7 @@ const Categories: React.FC = () => {
                   }}
                   variant="body2"
                 >
-                  Offers 234
+                  {String(category.totalOffers)} Offers
                 </Typography>
               </Box>
             </Box>
