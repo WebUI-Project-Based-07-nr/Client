@@ -51,5 +51,28 @@ export const ResourceServiceMock = {
         items: mockLessons
       }
     })
+  },
+  newLesson: (title, description) => {
+    const newLesson = {
+      _id: (mockLessons.length + 1).toString(), // Генеруємо ID на основі довжини масиву
+      name: title,
+      category: 'Uncategorized', // Можна додати можливість вибору категорії
+      description: description,
+      updatedAt: new Date().toISOString()
+    }
+    return mockLessons.push(newLesson)
+  },
+  getLesson: (id) => {
+    return mockLessons.filter((el) => el._id === id)[0]
+  },
+  editLesson: (title, description, id) => {
+    return (mockLessons = mockLessons.map((el) => {
+      if (el._id === id) {
+        el.name = title
+        el.description = description
+        el.updatedAt = new Date().toISOString()
+      }
+      return el
+    }))
   }
 }
