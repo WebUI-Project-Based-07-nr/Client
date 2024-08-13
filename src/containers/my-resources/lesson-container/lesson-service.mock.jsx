@@ -54,9 +54,9 @@ export const ResourceServiceMock = {
   },
   newLesson: (title, description) => {
     const newLesson = {
-      _id: (mockLessons.length + 1).toString(), // Генеруємо ID на основі довжини масиву
+      _id: (mockLessons.length + 1).toString(),
       name: title,
-      category: 'Uncategorized', // Можна додати можливість вибору категорії
+      category: 'Uncategorized',
       description: description,
       updatedAt: new Date().toISOString()
     }
