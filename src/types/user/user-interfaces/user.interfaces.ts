@@ -41,6 +41,9 @@ export interface UserResponse {
   updatedAt: string
   FAQ: DataByRole<Faq[]>
 }
+export interface UserImageResponse {
+  photoURL: string
+}
 
 export interface UpdateUserParams
   extends Pick<

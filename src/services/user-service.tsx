@@ -5,6 +5,7 @@ import { createUrlPath } from '~/utils/helper-functions'
 import {
   GetUsersParams,
   UpdateUserParams,
+  UserImageResponse,
   UserResponse,
   UserRole
 } from '~/types'
@@ -14,6 +15,9 @@ export const userService = {
     params: GetUsersParams
   ): Promise<AxiosResponse<UserResponse[]>> => {
     return await axiosClient.get(URLs.users.get, { params })
+  },
+  getUserImage: async (): Promise<AxiosResponse<UserImageResponse>> => {
+    return await axiosClient.get(URLs.users.getImage)
   },
   getUserById: (
     userId: string,
