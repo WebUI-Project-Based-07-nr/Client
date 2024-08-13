@@ -3,7 +3,7 @@ import howItWorksStudentSecond from '~/assets/img/guest-home-page/howItWorksStud
 import howItWorksStudentThird from '~/assets/img/guest-home-page/howItWorksStudentThird.svg'
 import howItWorksStudentFourth from '~/assets/img/guest-home-page/howItWorksStudentFourth.svg'
 
-export const howItWorksCards = [
+export const howItWorksStudentCards = [
   {
     image: howItWorksStudentSecond,
     title: 'studentHomePage.howItWorks.selectATutor.title',
@@ -23,5 +23,28 @@ export const howItWorksCards = [
     image: howItWorksStudentFirst,
     title: 'studentHomePage.howItWorks.writeFeedback.title',
     description: 'studentHomePage.howItWorks.writeFeedback.description'
+  }
+]
+
+export const howItWorksTutorCards = [
+  {
+    image: howItWorksStudentSecond,
+    title: 'tutorHomePage.howItWorks.SignUp.title',
+    description: 'tutorHomePage.howItWorks.SignUp.description'
+  },
+  {
+    image: howItWorksStudentThird,
+    title: 'tutorHomePage.howItWorks.CreateATutorAccount.title',
+    description: 'tutorHomePage.howItWorks.CreateATutorAccount.description'
+  },
+  {
+    image: howItWorksStudentFourth,
+    title: 'tutorHomePage.howItWorks.GetNewStudents.title',
+    description: 'tutorHomePage.howItWorks.GetNewStudents.description'
+  },
+  {
+    image: howItWorksStudentFirst,
+    title: 'tutorHomePage.howItWorks.ReceiveFeedbacks.title',
+    description: 'tutorHomePage.howItWorks.ReceiveFeedbacks.description'
   }
 ]

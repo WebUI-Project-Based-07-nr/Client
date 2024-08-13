@@ -2,9 +2,10 @@ export const styles = {
   container: {
     display: 'flex',
     flexDirection: 'column',
+    flexWrap: 'wrap',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: '36px',
+    padding: '35px 40px',
     borderRadius: '8px',
     marginTop: '80px',
     backgroundColor: '#FCFFFB'
@@ -14,7 +15,8 @@ export const styles = {
       textAlign: 'center'
     },
     title: {
-      typography: 'h4'
+      typography: 'h4',
+      mb: '16px'
     },
     description: {
       typography: 'subtitile'
