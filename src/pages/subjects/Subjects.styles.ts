@@ -11,12 +11,55 @@ export const styles = {
       lineHeight: '20px'
     }
   },
-  navigation: {
+  categoryInfo: {
+    flex: 1,
+    '& h3': {
+      margin: 0,
+      fontSize: '18px',
+      fontWeight: 'bold'
+    },
+    '& p': {
+      margin: '4px 0 0',
+      color: '#888'
+    }
+  },
+  categoryIcon: {
+    width: '50px',
+    height: '50px',
+    backgroundColor: '#f0f0f0',
+    borderRadius: '20%',
+    marginRight: '16px',
     display: 'flex',
-    justifyContent: 'space-between'
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  categoryCard: {
+    backgroundColor: 'white',
+    borderRadius: '5px',
+    boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+    padding: '16px',
+    display: 'flex',
+    alignItems: 'center',
+    height: '75px',
+    width: '360px',
+    transition: 'transform 0.2s ease',
+    '&:hover': {
+      transform: 'translateY(-5px)'
+    }
+  },
+  categoriesGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
+    gap: '24px',
+    rowGap: '25px',
+    padding: '20px',
   },
   searchToolbar: {
     borderRadius: '70px'
+  },
+  navigation: {
+    display: 'flex',
+    justifyContent: 'space-between'
   },
   showAllOffers: {
     display: 'flex',
