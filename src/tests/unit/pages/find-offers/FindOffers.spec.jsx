@@ -1,5 +1,6 @@
 import React from 'react'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import FindOffers from '~/pages/find-offers/FindOffers'
 import { MemoryRouter } from 'react-router-dom'
 import { I18nextProvider } from 'react-i18next'
@@ -18,6 +19,10 @@ vi.mock('~/components/toggle-button/ToggleButtons', () => ({
 vi.mock('~/components/sort-menu/SortMenu', () => ({
   default: () => <div>SortMenu Component</div>
 }))
+vi.mock('~/components/app-pagination/AppPagination', () => ({
+  default: () => <div>AppPagination Component</div>
+}))
+
 vi.mock('react-i18next', async () => {
   const actual = await vi.importActual('react-i18next')
   return {
@@ -48,7 +53,7 @@ describe('FindOffers Component', () => {
 
   it('toggles between Tutors Offers and Students Requests', () => {
     const switcher = screen.getByText('findOffers.topMenu.studentsRequests')
-    fireEvent.click(switcher)
+    userEvent.click(switcher)
 
     const tutorsOffersText = screen.getByText('findOffers.topMenu.tutorsOffers')
     expect(tutorsOffersText).toBeInTheDocument()
@@ -56,9 +61,19 @@ describe('FindOffers Component', () => {
 
   it('calls onChange when switching between tutors and students', () => {
     const switcher = screen.getByText('findOffers.topMenu.studentsRequests')
-    fireEvent.click(switcher)
+    userEvent.click(switcher)
 
     const tutorsOffersText = screen.getByText('findOffers.topMenu.tutorsOffers')
     expect(tutorsOffersText).toBeInTheDocument()
+  })
+
+  it('renders OfferCards component', () => {
+    const offerCards = screen.getByText('OfferCards Component')
+    expect(offerCards).toBeInTheDocument()
+  })
+
+  it('renders Pagination component', () => {
+    const pagination = screen.getByText('AppPagination Component')
+    expect(pagination).toBeInTheDocument()
   })
 })
