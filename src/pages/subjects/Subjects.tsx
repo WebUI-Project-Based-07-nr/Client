@@ -13,6 +13,7 @@ import { useModalContext } from '~/context/modal-context'
 import useSubjectsNames from '~/hooks/use-subjects-names'
 import { Typography } from '@mui/material'
 import IconResolver from '~/pages/categories/DynamicIcon'
+import * as Icons from '@mui/icons-material'
 
 import PageWrapper from '~/components/page-wrapper/PageWrapper'
 import SearchAutocomplete from '~/components/search-autocomplete/SearchAutocomplete'
@@ -191,7 +192,9 @@ const Subjects = () => {
               <Box sx={{ ...styles.categoryIcon }}>
                 <IconResolver
                   fontSize='large'
-                  iconName={subject.category.appearance.icon}
+                  iconName={
+                    subject.category.appearance.icon as keyof typeof Icons
+                  }
                   sx={{ color: subject.category.appearance.color }}
                 />
               </Box>
@@ -221,7 +224,7 @@ const Subjects = () => {
                   }}
                   variant='body2'
                 >
-                  {`${subject.totalOffers} Offers`}
+                  {String(subject.totalOffers)} Offers
                 </Typography>
               </Box>
             </Box>

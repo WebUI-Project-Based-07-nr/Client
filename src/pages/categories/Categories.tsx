@@ -15,6 +15,7 @@ import {
 import { defaultResponses, snackbarVariants } from '~/constants'
 import { useSnackBarContext } from '~/context/snackbar-context'
 import IconResolver from './DynamicIcon'
+import * as Icons from '@mui/icons-material'
 
 const Categories: React.FC = () => {
   const { setAlert } = useSnackBarContext()
@@ -56,7 +57,7 @@ const Categories: React.FC = () => {
               <Box sx={{ ...styles.categoryIcon }}>
                 <IconResolver
                   fontSize='large'
-                  iconName={category.appearance.icon}
+                  iconName={category.appearance.icon as keyof typeof Icons}
                   sx={{ color: category.appearance.color }}
                 />
               </Box>
