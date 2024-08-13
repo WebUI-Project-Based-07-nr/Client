@@ -1,10 +1,10 @@
 const styles = {
   categoriesGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-    gap: '30px 150px ',
-    padding: '20px',
-    justifyContent: 'center'
+    gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
+    gap: '24px',
+    justifyContent: 'center',
+    boxSizing: 'border-box'
   },
   categoryCard: {
     backgroundColor: 'white',
@@ -13,8 +13,9 @@ const styles = {
     padding: '16px',
     display: 'flex',
     alignItems: 'center',
-    height: '75px',
-    width: '450px',
+    height: '112px',
+    width: '360px',
+    boxSizing: 'border-box',
     transition: 'transform 0.2s ease',
     cursor: 'pointer',
     '&:hover': {

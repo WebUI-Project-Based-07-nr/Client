@@ -7,11 +7,6 @@ export type Address = {
   city: string
 }
 
-export type Category = {
-  _id: string
-  name: string
-}
-
 export type CreatedAt = {
   from: string
   to: string

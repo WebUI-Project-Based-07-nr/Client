@@ -25,6 +25,7 @@ export interface CategoryInterface {
   name: string
   appearance: CategoryAppearance
   totalOffers: DataByRole<number>
+  offers: Offer[]
   createdAt: string
   updatedAt: string
 }
