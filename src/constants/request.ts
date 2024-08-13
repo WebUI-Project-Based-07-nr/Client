@@ -17,7 +17,8 @@ export const URLs = {
     getImage: '/users/image',
     update: '/users',
     delete: '/users/delete',
-    myProfile: '/users/myProfile'
+    myProfile: '/users/myProfile',
+    myImage: '/users/image'
   },
   categories: {
     get: '/categories',
