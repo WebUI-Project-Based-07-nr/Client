@@ -21,14 +21,12 @@ export interface DataByRole<T> {
 }
 
 export interface CategoryInterface {
-  category: any
   _id: string
   name: string
   appearance: CategoryAppearance
   totalOffers: DataByRole<number>
   createdAt: string
   updatedAt: string
-  icon: string
 }
 
 export interface CategoryNameInterface {
@@ -43,10 +41,6 @@ export interface SubjectInterface {
   totalOffers: DataByRole<number>
   createdAt: string
   updatedAt: string
-  appearance: {
-    color: string,
-    icon: string
-  }
 }
 
 export interface SubjectNameInterface {
