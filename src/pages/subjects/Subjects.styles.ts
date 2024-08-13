@@ -52,7 +52,7 @@ export const styles = {
     gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
     gap: '24px',
     rowGap: '25px',
-    padding: '20px',
+    padding: '20px'
   },
   searchToolbar: {
     borderRadius: '70px'

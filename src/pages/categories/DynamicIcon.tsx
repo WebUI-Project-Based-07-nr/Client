@@ -1,7 +1,12 @@
-import React from 'react';
+import React from 'react'
 import * as Icons from '@mui/icons-material'
 
-const IconResolver = ({ iconName, ...props }) => {
+type IconResolverProps = {
+  iconName: keyof typeof Icons
+  [key: string]: unknown
+}
+
+const IconResolver: React.FC<IconResolverProps> = ({ iconName, ...props }) => {
   const IconComponent = Icons[iconName]
 
   if (!IconComponent) {
@@ -10,6 +15,6 @@ const IconResolver = ({ iconName, ...props }) => {
   }
 
   return <IconComponent {...props} />
-};
+}
 
 export default IconResolver

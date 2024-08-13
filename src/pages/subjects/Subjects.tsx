@@ -6,37 +6,30 @@ import Box from '@mui/material/Box'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
-import { useAppSelector } from '~/hooks/use-redux'
 import useLoadMore from '~/hooks/use-load-more'
 import { subjectService } from '~/services/subject-service'
 import { categoryService } from '~/services/category-service'
 import { useModalContext } from '~/context/modal-context'
 import useSubjectsNames from '~/hooks/use-subjects-names'
-import { Link } from 'react-router-dom'
-import { Typography, Icon } from '@mui/material'
+import { Typography } from '@mui/material'
 import IconResolver from '~/pages/categories/DynamicIcon'
 
 import PageWrapper from '~/components/page-wrapper/PageWrapper'
 import SearchAutocomplete from '~/components/search-autocomplete/SearchAutocomplete'
 import TitleWithDescription from '~/components/title-with-description/TitleWithDescription'
 import NotFoundResults from '~/components/not-found-results/NotFoundResults'
-import CardsList from '~/components/cards-list/CardsList'
-import CardWithLink from '~/components/card-with-link/CardWithLink'
 import DirectionLink from '~/components/direction-link/DirectionLink'
 import CreateSubjectModal from '~/containers/find-offer/create-new-subject/CreateNewSubject'
 import AppToolbar from '~/components/app-toolbar/AppToolbar'
 import OfferRequestBlock from '~/containers/find-offer/offer-request-block/OfferRequestBlock'
 import AsyncAutocomplete from '~/components/async-autocomlete/AsyncAutocomplete'
 import useBreakpoints from '~/hooks/use-breakpoints'
-import serviceIcon from '~/assets/img/student-home-page/service_icon.png'
-import { getOpositeRole, getScreenBasedLimit } from '~/utils/helper-functions'
+import { getScreenBasedLimit } from '~/utils/helper-functions'
 import { mapArrayByField } from '~/utils/map-array-by-field'
 
 import {
-  CategoryInterface,
   CategoryNameInterface,
   ErrorResponse,
-  GetResourcesCategoriesParams,
   ItemsWithCount,
   SizeEnum,
   SubjectInterface,
@@ -56,7 +49,6 @@ const Subjects = () => {
   const { setAlert } = useSnackBarContext()
 
   const { t } = useTranslation()
-  const { userRole } = useAppSelector((state) => state.appMain)
   const breakpoints = useBreakpoints()
   const { openModal } = useModalContext()
   const [searchParams, setSearchParams] = useSearchParams()
@@ -84,12 +76,9 @@ const Subjects = () => {
     setIsFetched(true)
   }
 
-  const getSubjects = useCallback(
-    (data?: Pick<SubjectInterface, 'name'>) => {
-      return subjectService.getSubjects(categoryId);
-    },
-    [categoryId]
-  )
+  const getSubjects = useCallback(() => {
+    return subjectService.getSubjects(categoryId)
+  }, [categoryId])
 
   const onResponseError = useCallback(
     (error: ErrorResponse) => {
@@ -101,10 +90,8 @@ const Subjects = () => {
     [setAlert]
   )
 
-  const { response, loading } = useAxios<
-    ItemsWithCount<SubjectInterface>
-  >({
-    service : getSubjects,
+  const { response } = useAxios<ItemsWithCount<SubjectInterface>>({
+    service: getSubjects,
     defaultResponse: defaultResponses.itemsWithCount,
     onResponseError
   })
@@ -112,9 +99,7 @@ const Subjects = () => {
   const {
     data: subjects,
     loading: subjectsLoading,
-    resetData,
-    loadMore,
-    isExpandable
+    resetData
   } = useLoadMore<SubjectInterface, Pick<SubjectInterface, 'name'>>({
     service: getSubjects,
     limit: cardsLimit,
@@ -201,14 +186,18 @@ const Subjects = () => {
         />
       ) : (
         <Box sx={styles.categoriesGrid}>
-        {response.items.map((subject, index) => (
+          {response.items.map((subject, index) => (
             <Box key={index} sx={styles.categoryCard}>
-              <Box sx={{...styles.categoryIcon}}>
-                <IconResolver sx={{color: subject.category.appearance.color}} iconName={subject.category.appearance.icon} fontSize="large" />
+              <Box sx={{ ...styles.categoryIcon }}>
+                <IconResolver
+                  fontSize='large'
+                  iconName={subject.category.appearance.icon}
+                  sx={{ color: subject.category.appearance.color }}
+                />
               </Box>
               <Box sx={styles.categoryInfo}>
                 <Typography
-                  component="h3"
+                  component='h3'
                   style={{
                     fontFamily: 'Rubik',
                     fontWeight: 500,
@@ -217,7 +206,7 @@ const Subjects = () => {
                     letterSpacing: '0.15px',
                     color: 'black'
                   }}
-                  variant="h6"
+                  variant='h6'
                 >
                   {subject.name}
                 </Typography>
@@ -228,16 +217,16 @@ const Subjects = () => {
                     fontSize: '14px',
                     lineHeight: '20px',
                     letterSpacing: '0.0025em',
-                    color: '#888',
+                    color: '#888'
                   }}
-                  variant="body2"
+                  variant='body2'
                 >
                   {`${subject.totalOffers} Offers`}
                 </Typography>
               </Box>
             </Box>
-        ))}
-      </Box>
+          ))}
+        </Box>
       )}
     </PageWrapper>
   )
