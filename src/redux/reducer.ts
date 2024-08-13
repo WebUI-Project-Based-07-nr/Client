@@ -8,7 +8,7 @@ import {
 } from '@reduxjs/toolkit'
 import { AuthService, authService } from '~/services/auth-service'
 import { AxiosError } from 'axios'
-import { AccessToken, ErrorResponse, UserRole } from '~/types'
+import { AccessToken, ErrorResponse, UserRole, UserRoleEnum } from '~/types'
 
 interface UserState {
   userId: string
@@ -22,7 +22,7 @@ interface UserState {
 
 const initialState: UserState = {
   userId: '',
-  userRole: '',
+  userRole: UserRoleEnum.Tutor,
   authLoading: false,
   loading: true,
   pageLoad: false,
