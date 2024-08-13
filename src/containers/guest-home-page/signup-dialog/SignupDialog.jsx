@@ -24,10 +24,11 @@ import { snackbarVariants } from '~/constants'
 import styles from '~/containers/guest-home-page/signup-dialog/SignupDialog.styles'
 import ConfirmDialog from '~/components/confirm-dialog/ConfirmDialog'
 import PopupDialog from '~/components/popup-dialog/PopupDialog'
+import EmailVerificationNotification from '~/containers/guest-home-page/email-verified-notification/EmailVerifiedNotification'
 
 const SignupDialog = ({ isTutor = true }) => {
   const { t } = useTranslation()
-  const { closeModal } = useModalContext()
+  const { closeModal, openModal } = useModalContext()
   const { setAlert } = useSnackBarContext()
   const [signupUser] = useSignUpMutation()
   const [showConfirmDialog, setShowConfirmDialog] = useState(false)
@@ -37,7 +38,7 @@ const SignupDialog = ({ isTutor = true }) => {
       onSubmit: async () => {
         try {
           await signupUser(data).unwrap()
-          closeModal()
+          openModal({ component: <EmailVerificationNotification /> })
         } catch (e) {
           setAlert({
             severity: snackbarVariants.error,
@@ -51,7 +52,10 @@ const SignupDialog = ({ isTutor = true }) => {
         email: '',
         firstName: '',
         lastName: '',
-        password: ''
+        password: '',
+        role: isTutor ? 'tutor' : 'student',
+        lang: 'en', // has to be fixed but backend is not ready for it yet:)
+        nativeLanguage: 'English' // has to be fixed but backend is not ready for it yet:)
       },
       validations: { email, firstName, lastName, password, confirmPassword }
     }
