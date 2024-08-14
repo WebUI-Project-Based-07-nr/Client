@@ -1,13 +1,8 @@
 import { useEffect, useState, useContext } from 'react'
-import {
-  Autocomplete,
-  TextField,
-  Typography,
-  Box,
-  ListItemText
-} from '@mui/material'
+import { Autocomplete, TextField, Typography, Box } from '@mui/material'
 import { LocationService } from '~/services/location-service'
 import { LocationContext } from '~/context/location-context'
+import Loader from '~/components/loader/Loader'
 import { styles } from '~/containers/tutor-home-page/general-info-step/GeneralInfoStep.styles'
 import translations from '~/constants/translations/en/become-tutor.json'
 import img from '~/assets/img/tutor-home-page/become-tutor/general-info.svg'
@@ -127,11 +122,6 @@ const GeneralInfoStep = ({ btnsBox }) => {
             renderInput={(params) => (
               <TextField {...params} label='Country' sx={styles.halfWidth} />
             )}
-            renderOption={(props, option) => (
-              <li {...props} key={option.iso2}>
-                <ListItemText primary={option.name} />
-              </li>
-            )}
             sx={styles.halfWidth}
             value={
               Array.isArray(countryList)
@@ -149,12 +139,23 @@ const GeneralInfoStep = ({ btnsBox }) => {
             onInputChange={handleCityInputChange}
             options={renderCities()}
             renderInput={(params) => (
-              <TextField {...params} label='City' sx={styles.halfWidth} />
-            )}
-            renderOption={(props, option) => (
-              <li {...props} key={`${option.name}`}>
-                <ListItemText primary={`${option.name}`} />
-              </li>
+              <TextField
+                {...params}
+                InputProps={{
+                  ...params.InputProps,
+                  endAdornment: (
+                    <>
+                      {loadingCities ? (
+                        <Loader size={20} sx={styles.citiesLoader} />
+                      ) : (
+                        params.InputProps.endAdornment
+                      )}
+                    </>
+                  )
+                }}
+                label='City'
+                sx={styles.halfWidth}
+              />
             )}
             sx={styles.halfWidth}
             value={
