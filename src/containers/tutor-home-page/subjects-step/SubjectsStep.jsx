@@ -23,10 +23,11 @@ const SubjectsStep = ({ btnsBox }) => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await categoryService.getCategoriesNames()
-        const categories = response.data.map((category) => ({
+        const response = await categoryService.getCategories()
+        const categories = response.data.items.map((category) => ({
           title: `${category.name} Category: ${category.name}`,
-          value: category.name
+          value: category.name,
+          _id: category._id
         }))
         setCategoryOptions(categories)
       } catch (error) {
@@ -39,10 +40,10 @@ const SubjectsStep = ({ btnsBox }) => {
 
   const handleCategoryChange = async (value) => {
     setSelectedCategory(value)
-
+    const currCategoryId = categoryOptions.find((el) => el.value === value)?._id
     try {
-      const response = await subjectService.getSubjectsNames(value)
-      const subjects = response.data.map((subject) => ({
+      const response = await subjectService.getSubjectsNames(currCategoryId)
+      const subjects = response.data.items.map((subject) => ({
         title: `${subject.name} Category: ${value}`,
         value: subject.name
       }))
