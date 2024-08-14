@@ -29,7 +29,7 @@ const LoginDialog = () => {
         } catch (e) {
           setAlert({
             severity: snackbarVariants.error,
-            message: `errors.${e.data.code}`
+            message: `errors.${e.data}`
           })
         }
       },
