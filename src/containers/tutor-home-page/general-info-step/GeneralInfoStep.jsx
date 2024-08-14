@@ -1,10 +1,17 @@
-import { MenuItem, TextField, Typography, Box } from '@mui/material'
-import { useState, useEffect, useContext } from 'react'
+import { useEffect, useState, useContext } from 'react'
+import {
+  Autocomplete,
+  TextField,
+  Typography,
+  Box,
+  ListItemText
+} from '@mui/material'
 import { LocationService } from '~/services/location-service'
 import { LocationContext } from '~/context/location-context'
 import { styles } from '~/containers/tutor-home-page/general-info-step/GeneralInfoStep.styles'
 import translations from '~/constants/translations/en/become-tutor.json'
 import img from '~/assets/img/tutor-home-page/become-tutor/general-info.svg'
+import { filterCities, debouncedFilterCities } from '~/utils/filter-options'
 
 const GeneralInfoStep = ({ btnsBox }) => {
   const {
@@ -18,8 +25,10 @@ const GeneralInfoStep = ({ btnsBox }) => {
     setCityCache
   } = useContext(LocationContext)
 
-  const [loadingCountries, setLoadingCountries] = useState(!countryList.length)
+  const [loadingCountries, setLoadingCountries] = useState(true)
   const [loadingCities, setLoadingCities] = useState(false)
+  const [inputValue, setInputValue] = useState('')
+  const [filteredCities, setFilteredCities] = useState([])
   const [professionalStatus, setProfessionalStatus] = useState('')
   const [charCount, setCharCount] = useState(0)
 
@@ -28,7 +37,7 @@ const GeneralInfoStep = ({ btnsBox }) => {
       const fetchCountries = async () => {
         try {
           const response = await LocationService.getCountries()
-          setCountryList(response.data)
+          setCountryList(Array.isArray(response.data) ? response.data : [])
         } catch (error) {
           console.error('Error fetching countries:', error)
         } finally {
@@ -43,16 +52,17 @@ const GeneralInfoStep = ({ btnsBox }) => {
   }, [countryList, setCountryList])
 
   useEffect(() => {
-    const fetchCities = async () => {
-      if (selectedCountry && !cityCache[selectedCountry]) {
+    if (selectedCountry && !cityCache[selectedCountry]) {
+      const fetchCities = async () => {
         setLoadingCities(true)
+
         try {
           const response = await LocationService.getCities({
             countryCode: selectedCountry
           })
           setCityCache((prevCache) => ({
             ...prevCache,
-            [selectedCountry]: response.data
+            [selectedCountry]: Array.isArray(response.data) ? response.data : []
           }))
         } catch (error) {
           console.error('Error fetching cities:', error)
@@ -60,43 +70,40 @@ const GeneralInfoStep = ({ btnsBox }) => {
           setLoadingCities(false)
         }
       }
+
+      fetchCities()
+    } else if (cityCache[selectedCountry]) {
+      setFilteredCities(filterCities(inputValue, cityCache[selectedCountry]))
     }
+  }, [selectedCountry, cityCache, setCityCache, inputValue])
 
-    fetchCities()
-  }, [selectedCountry, cityCache, setCityCache])
-
-  const handleCountryChange = async (event) => {
-    const selectedIso2 = event.target.value
+  const handleCountryChange = (event, newValue) => {
+    const selectedIso2 = newValue ? newValue.iso2 : ''
     setSelectedCountry(selectedIso2)
     setSelectedCity('')
+    setInputValue('')
+    setFilteredCities([])
   }
 
-  const handleCityChange = (event) => {
-    setSelectedCity(event.target.value)
+  const handleCityChange = (event, newValue) => {
+    setSelectedCity(newValue ? newValue.name : '')
+    setInputValue('')
+  }
+
+  const handleCityInputChange = (event, newInputValue) => {
+    setInputValue(newInputValue)
+    debouncedFilterCities(() => {
+      const filtered = filterCities(newInputValue, cityCache[selectedCountry])
+      setFilteredCities(filtered)
+    })()
   }
 
   const renderCountries = () => {
-    return countryList.map((country) => (
-      <MenuItem key={country.id} value={country.iso2}>
-        {country.name}
-      </MenuItem>
-    ))
+    return Array.isArray(countryList) ? countryList : []
   }
 
   const renderCities = () => {
-    return (cityCache[selectedCountry] || []).map((city) => (
-      <MenuItem key={city.code} value={city.name}>
-        {city.name}
-      </MenuItem>
-    ))
-  }
-
-  const handleProfessionalStatusChange = (event) => {
-    const value = event.target.value
-    if (value.length <= 100) {
-      setProfessionalStatus(value)
-      setCharCount(value.length)
-    }
+    return filteredCities
   }
 
   return (
@@ -111,33 +118,63 @@ const GeneralInfoStep = ({ btnsBox }) => {
           <TextField label='Last Name*' sx={styles.halfWidth} />
         </Box>
         <Box sx={styles.row}>
-          <TextField
+          <Autocomplete
             disabled={loadingCountries}
-            label='Country'
+            getOptionLabel={(option) => option.name || ''}
+            isOptionEqualToValue={(option, value) => option.id === value.id}
             onChange={handleCountryChange}
-            select
+            options={renderCountries()}
+            renderInput={(params) => (
+              <TextField {...params} label='Country' sx={styles.halfWidth} />
+            )}
+            renderOption={(props, option) => (
+              <li {...props} key={option.iso2}>
+                <ListItemText primary={option.name} />
+              </li>
+            )}
             sx={styles.halfWidth}
-            value={selectedCountry}
-          >
-            <MenuItem value=''></MenuItem>
-            {!loadingCountries && renderCountries()}
-          </TextField>
-
-          <TextField
+            value={
+              Array.isArray(countryList)
+                ? countryList.find(
+                    (country) => country.iso2 === selectedCountry
+                  ) || null
+                : null
+            }
+          />
+          <Autocomplete
             disabled={!selectedCountry || loadingCities}
-            label='City'
+            getOptionLabel={(option) => option.name || ''}
+            isOptionEqualToValue={(option, value) => option.id === value.id}
             onChange={handleCityChange}
-            select
+            onInputChange={handleCityInputChange}
+            options={renderCities()}
+            renderInput={(params) => (
+              <TextField {...params} label='City' sx={styles.halfWidth} />
+            )}
+            renderOption={(props, option) => (
+              <li {...props} key={`${option.name}`}>
+                <ListItemText primary={`${option.name}`} />
+              </li>
+            )}
             sx={styles.halfWidth}
-            value={selectedCity}
-          >
-            <MenuItem value=''></MenuItem>
-            {!loadingCities && renderCities()}
-          </TextField>
+            value={
+              Array.isArray(cityCache[selectedCountry])
+                ? cityCache[selectedCountry].find(
+                    (city) => city.name === selectedCity
+                  ) || null
+                : null
+            }
+          />
         </Box>
         <TextField
           multiline
-          onChange={handleProfessionalStatusChange}
+          onChange={(event) => {
+            const value = event.target.value
+            if (value.length <= 100) {
+              setProfessionalStatus(value)
+              setCharCount(value.length)
+            }
+          }}
           placeholder='Describe in short your professional status'
           rows={4}
           sx={{ ...styles.fullWidth, ...styles.largeInput }}
