@@ -18,6 +18,10 @@ export const authRoutes = {
       route: 'my-resources/new-lesson',
       path: '/my-resources/new-lesson'
     },
+    editLesson: {
+      route: 'my-resources/edit-lesson/:id',
+      path: '/my-resources/edit-lesson'
+    },
     newQuestion: {
       route: 'my-resources/new-question',
       path: '/my-resources/new-question'
