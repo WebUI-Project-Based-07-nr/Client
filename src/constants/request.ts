@@ -14,9 +14,11 @@ export const URLs = {
   },
   users: {
     get: '/users',
+    getImage: '/users/image',
     update: '/users',
     delete: '/users/delete',
-    myProfile: '/users/myProfile'
+    myProfile: '/users/myProfile',
+    myImage: '/users/image'
   },
   categories: {
     get: '/categories',

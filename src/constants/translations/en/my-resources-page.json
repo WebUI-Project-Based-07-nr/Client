@@ -37,7 +37,12 @@
     "addBtn": "New lesson",
     "add": "Add Lessons",
     "title": "Untitled",
-    "description": "Description..."
+    "description": "Description...",
+    "tableTitle": "Title",
+    "updated": "Last updates",
+    "emptyItems": "You have no lessons yet",
+    "confirmDeletionTitle": "Do you confirm lesson deletion?",
+    "successDeletion": "Lesson was deleted successfully"
   },
   "confirmDeletionMessage": "This action is permanent and will remove all related content. Please review your decision before proceeding."
 }

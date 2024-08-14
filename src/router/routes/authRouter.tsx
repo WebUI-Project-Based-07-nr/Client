@@ -16,6 +16,10 @@ import {
 import PrivateRoute from '~/router/helpers/PrivateRoute'
 import { UserRoleEnum } from '~/types'
 import { userProfileLoader } from '../constants/loaders'
+import LessonDetail from '~/containers/my-resources/lesson-detail/LessonDetail'
+import LessonContainer from '~/containers/my-resources/lesson-container/LessonsContainer'
+import QuizDetail from '~/containers/my-resources/quiz-detail/QuizDetail'
+
 
 const Categories = lazy(() => import('~/pages/categories/Categories'))
 const Subjects = lazy(() => import('~/pages/subjects/Subjects'))
@@ -78,6 +82,31 @@ export const authRouter = (
       element={<CreateOrEditQuestion />}
       handle={{ crumb: [myResources, editQuestion] }}
       path={authRoutes.myResources.editQuestion.route}
+    />
+    <Route
+      element={<LessonContainer />}
+      handle={{ crumb: myResources }}
+      path={authRoutes.myResources.lessons.route}
+    />
+    <Route
+      element={<LessonDetail />}
+      handle={{ crumb: myResources }}
+      path={authRoutes.myResources.lessonDetail.route}
+    />
+    <Route
+      element={<CreateNewLesson />}
+      handle={{ crumb: [myResources, newLesson] }}
+      path={authRoutes.myResources.createOrEditLesson.path}
+    />
+    <Route
+      element={<QuizDetail />}
+      handle={{ crumb: myResources }}
+      path={authRoutes.myResources.quizzes.detail.path}
+    />
+    <Route
+      element={<CreateOrEditQuestion />}
+      handle={{ crumb: [myResources, editQuestion] }}
+      path={authRoutes.myResources.quizzes.edit.path}
     />
   </Route>
 )

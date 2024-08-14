@@ -3,21 +3,24 @@ import { Typography } from '@mui/material'
 import { FC } from 'react'
 import { useNavigate } from 'react-router'
 
-import { props } from './mockValues'
-
+interface Author {
+  firstName: string
+  lastName: string
+}
 interface ProfileName {
-  name?: string
+  author: Author
 }
 
-const AuthorProfileName: FC<ProfileName> = ({ name = props.name }) => {
+const AuthorProfileName: FC<ProfileName> = ({ author }) => {
   const navigate = useNavigate()
   const openProfile = () => {
     navigate('/')
   }
+  const fullName = `${author.firstName} ${author.lastName[0]}.`
 
   return (
     <Typography onClick={openProfile} sx={styles.name} variant='body2'>
-      {name}
+      {fullName}
     </Typography>
   )
 }

@@ -6,7 +6,7 @@ import { props } from './mockValues'
 import { useTranslation } from 'react-i18next'
 
 interface PricePerHourProps {
-  price?: number
+  price: number
 }
 
 const PricePerHour: FC<PricePerHourProps> = ({ price = props.price }) => {

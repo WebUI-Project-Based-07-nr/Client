@@ -6,8 +6,8 @@ import { useModalContext } from '~/context/modal-context'
 import UserStepsWrapper from '~/components/user-steps-wrapper/UserStepsWrapper'
 import FindBlock from '~/components/find-block/FindBlock'
 import Faq from '~/containers/student-home-page/faq/Faq'
-
 import { translationKey } from '~/components/find-block/find-tutor-constants'
+import PopularCategories from '~/components/popular-categories/PopularCategories'
 
 const StudentHome = () => {
   const { openModal } = useModalContext()
@@ -32,6 +32,7 @@ const StudentHome = () => {
   return (
     <Container data-testid='studentHome' sx={{ flex: 1 }}>
       <FindBlock translationKey={translationKey} />
+      <PopularCategories />
       <Faq />
     </Container>
   )

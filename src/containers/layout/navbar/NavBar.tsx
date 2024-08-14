@@ -105,7 +105,11 @@ const Navbar = () => {
         component={HashLink}
         size={SizeEnum.Small}
         sx={styles.logoButton}
-        to={guestRoutes.welcome.path}
+        to={
+          userRole
+            ? `./${guestRoutes[userRole].path}`
+            : guestRoutes.welcome.path
+        }
       >
         <Logo />
       </Button>
