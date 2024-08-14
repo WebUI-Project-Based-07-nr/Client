@@ -18,6 +18,7 @@ import { UserRoleEnum } from '~/types'
 import { userProfileLoader } from '../constants/loaders'
 import LessonList from '~/containers/my-resources/lesson-list/LessonList'
 import LessonDetail from '~/containers/my-resources/lesson-detail/LessonDetail'
+import QuizDetail from '~/containers/my-resources/quiz-detail/QuizDetail'
 
 const Categories = lazy(() => import('~/pages/categories/Categories'))
 const Subjects = lazy(() => import('~/pages/subjects/Subjects'))
@@ -95,6 +96,16 @@ export const authRouter = (
       element={<CreateOrEditQuestion />}
       handle={{ crumb: [myResources, editQuestion] }}
       path={authRoutes.myResources.createOrEditLesson.path}
+    />
+    <Route
+      element={<QuizDetail />}
+      handle={{ crumb: myResources }}
+      path={authRoutes.myResources.quizzes.detail.path}
+    />
+    <Route
+      element={<CreateOrEditQuestion />}
+      handle={{ crumb: [myResources, editQuestion] }}
+      path={authRoutes.myResources.quizzes.edit.path}
     />
   </Route>
 )
