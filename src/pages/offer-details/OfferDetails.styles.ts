@@ -11,7 +11,8 @@ export const stylesFunc = (isSquare: boolean) => {
       boxShadow: 3,
       margin: 'auto',
       padding: '31px 20px',
-      maxWidth: '800px',
+      width: '100%',
+      boxSizing: 'border-box',
       gap: '24px',
       [mediaQuery]: {
         padding: '0 20px 24px',

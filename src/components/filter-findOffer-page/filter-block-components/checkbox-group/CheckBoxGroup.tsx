@@ -35,9 +35,9 @@ export default function CheckboxGroup() {
   } = state
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box>
       <Typography sx={styles.text}>Levels</Typography>
-      <FormControl component='fieldset' sx={{ m: 3 }} variant='standard'>
+      <FormControl component='fieldset' variant='standard'>
         <FormGroup>
           <FormControlLabel
             control={

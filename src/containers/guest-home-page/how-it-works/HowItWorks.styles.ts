@@ -7,7 +7,6 @@ export const styles = {
   },
   switch: {
     display: 'flex',
-    mb: '45px',
     flexDirection: { sm: 'row', xs: 'column' }
   },
   title: { mb: '32px', typography: 'h3' }

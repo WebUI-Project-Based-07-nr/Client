@@ -25,7 +25,7 @@ import PopularCategories from '~/components/popular-categories/PopularCategories
 import { Box } from '@mui/material'
 import FilterBlock from '~/components/filter-findOffer-page/FilterBlock'
 import ShowAllFiltersButton from '~/components/filter-findOffer-page/filter-block-components/show-all-filters-button/ShowAllFiltersButton'
-import { styles } from './FindOffers.styles'
+import { offerStyles } from './FindOffers.styles'
 
 const FindOffers = () => {
   const { t } = useTranslation()
@@ -36,7 +36,7 @@ const FindOffers = () => {
   const [isTutor, setIsTutor] = useState(
     searchParams.get('authorRole') === tutor
   )
-  const [isFilterShown, setisFilterShown] = React.useState<boolean>(false)
+  const [isFilterShown, setisFilterShown] = useState<boolean>(false)
 
   function showFilters() {
     setisFilterShown((prev) => !prev)
@@ -135,37 +135,41 @@ const FindOffers = () => {
   return (
     <>
       <CreateRequest translationKey={translationKey} />
-      <AppContentSwitcher
-        active={!isTutor}
-        onChange={onChange}
-        styles={styles.switch}
-        switchOptions={switchOptions}
-        typographyVariant={TypographyVariantEnum.H6}
-      />
+      <Box sx={offerStyles.mainContainer}>
+        <Box sx={offerStyles.filterContainer}>
+          <Box sx={{...offerStyles.filterButtonsWrapper}}>
+            <ShowAllFiltersButton showFilters={showFilters} />
+          </Box>
 
-      <Box sx={styles.filterButtonsWrapper}>
-        <ShowAllFiltersButton showFilters={showFilters} />
+          <AppContentSwitcher
+            active={!isTutor}
+            onChange={onChange}
+            styles={styles.switch}
+            switchOptions={switchOptions}
+            typographyVariant={TypographyVariantEnum.H6}
+          />
+
+          <SortMenu items={items} />
+          <ToggleButtons alignment={alignment} setAlignment={setAlignment} />
+        </Box>
+        <Box sx={offerStyles.container}>
+          <Box sx={offerStyles.filterDetailBlock}>
+            {isFilterShown && <FilterBlock />}
+          </Box>
+          <OfferCards
+            isSquare={alignment !== 'left'}
+            itemsPerPage={itemsPerPage}
+            loading={loading}
+            response={response}
+          />
+        </Box>
+        <AppPagination
+          onChange={handleChangePage}
+          page={page}
+          pageCount={pageCount}
+        />
+        <PopularCategories />
       </Box>
-
-      <Box sx={styles.filterDetailBlock}>
-        {isFilterShown && <FilterBlock />}
-        <OfferDetails />
-      </Box>
-
-      <SortMenu items={items} />
-      <ToggleButtons alignment={alignment} setAlignment={setAlignment} />
-      <OfferCards
-        isSquare={alignment !== 'left'}
-        itemsPerPage={itemsPerPage}
-        loading={loading}
-        response={response}
-      />
-      <AppPagination
-        onChange={handleChangePage}
-        page={page}
-        pageCount={pageCount}
-      />
-      <PopularCategories />
     </>
   )
 }
