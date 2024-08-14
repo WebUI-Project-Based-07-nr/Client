@@ -25,7 +25,7 @@ import PopularCategories from '~/components/popular-categories/PopularCategories
 import { Box } from '@mui/material'
 import FilterBlock from '~/components/filter-findOffer-page/FilterBlock'
 import ShowAllFiltersButton from '~/components/filter-findOffer-page/filter-block-components/show-all-filters-button/ShowAllFiltersButton'
-import { styles } from './FindOffers.styles'
+import { offerStyles } from './FindOffers.styles'
 
 const FindOffers = () => {
   const { t } = useTranslation()
@@ -36,8 +36,8 @@ const FindOffers = () => {
   const [isTutor, setIsTutor] = useState(
     searchParams.get('authorRole') === tutor
   )
-  const [isFilterShown, setisFilterShown] = React.useState<boolean>(false)
-  
+  const [isFilterShown, setisFilterShown] = useState<boolean>(false)
+
   function showFilters() {
     setisFilterShown((prev) => !prev)
   }
@@ -142,16 +142,15 @@ const FindOffers = () => {
         switchOptions={switchOptions}
         typographyVariant={TypographyVariantEnum.H6}
       />
-      
-      <Box sx={styles.filterButtonsWrapper}>
+
+      <Box sx={offerStyles.filterButtonsWrapper}>
         <ShowAllFiltersButton showFilters={showFilters} />
       </Box>
 
-      <Box sx={styles.filterDetailBlock}>
+      <Box sx={offerStyles.filterDetailBlock}>
         {isFilterShown && <FilterBlock />}
-        <OfferDetails />
       </Box>
-      
+
       <SortMenu items={items} />
       <ToggleButtons alignment={alignment} setAlignment={setAlignment} />
       <OfferCards

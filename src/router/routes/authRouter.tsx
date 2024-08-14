@@ -20,7 +20,6 @@ import LessonDetail from '~/containers/my-resources/lesson-detail/LessonDetail'
 import LessonContainer from '~/containers/my-resources/lesson-container/LessonsContainer'
 import QuizDetail from '~/containers/my-resources/quiz-detail/QuizDetail'
 
-
 const Categories = lazy(() => import('~/pages/categories/Categories'))
 const Subjects = lazy(() => import('~/pages/subjects/Subjects'))
 const FindOffers = lazy(() => import('~/pages/find-offers/FindOffers'))

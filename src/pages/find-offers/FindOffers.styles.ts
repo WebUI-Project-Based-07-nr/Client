@@ -1,4 +1,4 @@
-export const styles = {
+export const offerStyles = {
   filterDetailBlock: {
     display: 'flex',
     flexDirection: 'row'
