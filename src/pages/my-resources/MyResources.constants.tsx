@@ -9,6 +9,7 @@ import { ButtonProps } from '@mui/material/Button'
 import QuestionsContainer from '~/containers/my-resources/questions-container/QuestionsContainer'
 import CategoriesContainer from '~/containers/my-resources/categories-container/CategoriesContainer'
 import LessonsContainer from '~/containers/my-resources/lesson-container/LessonsContainer'
+import QuizzesContainer from '~/containers/my-resources/quiz-container/QuizzesContainer'
 
 export interface MyResoursesTabsData {
   [key: string]: {
@@ -26,7 +27,7 @@ export const tabsData: MyResoursesTabsData = {
   },
   quizzes: {
     title: 'myResourcesPage.tabs.quizzes',
-    content: <h4>Quizzes</h4>,
+    content: <QuizzesContainer/>,
     icon: <NoteAltOutlinedIcon />
   },
   questions: {

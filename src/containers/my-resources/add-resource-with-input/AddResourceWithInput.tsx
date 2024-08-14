@@ -26,7 +26,7 @@ interface AddResourceWithInputProps {
   btnText?: string
   fetchData: () => Promise<void>
   link?: string
-  searchRef: MutableRefObject<string>
+  searchRef?: MutableRefObject<string>
   button?: ReactElement
   selectedItems?: string[]
   setItems?: Dispatch<SetStateAction<string[]>>

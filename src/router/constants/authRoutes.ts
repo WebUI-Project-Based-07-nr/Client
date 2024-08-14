@@ -26,10 +26,15 @@ export const authRoutes = {
       route: 'my-resources/edit-question/:id',
       path: '/my-resources/edit-question'
     },
-    quizzes: {
-      root: { route: 'quizzes', path: '/quizzes' },
-      detail: { route: 'quiz/:quizId', path: '/quiz/:quizId' },
-      edit: { route: 'edit-quiz/:quizId', path: '/edit-quiz/:quizId' }
+    quizzes: { route: 'quizzes', path: '/quizzes' },
+  quizDetail: { route: 'quiz/:quizId', path: '/quiz/:quizId' },
+    createOrEditQuiz: {
+      route: 'edit-quiz/:quizId',
+      path: '/edit-quiz/:quizId'
+    },
+    newQuiz: {
+      route:'my-resources/new-quiz',
+      path:'/my-resources/new-quiz'
     }
   },
   accountMenu: {

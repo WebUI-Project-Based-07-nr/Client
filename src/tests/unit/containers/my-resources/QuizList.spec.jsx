@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import { BrowserRouter as Router } from 'react-router-dom'
-import QuizList from '~/containers/my-resources/quiz-list/QuizList'
+import QuizList from '~/containers/my-resources/quiz-container/QuizList'
 import { vi } from 'vitest'
 
 vi.mock('~/containers/my-resources/quiz-detail/quiz-service.mock', () => ({

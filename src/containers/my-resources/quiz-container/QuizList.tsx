@@ -4,7 +4,7 @@ import Loader from '~/components/loader/Loader'
 import { Quiz } from '~/types'
 import { Box } from '@mui/material'
 import { styles } from '~/containers/my-resources/add-resource-modal/AddResourceModal.styles'
-import { QuizServiceMock } from '../quiz-detail/quiz-service.mock'
+import { QuizServiceMock } from './quiz-service.mock'
 
 const QuizList = () => {
   const [quizzes, setQuizzes] = useState<Quiz[]>([])
