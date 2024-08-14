@@ -1,6 +1,4 @@
 import { Box } from '@mui/material'
-// import CheckboxesGroup from './filter-block-components/checkbox-levels-group/ChecboxesGroup'
-// import LanguageSelect from './filter-block-components/language-select-button/LanguageSelect'
 import PriceSlider from './filter-block-components/price-slider/PriceSlider'
 import RatingRadioGroup from './filter-block-components/rating/RatingRadioGroup'
 import InputFindByName from './filter-block-components/input-find-by-name/InputFindByName'
