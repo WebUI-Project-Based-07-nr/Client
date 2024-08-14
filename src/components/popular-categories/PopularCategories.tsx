@@ -1,56 +1,76 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Box, Button, Typography } from '@mui/material'
-import { MusicNote, Language, Tag } from '@mui/icons-material'
-import DesignServicesIcon from '@mui/icons-material/DesignServices'
-import ComputerIcon from '@mui/icons-material/Computer'
-import BiotechIcon from '@mui/icons-material/Biotech'
-import ColorLensIcon from '@mui/icons-material/ColorLens'
-import AccountBalanceIcon from '@mui/icons-material/AccountBalance'
 import { authRoutes } from '~/router/constants/authRoutes'
-import styles from './PopularCategories.styles'
-
-const categories = [
-  {
-    name: 'Languages',
-    offers: 234,
-    icon: <Language style={{ color: 'green' }} />
-  },
-  {
-    name: 'Mathematics',
-    offers: 234,
-    icon: <Tag style={{ color: 'orange' }} />
-  },
-  {
-    name: 'Computer science',
-    offers: 234,
-    icon: <ComputerIcon style={{ color: 'gray' }} />
-  },
-  { name: 'Music', offers: 234, icon: <MusicNote style={{ color: 'red' }} /> },
-  { name: 'Design', offers: 234, icon: <DesignServicesIcon /> },
-  { name: 'History', offers: 234, icon: <Language style={{ color: 'red' }} /> },
-  { name: 'Biology', offers: 234, icon: <BiotechIcon /> },
-  {
-    name: 'Painting',
-    offers: 234,
-    icon: <ColorLensIcon style={{ color: 'green' }} />
-  },
-  {
-    name: 'Finances',
-    offers: 234,
-    icon: <AccountBalanceIcon style={{ color: 'orange' }} />
-  }
-]
+import styles from '~/components/popular-categories/PopularCategories.styles'
+import { useSnackBarContext } from '~/context/snackbar-context'
+import { defaultResponses, snackbarVariants } from '~/constants'
+import { categoryService } from '~/services/category-service'
+import {
+  CategoryInterface,
+  ErrorResponse,
+  GetResourcesCategoriesParams,
+  ItemsWithCount
+} from '~/types'
+import useAxios from '~/hooks/use-axios'
+import Loader from '../loader/Loader'
+import IconResolver from '~/pages/categories/DynamicIcon'
 
 const PopularCategories: React.FC = () => {
   const navigate = useNavigate()
+  const { setAlert } = useSnackBarContext()
+  const onResponseError = useCallback(
+    (error: ErrorResponse) => {
+      setAlert({
+        severity: snackbarVariants.error,
+        message: error ? `errors.${error.code}` : ''
+      })
+    },
+    [setAlert]
+  )
+  const limitPerPage = 8
+  const getCategories = useCallback(() => {
+    return categoryService.getCategories({ limit: limitPerPage })
+  }, [])
 
-  const handleCardClick = () => {
-    navigate(authRoutes.categories.path)
+  const { response, loading } = useAxios<
+    ItemsWithCount<CategoryInterface>,
+    GetResourcesCategoriesParams
+  >({
+    service: getCategories,
+    defaultResponse: defaultResponses.itemsWithCount,
+    onResponseError
+  })
+
+  const handleCardClick = ({ _id }: { _id: string }) => {
+    navigate(`${authRoutes.subjects.path}?category=${_id}`)
   }
   const handleViewAllClick = () => {
     navigate(authRoutes.categories.path)
   }
+  const mappedCategories = response.items.map((category: CategoryInterface) => (
+    <Box
+      key={category._id}
+      onClick={() => handleCardClick(category)}
+      sx={styles.categoryCard}
+    >
+      <Box sx={styles.categoryIcon}>
+        <IconResolver
+          fontSize='large'
+          iconName={category.appearance.icon}
+          sx={{ color: category.appearance.color }}
+        />
+      </Box>
+      <Box sx={styles.categoryInfo}>
+        <Typography component='h3' sx={styles.categoryInfoTitle}>
+          {category.name}
+        </Typography>
+        <Typography component='h3' sx={styles.categoryInfoDescription}>
+          {String(category.totalOffers)} Offers
+        </Typography>
+      </Box>
+    </Box>
+  ))
 
   return (
     <Box>
@@ -58,19 +78,7 @@ const PopularCategories: React.FC = () => {
         Popular Categories
       </Typography>
       <Box sx={styles.categoriesGrid}>
-        {categories.map((category, index) => (
-          <Box key={index} onClick={handleCardClick} sx={styles.categoryCard}>
-            <Box sx={styles.categoryIcon}>{category.icon}</Box>
-            <Box sx={styles.categoryInfo}>
-              <Typography component='h3' sx={styles.categoryInfoTitle}>
-                {category.name}
-              </Typography>
-              <Typography component='h3' sx={styles.categoryInfoDescription}>
-                {category.offers} Offers
-              </Typography>
-            </Box>
-          </Box>
-        ))}
+        {loading ? <Loader pageLoad size={50} /> : mappedCategories}
       </Box>
       <Box
         sx={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }}

@@ -51,5 +51,8 @@ export const ResourceServiceMock = {
         items: mockLessons
       }
     })
+  },
+  deleteLesson: (id) => {
+    return (mockLessons = mockLessons.filter((el) => el._id !== id))
   }
 }
