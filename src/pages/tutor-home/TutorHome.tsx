@@ -10,6 +10,7 @@ import FindBlock from '~/components/find-block/FindBlock'
 import { styles } from '~/pages/tutor-home/TutorHome.styles'
 import { translationKey } from '~/components/find-block/find-student-constants'
 import HowItWorks from '~/containers/student-home-page/student-how-it-works/how-it-works/HowItWorks'
+import PopularCategories from '~/components/popular-categories/PopularCategories'
 
 const TutorHome = () => {
   const { openModal } = useModalContext()
@@ -29,6 +30,7 @@ const TutorHome = () => {
   return (
     <PageWrapper data-testid='tutorHome'>
       <FindBlock translationKey={translationKey} />
+      <PopularCategories />
       <HowItWorks userRole={userRole} />
     </PageWrapper>
   )

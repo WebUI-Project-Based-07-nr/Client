@@ -9,6 +9,7 @@ import FileUploader from '~/components/file-uploader/FileUploader'
 import DragAndDrop from '~/components/drag-and-drop/DragAndDrop'
 import CheckIcon from '@mui/icons-material/Check'
 import { ButtonVariantEnum } from '~/types'
+import { userService } from '~/services/user-service'
 
 const AddPhotoStep = ({ btnsBox }) => {
   const { t } = useTranslation()
@@ -17,13 +18,15 @@ const AddPhotoStep = ({ btnsBox }) => {
   const [errorMessage, setErrorMessage] = useState('')
   const [fileSelected, setFileSelected] = useState(false)
 
-  const handleFileChange = ({ files, error }) => {
+  const handleFileChange = async ({ files, error }) => {
     if (!error && files.length > 0) {
       setFile(files[0])
       const objectURL = URL.createObjectURL(files[0])
 
       setFileURL(objectURL)
       setFileSelected(true)
+      await userService.uploadPhoto(files[0])
+      setErrorMessage('')
     } else {
       setFile(null)
       setFileURL('')
@@ -47,6 +50,7 @@ const AddPhotoStep = ({ btnsBox }) => {
       <Box data-testid='image-container' sx={style.imgContainer}>
         {file ? (
           <Box
+            alt={t('becomeTutor.photo.imageAlt')}
             component='img'
             data-testid='upload-image'
             src={fileURL}

@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { ResourceServiceMock as ResourceService } from '../lesson-list/resource-service.mock'
+import { ResourceServiceMock as ResourceService } from '~/containers/my-resources/lesson-container/lesson-service.mock'
 import Loader from '~/components/loader/Loader'
-import { Lesson } from '~/types/my-resources/types/lesson.types'
 import { Box, Typography } from '@mui/material'
 import { styles } from '~/containers/my-resources/add-resource-modal/AddResourceModal.styles'
+import { authRoutes } from '~/router/constants/authRoutes'
+import { Lesson } from '~/types/my-resources/types/lesson.types'
 
 const LessonDetail = () => {
   const { t } = useTranslation()
@@ -13,14 +14,19 @@ const LessonDetail = () => {
   const [lesson, setLesson] = useState<Lesson | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
 
+  const createUrlPath = (path: string, id: string): string =>
+    path.replace(':lessonId', id)
+
   useEffect(() => {
     const fetchLesson = async () => {
       if (lessonId) {
         try {
-          const fetchedLesson: Lesson | null =
-            await ResourceService.getLesson(lessonId)
-          setLesson(fetchedLesson)
-        } catch (error: unknown) {
+          const { data } = await ResourceService.getLessons()
+          const fetchedLesson = data.items.find(
+            (lesson) => lesson._id === lessonId
+          )
+          setLesson(fetchedLesson || null)
+        } catch (error) {
           console.error('Error fetching lesson:', error)
         } finally {
           setLoading(false)
@@ -28,7 +34,9 @@ const LessonDetail = () => {
       }
     }
 
-    fetchLesson().catch((error: unknown) => console.error(error))
+    fetchLesson().catch((error) =>
+      console.error('Error in fetchLesson:', error)
+    )
   }, [lessonId])
 
   if (loading) {
@@ -44,9 +52,12 @@ const LessonDetail = () => {
       <Typography sx={styles.title} variant='h1'>
         <Link
           style={{ textDecoration: 'none', color: 'inherit' }}
-          to={`/edit-lesson/${lesson.id}`}
+          to={createUrlPath(
+            authRoutes.myResources.createOrEditLesson.path,
+            lesson._id
+          )}
         >
-          {lesson.title}
+          {lesson.name}
         </Link>
       </Typography>
       {lesson.description && (

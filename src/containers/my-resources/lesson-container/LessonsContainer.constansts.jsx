@@ -4,7 +4,7 @@ import Box from '@mui/material/Box'
 import AppChip from '~/components/app-chip/AppChip'
 
 import { SortEnum } from '~/types'
-import { createUrlPath, getFormattedDate } from '~/utils/helper-functions'
+import { getFormattedDate } from '~/utils/helper-functions'
 import { styles } from '~/containers/my-resources/lesson-container/LessonsContainer.style'
 import { authRoutes } from '~/router/constants/authRoutes'
 import ListAltIcon from '@mui/icons-material/ListAlt'
@@ -14,9 +14,10 @@ export const columns = [
     label: 'myResourcesPage.lessons.tableTitle',
     field: 'tableTitle',
     calculatedCellValue: (item, { navigate }) => {
+      const createUrlPath = (path, id) => path.replace(':lessonId', id)
       const handleClick = () => {
         navigate(
-          createUrlPath(authRoutes.myResources.editLesson.path, item._id)
+          createUrlPath(authRoutes.myResources.lessonDetail.path, item._id)
         )
       }
       return (

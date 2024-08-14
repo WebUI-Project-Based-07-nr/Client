@@ -1,5 +1,7 @@
 export interface Lesson {
-  id: string
-  title: string
+  _id: string
+  name: string
   description?: string
+  updatedAt: string
+  category: string
 }
