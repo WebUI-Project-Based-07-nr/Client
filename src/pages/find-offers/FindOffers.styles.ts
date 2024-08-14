@@ -1,10 +1,12 @@
-export const styles = {
-  filterDetailBlock: {
+export const offerStyles = {
+  mainContainer: {
+    width: '80%',
     display: 'flex',
-    flexDirection: 'row'
+    justifyContent: 'center',
+    margin: '0 auto'
   },
-  filterButtonsWrapper: {
+  container: {
     display: 'flex',
-    justifyContent: 'space-between'
+    alignItems: 'center'
   }
 }

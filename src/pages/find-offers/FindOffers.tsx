@@ -37,7 +37,7 @@ const FindOffers = () => {
     searchParams.get('authorRole') === tutor
   )
   const [isFilterShown, setisFilterShown] = React.useState<boolean>(false)
-  
+
   function showFilters() {
     setisFilterShown((prev) => !prev)
   }
@@ -142,7 +142,7 @@ const FindOffers = () => {
         switchOptions={switchOptions}
         typographyVariant={TypographyVariantEnum.H6}
       />
-      
+
       <Box sx={styles.filterButtonsWrapper}>
         <ShowAllFiltersButton showFilters={showFilters} />
       </Box>
@@ -151,7 +151,7 @@ const FindOffers = () => {
         {isFilterShown && <FilterBlock />}
         <OfferDetails />
       </Box>
-      
+
       <SortMenu items={items} />
       <ToggleButtons alignment={alignment} setAlignment={setAlignment} />
       <OfferCards
