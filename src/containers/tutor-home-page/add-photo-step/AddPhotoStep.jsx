@@ -84,7 +84,7 @@ const AddPhotoStep = ({ btnsBox }) => {
                 root: style.fileUploader.root,
                 button: style.fileUploader.button
               }}
-              validationData={validationData.maxFileSize}
+              validationData={validationData}
               variant={ButtonVariantEnum.Outlined}
             />
           </Box>
