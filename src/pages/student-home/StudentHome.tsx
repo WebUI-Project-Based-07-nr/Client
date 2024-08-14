@@ -10,7 +10,6 @@ import { translationKey } from '~/components/find-block/find-tutor-constants'
 import HowItWorks from '~/containers/student-home-page/student-how-it-works/how-it-works/HowItWorks'
 import PopularCategories from '~/components/popular-categories/PopularCategories'
 
-
 const StudentHome = () => {
   const { openModal } = useModalContext()
   const { isFirstLogin, userRole } = useAppSelector((state) => state.appMain)
