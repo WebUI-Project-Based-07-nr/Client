@@ -1,28 +1,28 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ResourceServiceMock as ResourceService } from '../lesson-list/resource-service.mock'
 import Loader from '~/components/loader/Loader'
-import { Lesson } from '~/types/my-resources/types/lesson.types'
+import { Quiz } from '~/types'
 import { Box } from '@mui/material'
 import { styles } from '~/containers/my-resources/add-resource-modal/AddResourceModal.styles'
+import { QuizServiceMock } from '../quiz-detail/quiz-service.mock'
 
-const LessonList = () => {
-  const [lessons, setLessons] = useState<Lesson[]>([])
+const QuizList = () => {
+  const [quizzes, setQuizzes] = useState<Quiz[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const fetchLessons = async () => {
+    const fetchQuizzes = async () => {
       try {
-        const fetchedLessons: Lesson[] = await ResourceService.getLessons()
-        setLessons(fetchedLessons)
+        const fetchedQuizzes: Quiz[] = await QuizServiceMock.getQuizzes()
+        setQuizzes(fetchedQuizzes)
       } catch (error) {
-        console.error('Error fetching lessons:', error)
+        console.error('Error fetching quizzes:', error)
       } finally {
         setLoading(false)
       }
     }
 
-    fetchLessons().catch(console.error)
+    fetchQuizzes().catch(console.error)
   }, [])
 
   if (loading) {
@@ -32,13 +32,13 @@ const LessonList = () => {
   return (
     <Box sx={styles.root}>
       <ul>
-        {lessons.map((lesson) => (
-          <li key={lesson.id}>
+        {quizzes.map((quiz) => (
+          <li key={quiz._id}>
             <Link
               style={{ color: 'inherit', textDecoration: 'none' }}
-              to={`/lesson/${lesson.id}`}
+              to={`/quiz/${quiz._id}`}
             >
-              {lesson.title}
+              {quiz.title}
             </Link>
           </li>
         ))}
@@ -47,4 +47,4 @@ const LessonList = () => {
   )
 }
 
-export default LessonList
+export default QuizList

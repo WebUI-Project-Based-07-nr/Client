@@ -54,6 +54,11 @@ const LessonContainer = () => {
 
   const getLessons = useCallback(() => ResourceServiceMock.getLessons(), [])
 
+  const deleteLesson = useCallback(
+    (id) => ResourceServiceMock.deleteLesson(id),
+    []
+  )
+
   const { response, loading, fetchData } = useAxios({
     service: getLessons,
     defaultResponse: defaultResponses.itemsWithCount,
@@ -64,7 +69,7 @@ const LessonContainer = () => {
     columns: columnsToShow,
     data: { response: response, getData: fetchData },
     services: {
-      deleteService: () => {}
+      deleteService: deleteLesson
     },
     itemsPerPage,
     actions: { onEdit },

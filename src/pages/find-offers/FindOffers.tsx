@@ -21,6 +21,7 @@ import {
 import { defaultResponses, snackbarVariants, student, tutor } from '~/constants'
 import { useSnackBarContext } from '~/context/snackbar-context'
 import { styles } from '~/containers/guest-home-page/how-it-works/HowItWorks.styles'
+import PopularCategories from '~/components/popular-categories/PopularCategories'
 
 const FindOffers = () => {
   const { t } = useTranslation()
@@ -145,6 +146,7 @@ const FindOffers = () => {
         page={page}
         pageCount={pageCount}
       />
+      <PopularCategories />
     </>
   )
 }
