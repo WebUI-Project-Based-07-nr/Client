@@ -7,7 +7,6 @@ import Typography from '@mui/material/Typography'
 import { tabsData } from '~/pages/my-resources/MyResources.constants'
 import { styles } from '~/pages/my-resources/MyResources.styles'
 import TabNavigation from '~/components/tab-navigation/TabNavigation'
-import LessonList from '~/containers/my-resources/lesson-list/LessonList'
 
 const MyResources = () => {
   const [activeTab, setActiveTab] = useState<string>('lessons')
@@ -29,7 +28,6 @@ const MyResources = () => {
         tabsData={tabsData}
       />
       {tabContent}
-      {activeTab === 'lessons' && <LessonList />}
     </PageWrapper>
   )
 }
