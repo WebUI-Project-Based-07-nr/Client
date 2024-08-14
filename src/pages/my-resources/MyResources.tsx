@@ -7,7 +7,6 @@ import Typography from '@mui/material/Typography'
 import { tabsData } from '~/pages/my-resources/MyResources.constants'
 import { styles } from '~/pages/my-resources/MyResources.styles'
 import TabNavigation from '~/components/tab-navigation/TabNavigation'
-import LessonList from '~/containers/my-resources/lesson-list/LessonList'
 import QuizList from '~/containers/my-resources/quiz-list/QuizList'
 
 const MyResources = () => {
@@ -30,7 +29,6 @@ const MyResources = () => {
         tabsData={tabsData}
       />
       {tabContent}
-      {activeTab === 'lessons' && <LessonList />}
       {activeTab === 'quizzes' && <QuizList />}
     </PageWrapper>
   )
