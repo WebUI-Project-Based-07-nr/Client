@@ -22,6 +22,10 @@ import { defaultResponses, snackbarVariants, student, tutor } from '~/constants'
 import { useSnackBarContext } from '~/context/snackbar-context'
 import { styles } from '~/containers/guest-home-page/how-it-works/HowItWorks.styles'
 import PopularCategories from '~/components/popular-categories/PopularCategories'
+import { Box } from '@mui/material'
+import FilterBlock from '~/components/filter-findOffer-page/FilterBlock'
+import ShowAllFiltersButton from '~/components/filter-findOffer-page/filter-block-components/show-all-filters-button/ShowAllFiltersButton'
+import { offerStyles } from './FindOffers.styles'
 
 const FindOffers = () => {
   const { t } = useTranslation()
@@ -32,6 +36,11 @@ const FindOffers = () => {
   const [isTutor, setIsTutor] = useState(
     searchParams.get('authorRole') === tutor
   )
+  const [isFilterShown, setIsFilterShown] = useState<boolean>(false)
+
+  function showFilters() {
+    setIsFilterShown((prev) => !prev)
+  }
 
   const [queryParams, setQueryParams] = useState({
     authorRole: searchParams.get('authorRole') || student,
@@ -67,11 +76,12 @@ const FindOffers = () => {
 
       return OfferService.getOffers({
         ...params,
+        authorRole: queryParams.authorRole,
         limit: itemsPerPage,
         skip
       })
     },
-    [initialPage, itemsPerPage]
+    [initialPage, itemsPerPage, queryParams.authorRole]
   )
 
   const { response, loading, fetchData } = useAxios<
@@ -80,8 +90,13 @@ const FindOffers = () => {
   >({
     service: getOfferService,
     defaultResponse: defaultResponses.itemsWithCount,
-    onResponseError
+    onResponseError,
+    fetchOnMount: false
   })
+
+  useEffect(() => {
+    void fetchData()
+  }, [fetchData])
 
   const { page, handleChangePage, pageCount, setPage } = usePagination({
     defaultPage: initialPage,
@@ -95,6 +110,7 @@ const FindOffers = () => {
     if (page > maxPage) {
       setPage(maxPage)
     }
+
     setQueryParams((prevParams) => ({
       ...prevParams,
       page: `${page}`
@@ -107,6 +123,7 @@ const FindOffers = () => {
 
   const onChange = () => {
     const newIsTutor = !isTutor
+    setPage(1)
     setIsTutor(newIsTutor)
     setRequestParams((prevParams) => ({
       ...prevParams,
@@ -126,27 +143,41 @@ const FindOffers = () => {
   return (
     <>
       <CreateRequest translationKey={translationKey} />
-      <AppContentSwitcher
-        active={!isTutor}
-        onChange={onChange}
-        styles={styles.switch}
-        switchOptions={switchOptions}
-        typographyVariant={TypographyVariantEnum.H6}
-      />
-      <SortMenu items={items} />
-      <ToggleButtons alignment={alignment} setAlignment={setAlignment} />
-      <OfferCards
-        isSquare={alignment !== 'left'}
-        itemsPerPage={itemsPerPage}
-        loading={loading}
-        response={response}
-      />
-      <AppPagination
-        onChange={handleChangePage}
-        page={page}
-        pageCount={pageCount}
-      />
-      <PopularCategories />
+      <Box sx={offerStyles.mainContainer}>
+        <Box sx={offerStyles.filterContainer}>
+          <Box sx={{ ...offerStyles.filterButtonsWrapper }}>
+            <ShowAllFiltersButton showFilters={showFilters} />
+          </Box>
+
+          <AppContentSwitcher
+            active={!isTutor}
+            onChange={onChange}
+            styles={styles.switch}
+            switchOptions={switchOptions}
+            typographyVariant={TypographyVariantEnum.H6}
+          />
+
+          <SortMenu items={items} />
+          <ToggleButtons alignment={alignment} setAlignment={setAlignment} />
+        </Box>
+        <Box sx={offerStyles.container}>
+          <Box sx={offerStyles.filterDetailBlock}>
+            {isFilterShown && <FilterBlock />}
+          </Box>
+          <OfferCards
+            isSquare={alignment !== 'left'}
+            itemsPerPage={itemsPerPage}
+            loading={loading}
+            response={response}
+          />
+        </Box>
+        <AppPagination
+          onChange={handleChangePage}
+          page={page}
+          pageCount={pageCount}
+        />
+        <PopularCategories />
+      </Box>
     </>
   )
 }

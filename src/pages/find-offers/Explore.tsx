@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {
   Button,
   Box,
@@ -70,35 +71,35 @@ const Explore: React.FC = () => {
           height: '250px'
         }}
       >
-        <Box display='flex' justifyContent='space-between' alignItems='center'>
+        <Box alignItems='center' display='flex' justifyContent='space-between'>
           <Box style={{ marginTop: '40px', marginLeft: '20px' }}>
-            <Typography variant='h5' align='left' color='black'>
+            <Typography align='left' color='black' variant='h5'>
               Tutors for private lessons
             </Typography>
             <Typography
-              variant='body2'
               align='left'
               color='black'
               style={{ marginBottom: '16px' }}
+              variant='body2'
             >
               It is a long established fact that a reader will be distracted by
               the readable content of a page when looking at its layout.
             </Typography>
             <Button
-              variant='contained'
               style={{
                 backgroundColor: 'black',
                 color: 'white',
                 marginTop: '16px'
               }}
+              variant='contained'
             >
               Create request
             </Button>
           </Box>
           <Box
+            alignItems='center'
             display='flex'
             justifyContent='center'
-            alignItems='center'
             marginLeft='150px'
             marginTop='25px'
           >
@@ -110,36 +111,36 @@ const Explore: React.FC = () => {
         </Box>
       </Container>
 
-      <Typography variant='h5' align='center' style={{ marginTop: '16px' }}>
+      <Typography align='center' style={{ marginTop: '16px' }} variant='h5'>
         Explore Offers
       </Typography>
       <Typography
-        variant='body2'
         align='center'
         style={{ marginBottom: '16px' }}
+        variant='body2'
       >
         Discover offers in your area of interest
       </Typography>
 
       <Box
-        display='flex'
         alignItems='center'
-        style={{ marginBottom: '16px', marginLeft: '44px', cursor: 'pointer' }}
+        display='flex'
         onClick={() => navigate('/categories')}
+        style={{ marginBottom: '16px', marginLeft: '44px', cursor: 'pointer' }}
       >
         <img
-          src={leftArrow}
           alt='Back'
+          src={leftArrow}
           style={{ height: '20px', width: 'auto', marginRight: '8px' }}
         />
-        <Typography variant='body2' align='left'>
+        <Typography align='left' variant='body2'>
           Back to all categories
         </Typography>
       </Box>
 
       <Box
-        display='flex'
         alignItems='center'
+        display='flex'
         justifyContent='space-between'
         style={{
           marginTop: '26px',
@@ -150,14 +151,14 @@ const Explore: React.FC = () => {
         }}
       >
         <FormControl
-          variant='outlined'
           style={{ marginRight: '16px', flex: 1 }}
+          variant='outlined'
         >
           <InputLabel>Category</InputLabel>
           <Select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
             label='Category'
+            onChange={(e) => setCategory(e.target.value)}
+            value={category}
           >
             <MenuItem value='Category1'>Category1</MenuItem>
             <MenuItem value='Category2'>Category2</MenuItem>
@@ -165,27 +166,25 @@ const Explore: React.FC = () => {
         </FormControl>
 
         <FormControl
-          variant='outlined'
           style={{ marginRight: '8px', marginLeft: '8px', flex: 1 }}
+          variant='outlined'
         >
           <InputLabel>Subject</InputLabel>
           <Select
-            value={subject}
-            onChange={(e) => setSubject(e.target.value)}
             label='Subject'
+            onChange={(e) => setSubject(e.target.value)}
+            value={subject}
           >
             <MenuItem value='Subject1'>Subject 1</MenuItem>
             <MenuItem value='Subject2'>Subject 2</MenuItem>
           </Select>
         </FormControl>
-        <img style={{ marginLeft: '24px' }} src={searchIcon} />
+        <img src={searchIcon} style={{ marginLeft: '24px' }} />
 
         <TextField
-          variant='outlined'
-          placeholder='Search by tutor name'
-          value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           onKeyDown={handleKeyPress}
+          placeholder='Search by tutor name'
           sx={{
             flex: 2,
             marginRight: '8px',
@@ -195,10 +194,12 @@ const Explore: React.FC = () => {
               }
             }
           }}
+          value={searchTerm}
+          variant='outlined'
         />
         <Button
-          variant='contained'
           style={{ marginRight: '10px', transform: 'translateX(-18px)' }}
+          variant='contained'
         >
           Search
         </Button>

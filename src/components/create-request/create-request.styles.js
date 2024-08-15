@@ -2,6 +2,7 @@ export const styles = {
   container: {
     width: '80%',
     margin: '0 auto',
+    boxSizing: 'border-box',
     img: {
       xs: { display: 'none' },
       md: { display: 'block' }

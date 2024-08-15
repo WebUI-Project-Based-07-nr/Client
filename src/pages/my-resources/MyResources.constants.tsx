@@ -27,7 +27,7 @@ export const tabsData: MyResoursesTabsData = {
   },
   quizzes: {
     title: 'myResourcesPage.tabs.quizzes',
-    content: <QuizzesContainer/>,
+    content: <QuizzesContainer />,
     icon: <NoteAltOutlinedIcon />
   },
   questions: {
