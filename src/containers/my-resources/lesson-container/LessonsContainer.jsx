@@ -36,8 +36,8 @@ const LessonContainer = () => {
 
   const itemsPerPage = getScreenBasedLimit(breakpoints, itemsLoadLimit)
 
-  const editLesson = (id) => {
-    navigate(createUrlPath(authRoutes.myResources.editQuestion.path, id))
+  const onEdit = (id) => {
+    navigate(createUrlPath(authRoutes.myResources.editLesson.path, id))
   }
 
   const columnsToShow = ajustColumns(breakpoints, columns, removeColumnRules)
@@ -72,7 +72,7 @@ const LessonContainer = () => {
       deleteService: deleteLesson
     },
     itemsPerPage,
-    actions: { editLesson },
+    actions: { onEdit },
     resource: ResourcesTabsEnum.Lessons,
     sort: sortOptions,
     pagination: { page, onChange: handleChangePage }

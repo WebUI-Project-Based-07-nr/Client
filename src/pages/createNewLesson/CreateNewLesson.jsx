@@ -3,11 +3,12 @@ import Box from '@mui/material/Box'
 import { styles } from '~/pages/createNewLesson/CreateNewLesson.styles'
 import AppTextField from '~/components/app-text-field/AppTextField'
 import { useTranslation } from 'react-i18next'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import AppButton from '~/components/app-button/AppButton'
 import { authRoutes } from '~/router/constants/authRoutes'
 import { TextFieldVariantEnum } from '~/types'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import { ResourceServiceMock } from '~/containers/my-resources/lesson-container/lesson-service.mock'
 
 const CreateNewLesson = () => {
   const { t } = useTranslation()
@@ -16,6 +17,7 @@ const CreateNewLesson = () => {
     description: ''
   })
   const navigate = useNavigate()
+  const { id } = useParams()
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
@@ -23,6 +25,30 @@ const CreateNewLesson = () => {
       ...prevData,
       [name]: value
     }))
+  }
+
+  useEffect(() => {
+    const getLesson = async () => {
+      const lesson = await ResourceServiceMock.getLesson(id)
+      handleInputChange({ target: { name: 'title', value: lesson.name } })
+      handleInputChange({
+        target: { name: 'description', value: lesson.description }
+      })
+    }
+
+    if (id) {
+      getLesson()
+    }
+  }, [id])
+
+  const editLesson = () => {
+    ResourceServiceMock.editLesson(formData.title, formData.description, id)
+    navigate(authRoutes.myResources.root.path)
+  }
+
+  const handleSave = () => {
+    ResourceServiceMock.newLesson(formData.title, formData.description)
+    navigate(authRoutes.myResources.root.path)
   }
 
   return (
@@ -55,7 +81,9 @@ const CreateNewLesson = () => {
           <AppButton onClick={() => navigate(authRoutes.myResources.root.path)}>
             {t('common.cancel')}
           </AppButton>
-          <AppButton>{t('common.save')}</AppButton>
+          <AppButton onClick={() => (id ? editLesson() : handleSave())}>
+            {t('common.save')}
+          </AppButton>
         </Box>
       </Box>
     </PageWrapper>

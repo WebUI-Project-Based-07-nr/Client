@@ -18,6 +18,10 @@ export const authRoutes = {
       route: 'my-resources/new-lesson',
       path: '/my-resources/new-lesson'
     },
+    editLesson: {
+      route: 'my-resources/edit-lesson/:id',
+      path: '/my-resources/edit-lesson'
+    },
     newQuestion: {
       route: 'my-resources/new-question',
       path: '/my-resources/new-question'
@@ -27,14 +31,14 @@ export const authRoutes = {
       path: '/my-resources/edit-question'
     },
     quizzes: { route: 'quizzes', path: '/quizzes' },
-  quizDetail: { route: 'quiz/:quizId', path: '/quiz/:quizId' },
+    quizDetail: { route: 'quiz/:quizId', path: '/quiz/:quizId' },
     createOrEditQuiz: {
       route: 'edit-quiz/:quizId',
       path: '/edit-quiz/:quizId'
     },
     newQuiz: {
-      route:'my-resources/new-quiz',
-      path:'/my-resources/new-quiz'
+      route: 'my-resources/new-quiz',
+      path: '/my-resources/new-quiz'
     }
   },
   accountMenu: {

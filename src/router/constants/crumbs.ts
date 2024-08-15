@@ -56,7 +56,13 @@ export const editQuestion = {
   name: t('breadCrumbs.editQuestion'),
   path: authRoutes.myResources.editQuestion.route
 }
+
 export const newQuiz = {
   name: t('breadCrumbs.newQuiz'),
   path: authRoutes.myResources.newQuiz.route
+}
+
+export const editLesson = {
+  name: t('breadCrumbs.editLesson'),
+  path: authRoutes.myResources.editLesson.route
 }

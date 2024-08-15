@@ -150,5 +150,8 @@ export const styles = {
     '@media (max-width:380px)': {
       display: 'none'
     }
+  },
+  citiesLoader: {
+    marginRight: '8px'
   }
 }
