@@ -1,34 +1,37 @@
-import { Category, Quiz } from '~/types'
+import { AxiosResponse } from "axios";
 
-const quizzes: Quiz[] = [
+let mockQuizzes = [
   {
     _id: '1',
-    title: 'Quiz 1',
-    description: 'Description for Quiz 1',
-    category: { _id: '1', name: 'Category 1' } as Category,
-    items: [],
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString()
+    name: 'Quiz 1',
+    category: 'Math',
+    description: 'Description 1',
+    updatedAt: '2024-08-08T14:30:00Z'
   },
   {
     _id: '2',
-    title: 'Quiz 2',
-    description: 'Description for Quiz 2',
-    category: { _id: '2', name: 'Category 2' } as Category,
-    items: [],
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString()
-  }
-]
+    name: 'Quiz 2',
+    category: 'Science',
+    description: 'Description 2',
+    updatedAt: '2024-08-07T14:30:00Z'
+  },
+
+];
 
 export const QuizServiceMock = {
-  getQuizzes: async (): Promise<Quiz[]> => {
-    return new Promise((resolve) => setTimeout(() => resolve(quizzes), 1000))
+  getQuizzes: (): Promise<AxiosResponse<{ count: number; items: typeof mockQuizzes }>> => {
+    return Promise.resolve({
+      data: {
+        count: mockQuizzes.length,
+        items: mockQuizzes,
+      },
+      status: 200,
+      statusText: 'OK',
+      headers: {},
+      config: { headers: {} },
+    });
   },
-  getQuiz: async (id: string): Promise<Quiz | null> => {
-    const quiz = quizzes.find((quiz) => quiz._id === id)
-    return new Promise((resolve) =>
-      setTimeout(() => resolve(quiz || null), 500)
-    )
+  deleteLesson: (id: string) => {
+    mockQuizzes = mockQuizzes.filter((el) => el._id !== id);
   }
 }

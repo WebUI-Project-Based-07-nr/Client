@@ -24,9 +24,9 @@ import useSort from '~/hooks/table/use-sort'
 import usePagination from '~/hooks/table/use-pagination'
 import Loader from '~/components/loader/Loader'
 import { useNavigate } from 'react-router-dom'
-import { ResourceServiceMock } from '~/containers/my-resources/lesson-container/lesson-service.mock'
+import { QuizServiceMock } from './quiz-service.mock'
 
-const LessonContainer = () => {
+const QuizzesContainer = () => {
   const { t } = useTranslation()
   const breakpoints = useBreakpoints()
   const { setAlert } = useSnackBarContext()
@@ -36,12 +36,12 @@ const LessonContainer = () => {
 
   const itemsPerPage = getScreenBasedLimit(breakpoints, itemsLoadLimit)
 
-  const editLesson = (id) => {
-    navigate(createUrlPath(authRoutes.myResources.editQuestion.path, id))
-  }
 
   const columnsToShow = ajustColumns(breakpoints, columns, removeColumnRules)
 
+  const editLesson = (id) => {
+    navigate(createUrlPath(authRoutes.myResources.editQuestion.path, id))
+  }
   const onResponseError = useCallback(
     (error) => {
       setAlert({
@@ -52,31 +52,34 @@ const LessonContainer = () => {
     [setAlert]
   )
 
-  const getLessons = useCallback(() => ResourceServiceMock.getLessons(), [])
+  const getQuizzes = useCallback(() => {
+    return QuizServiceMock.getQuizzes();
+  }, []);
 
-  const deleteLesson = useCallback(
-    (id) => ResourceServiceMock.deleteLesson(id),
-    []
-  )
+    const deleteLesson = useCallback(
+        (id) => QuizServiceMock.deleteLesson(id),
+        []
+)
 
   const { response, loading, fetchData } = useAxios({
-    service: getLessons,
+    service: getQuizzes,
     defaultResponse: defaultResponses.itemsWithCount,
     onResponseError
   })
 
-  const props = {
-    columns: columnsToShow,
-    data: { response: response, getData: fetchData },
-    services: {
-      deleteService: deleteLesson
-    },
-    itemsPerPage,
-    actions: { editLesson },
-    resource: ResourcesTabsEnum.Lessons,
-    sort: sortOptions,
-    pagination: { page, onChange: handleChangePage }
-  }
+    const props = {
+        columns: columnsToShow,
+        data: { response: response, getData: fetchData },
+        actions: { editLesson },
+        services: {
+            deleteService: deleteLesson
+          },
+        itemsPerPage,
+        resource: ResourcesTabsEnum.Quizzes,
+        sort: sortOptions,
+        pagination: { page, onChange: handleChangePage }
+    }
+    console.log(props);
 
   return (
     <Box>
@@ -95,4 +98,4 @@ const LessonContainer = () => {
   )
 }
 
-export default LessonContainer
+export default QuizzesContainer
