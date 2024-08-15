@@ -36,10 +36,10 @@ const FindOffers = () => {
   const [isTutor, setIsTutor] = useState(
     searchParams.get('authorRole') === tutor
   )
-  const [isFilterShown, setisFilterShown] = useState<boolean>(false)
+  const [isFilterShown, setIsFilterShown] = useState<boolean>(false)
 
   function showFilters() {
-    setisFilterShown((prev) => !prev)
+    setIsFilterShown((prev) => !prev)
   }
 
   const [queryParams, setQueryParams] = useState({
@@ -76,11 +76,12 @@ const FindOffers = () => {
 
       return OfferService.getOffers({
         ...params,
+        authorRole: queryParams.authorRole,
         limit: itemsPerPage,
         skip
       })
     },
-    [initialPage, itemsPerPage]
+    [initialPage, itemsPerPage, queryParams.authorRole]
   )
 
   const { response, loading, fetchData } = useAxios<
@@ -89,8 +90,13 @@ const FindOffers = () => {
   >({
     service: getOfferService,
     defaultResponse: defaultResponses.itemsWithCount,
-    onResponseError
+    onResponseError,
+    fetchOnMount: false
   })
+
+  useEffect(() => {
+    void fetchData()
+  }, [fetchData])
 
   const { page, handleChangePage, pageCount, setPage } = usePagination({
     defaultPage: initialPage,
@@ -104,6 +110,7 @@ const FindOffers = () => {
     if (page > maxPage) {
       setPage(maxPage)
     }
+
     setQueryParams((prevParams) => ({
       ...prevParams,
       page: `${page}`
@@ -116,6 +123,7 @@ const FindOffers = () => {
 
   const onChange = () => {
     const newIsTutor = !isTutor
+    setPage(1)
     setIsTutor(newIsTutor)
     setRequestParams((prevParams) => ({
       ...prevParams,
