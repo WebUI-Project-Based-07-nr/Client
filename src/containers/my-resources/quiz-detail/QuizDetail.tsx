@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { QuizServiceMock } from './quiz-service.mock'
+import { QuizServiceMock } from '../quiz-container/quiz-service.mock'
 import Loader from '~/components/loader/Loader'
 import { Quiz } from '~/types'
 import { Box, Typography } from '@mui/material'
