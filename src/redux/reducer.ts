@@ -1,14 +1,16 @@
-import { PayloadAction, createSlice, isAnyOf } from '@reduxjs/toolkit'
-import { parseJwt } from '~/utils/helper-functions'
 import {
   createAsyncThunk,
-  isPending,
+  createSlice,
+  isAnyOf,
   isFulfilled,
-  isRejected
+  isPending,
+  isRejected,
+  PayloadAction
 } from '@reduxjs/toolkit'
-import { AuthService, authService } from '~/services/auth-service'
-import { AxiosError } from 'axios'
-import { AccessToken, ErrorResponse, UserRole } from '~/types'
+import {parseJwt} from '~/utils/helper-functions'
+import {AuthService, authService} from '~/services/auth-service'
+import {AxiosError} from 'axios'
+import {AccessToken, ErrorResponse, UserRole, UserRoleEnum} from '~/types'
 
 interface UserState {
   userId: string
@@ -22,7 +24,7 @@ interface UserState {
 
 const initialState: UserState = {
   userId: '',
-  userRole: '',
+  userRole: UserRoleEnum.Tutor,
   authLoading: false,
   loading: true,
   pageLoad: false,

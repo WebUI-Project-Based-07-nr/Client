@@ -4,7 +4,7 @@ import { authRoutes } from '~/router/constants/authRoutes'
 import MyResourcesTable from '~/containers/my-resources/my-resources-table/MyResourcesTable'
 import Box from '@mui/material/Box'
 import { ResourcesTabsEnum } from '~/types'
-import { useCallback } from 'react'
+import {useCallback, useEffect, useState} from 'react'
 import {
   ajustColumns,
   createUrlPath,
@@ -33,6 +33,7 @@ const QuizzesContainer = () => {
   const sortOptions = useSort({ initialSort })
   const { page, handleChangePage } = usePagination()
   const navigate = useNavigate()
+  const [quizzes, setQuizzes] = useState(null)
 
   const itemsPerPage = getScreenBasedLimit(breakpoints, itemsLoadLimit)
 
@@ -55,6 +56,19 @@ const QuizzesContainer = () => {
     navigate(authRoutes.myResources.editQuiz.path.replace(':quizId', id))
   }
 
+  useEffect(() => {
+    const getQuizzes = async () => {
+      try {
+        const response = await QuizServiceMock.getQuizzes()
+        setQuizzes(response.data)
+      } catch {
+        console.log('error')
+      }
+    }
+
+    getQuizzes()
+  }, []);
+
   const getQuizzes = useCallback(() => {
     return QuizServiceMock.getQuizzes()
   }, [])
@@ -69,7 +83,7 @@ const QuizzesContainer = () => {
 
   const props = {
     columns: columnsToShow,
-    data: { response: response, getData: fetchData },
+    data: { response: quizzes, getData: fetchData },
     actions: { editLesson },
     services: {
       deleteService: deleteLesson
@@ -80,6 +94,7 @@ const QuizzesContainer = () => {
     pagination: { page, onChange: handleChangePage }
   }
   console.log(props)
+  console.log('quizzes: ', quizzes)
 
   return (
     <Box>
