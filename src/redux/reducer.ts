@@ -22,7 +22,7 @@ interface UserState {
 
 const initialState: UserState = {
   userId: '',
-  userRole: 'tutor',
+  userRole: '',
   authLoading: false,
   loading: true,
   pageLoad: false,
