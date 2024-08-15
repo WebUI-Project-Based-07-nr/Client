@@ -1,8 +1,6 @@
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
-
 import AppChip from '~/components/app-chip/AppChip'
-
 import { SortEnum } from '~/types'
 import { getFormattedDate } from '~/utils/helper-functions'
 import { styles } from '~/containers/my-resources/lesson-container/LessonsContainer.style'
@@ -58,6 +56,30 @@ export const removeColumnRules = {
 }
 
 export const initialSort = { order: SortEnum.Desc, orderBy: 'updatedAt' }
+
+import { SortEnum } from '~/types'
+import { authRoutes } from '~/router/constants/authRoutes'
+
+export const columns = [
+  {
+    label: 'Actions',
+    field: 'actions',
+    calculatedCellValue: (item, { navigate }) => {
+      const createUrlPath2 = (path, id) => path.replace(':quizId', id)
+      const handleEditClick = () => {
+        navigate(createUrlPath2(authRoutes.myResources.editQuiz.path, item._id))
+      }
+
+      return (
+        <Box>
+          <Typography onClick={handleEditClick} sx={{ cursor: 'pointer' }}>
+            Edit
+          </Typography>
+        </Box>
+      )
+    }
+  }
+]
 
 export const itemsLoadLimit = {
   default: 10,

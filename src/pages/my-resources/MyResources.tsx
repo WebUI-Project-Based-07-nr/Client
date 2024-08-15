@@ -8,7 +8,6 @@ import { tabsData } from '~/pages/my-resources/MyResources.constants'
 import { styles } from '~/pages/my-resources/MyResources.styles'
 import TabNavigation from '~/components/tab-navigation/TabNavigation'
 
-
 const MyResources = () => {
   const [activeTab, setActiveTab] = useState<string>('lessons')
   const { t } = useTranslation()
