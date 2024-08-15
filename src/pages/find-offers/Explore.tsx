@@ -12,9 +12,9 @@ import {
 } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import subjectImage from '/Users/mistercap/Desktop/Frontend/Client/src/assets/img/offers-page/subject-icon.svg'
-import leftArrow from '/Users/mistercap/Desktop/Frontend/Client/src/assets/img/offers-page/arrow.svg'
-import searchIcon from '/Users/mistercap/Desktop/Frontend/Client/src/assets/img/offers-page/searchIcon.svg'
+import subjectImage from '~/assets/img/offers-page/subject-icon.svg'
+import leftArrow from '~/assets/img/offers-page/arrow.svg'
+import searchIcon from '~/assets/img/offers-page/searchIcon.svg'
 
 interface Offer {
   category: string
