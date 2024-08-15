@@ -32,20 +32,21 @@ export const QuizServiceMock = {
       config: { headers: {} }
     })
   },
-  deleteLesson: (id: string) => {
+  deleteQuiz: (id: string) => {
     mockQuizzes = mockQuizzes.filter((el) => el._id !== id)
   },
-  editQuiz: (title: string, description: string, id: string) => {
-    mockQuizzes = mockQuizzes.map((quiz) => {
-      if (quiz._id === id) {
-        quiz.name = title
-        quiz.description = description
-        quiz.updatedAt = new Date().toISOString()
-      }
-      return quiz
-    })
-  },
-  getQuiz: (id: string) => {
-    return Promise.resolve(mockQuizzes.find((quiz) => quiz._id === id) || null)
+  createMockedQuiz: (newQuiz: {
+    name: string
+    category: string
+    description: string
+  }) => {
+    const quiz = {
+      _id: (mockQuizzes.length + 1).toString(),
+      name: newQuiz.name,
+      category: newQuiz.category || 'General',
+      description: newQuiz.description,
+      updatedAt: new Date().toISOString()
+    }
+    mockQuizzes = [quiz, ...mockQuizzes]
   }
 }

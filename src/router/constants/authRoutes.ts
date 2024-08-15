@@ -32,13 +32,13 @@ export const authRoutes = {
     },
     quizzes: { route: 'quizzes', path: '/quizzes' },
     quizDetail: { route: 'quiz/:quizId', path: '/quiz/:quizId' },
-    newQuiz: {
-      route: '/my-resources/quizzes/new',
-      path: '/my-resources/quizzes/new'
+    createOrEditQuiz: {
+      route: 'edit-quiz/:quizId',
+      path: '/edit-quiz/:quizId'
     },
-    editQuiz: {
-      route: 'my-resources/edit-quiz/:quizId',
-      path: '/my-resources/edit-quiz/:quizId'
+    newQuiz: {
+      route: 'my-resources/new-quiz',
+      path: '/my-resources/new-quiz'
     }
   },
   accountMenu: {

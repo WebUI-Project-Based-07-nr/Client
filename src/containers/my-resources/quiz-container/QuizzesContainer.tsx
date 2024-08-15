@@ -7,6 +7,7 @@ import { ResourcesTabsEnum } from '~/types'
 import { useCallback } from 'react'
 import {
   ajustColumns,
+  createUrlPath,
   getScreenBasedLimit
 } from '~/utils/helper-functions'
 import {
@@ -35,40 +36,50 @@ const QuizzesContainer = () => {
 
   const itemsPerPage = getScreenBasedLimit(breakpoints, itemsLoadLimit)
 
-
   const columnsToShow = ajustColumns(breakpoints, columns, removeColumnRules)
 
-  const onEdit = (id: string) => {
-    navigate(authRoutes.myResources.editQuiz.path.replace(':quizId', id));
+  const editLesson = (id) => {
+    navigate(createUrlPath(authRoutes.myResources.editQuestion.path, id))
   }
-  
-  const getQuizzes = useCallback(() => {
-    return QuizServiceMock.getQuizzes();
-  }, []);
+  const onResponseError = useCallback(
+    (error) => {
+      setAlert({
+        severity: snackbarVariants.error,
+        message: error ? `errors.${error.code}` : ''
+      })
+    },
+    [setAlert]
+  )
 
-    const deleteLesson = useCallback(
-        (id) => QuizServiceMock.deleteLesson(id),
-        []
-)
+  const onEdit = (id: string) => {
+    navigate(authRoutes.myResources.editQuiz.path.replace(':quizId', id))
+  }
+
+  const getQuizzes = useCallback(() => {
+    return QuizServiceMock.getQuizzes()
+  }, [])
+
+  const deleteLesson = useCallback((id) => QuizServiceMock.deleteLesson(id), [])
 
   const { response, loading, fetchData } = useAxios({
     service: getQuizzes,
     defaultResponse: defaultResponses.itemsWithCount,
+    onResponseError
   })
 
-    const props = {
-        columns: columnsToShow,
-        data: { response: response, getData: fetchData },
-        actions: { onEdit },
-        services: {
-            deleteService: deleteLesson
-          },
-        itemsPerPage,
-        resource: ResourcesTabsEnum.Quizzes,
-        sort: sortOptions,
-        pagination: { page, onChange: handleChangePage }
-    }
-    console.log(props);
+  const props = {
+    columns: columnsToShow,
+    data: { response: response, getData: fetchData },
+    actions: { editLesson },
+    services: {
+      deleteService: deleteLesson
+    },
+    itemsPerPage,
+    resource: ResourcesTabsEnum.Quizzes,
+    sort: sortOptions,
+    pagination: { page, onChange: handleChangePage }
+  }
+  console.log(props)
 
   return (
     <Box>
@@ -76,7 +87,6 @@ const QuizzesContainer = () => {
         btnText={t('myResourcesPage.quizzes.addBtn')}
         fetchData={fetchData}
         link={authRoutes.myResources.newQuiz.path}
-        
       />
       {loading ? (
         <Loader pageLoad size={50} />
