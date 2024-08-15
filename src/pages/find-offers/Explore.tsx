@@ -27,8 +27,8 @@ const Explore: React.FC = () => {
   const [category, setCategory] = useState<string>('')
   const [subject, setSubject] = useState('')
   const [searchTerm, setSearchTerm] = useState('')
-  const [offers, _setOffers] = useState<Offer[]>([])
-  const [_filteredOffers, setFilteredOffers] = useState<Offer[]>([])
+  const [offers] = useState<Offer[]>([])
+  const [setFilteredOffers] = useState<Offer[]>([])
   const navigate = useNavigate()
 
   useEffect(() => {
