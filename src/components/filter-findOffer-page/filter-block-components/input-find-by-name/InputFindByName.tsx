@@ -17,7 +17,7 @@ export default function InputFindByName() {
         component='form'
         noValidate
         sx={{
-          '& > :not(style)': { m: 1, width: '25ch' }
+          '& > :not(style)': { mr: '50px', width: '25ch' }
         }}
       >
         <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>

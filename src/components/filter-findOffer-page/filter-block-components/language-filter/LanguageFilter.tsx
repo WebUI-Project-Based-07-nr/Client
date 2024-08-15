@@ -54,7 +54,7 @@ export default function LanguageFilter() {
     <Box>
       <Typography sx={styles.text}>Language</Typography>
       <Box>
-        <Button onClick={handleOpen} sx={{ display: 'block', mt: 2 }} />
+        <Button onClick={handleOpen} sx={{ display: 'block' }} />
         <FormControl sx={{ minWidth: '16%' }}>
           <Select
             id='demo-controlled-open-select'

@@ -43,7 +43,7 @@ const CustomSlider = styled(Slider)({
   }
 })
 const PriceSlider: React.FC = () => {
-  const [value, setValue] = useState<[number, number]>([150, 580])
+  const [value, setValue] = useState<[number, number]>([150, 150])
   const handleSliderChange = (event: Event, newValue: number | number[]) => {
     setValue(newValue as [number, number])
   }
@@ -62,7 +62,7 @@ const PriceSlider: React.FC = () => {
     }
   }
   return (
-    <Box sx={{ width: 300 }}>
+    <Box sx={{ mr: '50px' }}>
       <Typography sx={styles.text}> Price </Typography>
       <CustomSlider
         aria-labelledby='price-slider'
