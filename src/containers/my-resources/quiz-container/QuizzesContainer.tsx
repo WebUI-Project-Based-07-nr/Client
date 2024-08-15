@@ -3,19 +3,15 @@ import { useTranslation } from 'react-i18next'
 import { authRoutes } from '~/router/constants/authRoutes'
 import MyResourcesTable from '~/containers/my-resources/my-resources-table/MyResourcesTable'
 import Box from '@mui/material/Box'
-import { ResourcesTabsEnum } from '~/types'
+import { ErrorResponse, GetResourcesParams, ResourcesTabsEnum } from '~/types'
 import { useCallback } from 'react'
-import {
-  ajustColumns,
-  createUrlPath,
-  getScreenBasedLimit
-} from '~/utils/helper-functions'
+import { ajustColumns, getScreenBasedLimit } from '~/utils/helper-functions'
 import {
   columns,
   initialSort,
   itemsLoadLimit,
   removeColumnRules
-} from '~/containers/my-resources/lesson-container/LessonsContainer.constansts'
+} from '~/containers/my-resources/quiz-container/QuizzesContainer.constants'
 import useBreakpoints from '~/hooks/use-breakpoints'
 import useAxios from '~/hooks/use-axios'
 import { defaultResponses, snackbarVariants } from '~/constants'
@@ -38,11 +34,8 @@ const QuizzesContainer = () => {
 
   const columnsToShow = ajustColumns(breakpoints, columns, removeColumnRules)
 
-  const editLesson = (id) => {
-    navigate(createUrlPath(authRoutes.myResources.editQuestion.path, id))
-  }
   const onResponseError = useCallback(
-    (error) => {
+    (error: ErrorResponse) => {
       setAlert({
         severity: snackbarVariants.error,
         message: error ? `errors.${error.code}` : ''
@@ -59,9 +52,23 @@ const QuizzesContainer = () => {
     return QuizServiceMock.getQuizzes()
   }, [])
 
-  const deleteLesson = useCallback((id) => QuizServiceMock.deleteLesson(id), [])
+  const deleteQuiz = useCallback(
+    (id: string) => QuizServiceMock.deleteQuiz(id),
+    []
+  )
 
-  const { response, loading, fetchData } = useAxios({
+  interface quizItem {
+    _id: string
+    name: string
+    category: string
+    description: string
+    updatedAt: string
+  }
+
+  const { response, loading, fetchData } = useAxios<
+    { count: number; items: quizItem[] },
+    GetResourcesParams
+  >({
     service: getQuizzes,
     defaultResponse: defaultResponses.itemsWithCount,
     onResponseError
@@ -69,17 +76,16 @@ const QuizzesContainer = () => {
 
   const props = {
     columns: columnsToShow,
-    data: { response: response, getData: fetchData },
-    actions: { editLesson },
+    data: { response, getData: fetchData },
+    actions: { onEdit },
     services: {
-      deleteService: deleteLesson
+      deleteService: deleteQuiz
     },
     itemsPerPage,
     resource: ResourcesTabsEnum.Quizzes,
     sort: sortOptions,
     pagination: { page, onChange: handleChangePage }
   }
-  console.log(props)
 
   return (
     <Box>

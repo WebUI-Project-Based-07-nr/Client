@@ -1,4 +1,4 @@
-import { AxiosResponse } from 'axios'
+import { AxiosHeaders, AxiosResponse } from 'axios'
 
 let mockQuizzes = [
   {
@@ -28,12 +28,11 @@ export const QuizServiceMock = {
       },
       status: 200,
       statusText: 'OK',
-      headers: {},
-      config: { headers: {} }
-    })
-  },
-  deleteQuiz: (id: string) => {
-    mockQuizzes = mockQuizzes.filter((el) => el._id !== id)
+      headers: new AxiosHeaders(),
+      config: {
+        headers: new AxiosHeaders()
+      }
+    } as AxiosResponse<{ count: number; items: typeof mockQuizzes }>)
   },
   createMockedQuiz: (newQuiz: {
     name: string
@@ -48,5 +47,32 @@ export const QuizServiceMock = {
       updatedAt: new Date().toISOString()
     }
     mockQuizzes = [quiz, ...mockQuizzes]
+  },
+  deleteQuiz: (id: string): Promise<AxiosResponse<unknown[]>> => {
+    return new Promise((resolve) => {
+      mockQuizzes = mockQuizzes.filter((el) => el._id !== id)
+      resolve({
+        status: 200,
+        statusText: 'OK',
+        headers: new AxiosHeaders(),
+        config: {
+          headers: new AxiosHeaders()
+        },
+        data: []
+      })
+    })
+  },
+  getQuiz: (id: string) => {
+    return Promise.resolve(mockQuizzes.find((quiz) => quiz._id === id) || null)
+  },
+  editQuiz: (title: string, description: string, id: string) => {
+    mockQuizzes = mockQuizzes.map((quiz) => {
+      if (quiz._id === id) {
+        quiz.name = title
+        quiz.description = description
+        quiz.updatedAt = new Date().toISOString()
+      }
+      return quiz
+    })
   }
 }
