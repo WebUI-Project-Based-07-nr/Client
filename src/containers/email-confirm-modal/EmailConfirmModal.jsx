@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import { styles } from '~/containers/email-confirm-modal/EmailConfirmModal.styles'
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useModalContext } from '~/context/modal-context'
 import { useTranslation } from 'react-i18next'
 import imgReject from '~/assets/img/email-confirmation-modals/not-success-icon.svg'
@@ -10,6 +10,7 @@ import useAxios from '~/hooks/use-axios'
 import { AuthService } from '~/services/auth-service'
 import Loader from '~/components/loader/Loader'
 import ImgTitleDescription from '~/components/img-title-description/ImgTitleDescription'
+import EmailConfirmationPopUp from '../guest-home-page/email-confirmation-popup/EmailConfirmationPopUp'
 
 const EmailConfirmModal = ({ confirmToken, openModal }) => {
   const { t } = useTranslation()
@@ -20,10 +21,15 @@ const EmailConfirmModal = ({ confirmToken, openModal }) => {
     [confirmToken]
   )
 
-  const { response, error, loading } = useAxios({
+  const { response, error, loading, fetchData } = useAxios({
     service: serviceFunction,
-    defaultResponse: null
+    defaultResponse: null,
+    fetchOnMount: false
   })
+
+  useEffect(() => {
+    fetchData()
+  }, [fetchData])
 
   const openLoginDialog = () => {
     openModal({ component: <LoginDialog /> })
@@ -70,6 +76,9 @@ const EmailConfirmModal = ({ confirmToken, openModal }) => {
         </Button>
       </Box>
     )
+  }
+  if (!loading) {
+    return <EmailConfirmationPopUp />
   }
 }
 

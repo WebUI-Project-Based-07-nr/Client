@@ -4,6 +4,7 @@ import { markFirstLoginComplete } from '~/redux/reducer'
 import StepWrapper from '~/components/step-wrapper/StepWrapper'
 import { styles } from '~/components/user-steps-wrapper/UserStepsWrapper.styles'
 import { StepProvider } from '~/context/step-context'
+import { LocationProvider } from '~/context/location-context'
 
 import GeneralInfoStep from '~/containers/tutor-home-page/general-info-step/GeneralInfoStep'
 import AddPhotoStep from '~/containers/tutor-home-page/add-photo-step/AddPhotoStep'
@@ -12,7 +13,8 @@ import LanguageStep from '~/containers/tutor-home-page/language-step/LanguageSte
 
 import {
   tutorStepLabels,
-  initialValues
+  initialValues,
+  studentStepLabels
 } from '~/components/user-steps-wrapper/constants'
 import { student } from '~/constants'
 import Box from '@mui/material/Box'
@@ -49,7 +51,7 @@ const UserStepsWrapper: FC<UserStepsWrapperProps> = ({ userRole }) => {
     <AddPhotoStep key='4' />
   ]
 
-  const stepLabels = userRole === student ? '' : tutorStepLabels
+  const stepLabels = userRole === student ? studentStepLabels : tutorStepLabels
 
   return (
     <PopupDialog
@@ -65,9 +67,11 @@ const UserStepsWrapper: FC<UserStepsWrapperProps> = ({ userRole }) => {
           >
             <CloseIcon />
           </IconButton>
-          <StepProvider initialValues={initialValues} stepLabels={stepLabels}>
-            <StepWrapper steps={stepLabels}>{childrenArr}</StepWrapper>
-          </StepProvider>
+          <LocationProvider>
+            <StepProvider initialValues={initialValues} stepLabels={stepLabels}>
+              <StepWrapper steps={stepLabels}>{childrenArr}</StepWrapper>
+            </StepProvider>
+          </LocationProvider>
 
           <ConfirmDialog
             message={t('questions.unsavedChanges')}

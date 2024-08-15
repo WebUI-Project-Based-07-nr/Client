@@ -41,7 +41,8 @@ export const styles = {
   selectContainer: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '20px'
+    gap: '20px',
+    mt: '20px'
   },
   select: {
     width: '100%'

@@ -33,5 +33,29 @@
     "categoryDropdown": "Category...",
     "selectCategory": "Select category"
   },
+  "lessons": {
+    "addBtn": "New lesson",
+    "add": "Add Lessons",
+    "title": "Untitled",
+    "description": "Description...",
+    "tableTitle": "Title",
+    "updated": "Last updates",
+    "emptyItems": "You have no lessons yet",
+    "confirmDeletionTitle": "Do you confirm lesson deletion?",
+    "successDeletion": "Lesson was deleted successfully"
+  },
+  "quizzes": {
+    "addBtn": "New Quiz",
+    "add": "Add Quizzes",
+    "title": "Untitled",
+    "description": "Description...",
+    "chooseCategory":"Choose the resource's category",
+    "categoryPlaceholder":"Category...",
+    "tableTitle": "Title",
+    "updated": "Last updates",
+    "emptyItems": "You have no quizzes yet",
+    "confirmDeletionTitle": "Do you confirm quizzes deletion?",
+    "successDeletion": "Quiz was deleted successfully"
+  },
   "confirmDeletionMessage": "This action is permanent and will remove all related content. Please review your decision before proceeding."
 }

@@ -25,6 +25,7 @@ export interface CategoryInterface {
   name: string
   appearance: CategoryAppearance
   totalOffers: DataByRole<number>
+  offers: Offer[]
   createdAt: string
   updatedAt: string
 }
@@ -37,7 +38,7 @@ export interface CategoryNameInterface {
 export interface SubjectInterface {
   _id: string
   name: string
-  category: string
+  category: CategoryInterface
   totalOffers: DataByRole<number>
   createdAt: string
   updatedAt: string

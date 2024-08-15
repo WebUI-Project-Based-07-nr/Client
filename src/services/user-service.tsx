@@ -5,8 +5,10 @@ import { createUrlPath } from '~/utils/helper-functions'
 import {
   GetUsersParams,
   UpdateUserParams,
+  UserImageResponse,
   UserResponse,
-  UserRole
+  UserRole,
+  File
 } from '~/types'
 
 export const userService = {
@@ -14,6 +16,9 @@ export const userService = {
     params: GetUsersParams
   ): Promise<AxiosResponse<UserResponse[]>> => {
     return await axiosClient.get(URLs.users.get, { params })
+  },
+  getUserImage: async (): Promise<AxiosResponse<UserImageResponse>> => {
+    return await axiosClient.get(URLs.users.getImage)
   },
   getUserById: (
     userId: string,
@@ -34,5 +39,11 @@ export const userService = {
   },
   deleteUsers: (userIds: string): Promise<AxiosResponse<null>> => {
     return axiosClient.post(URLs.users.delete, userIds)
+  },
+  uploadPhoto: async (file: File | null): Promise<AxiosResponse<null>> => {
+    const formData = new FormData()
+    formData.append('file', file)
+
+    return axiosClient.post(URLs.users.myImage, formData)
   }
 }

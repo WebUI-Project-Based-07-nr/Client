@@ -19,12 +19,15 @@ const UserFooter = () => {
   const { t } = useTranslation()
   const { isMobile } = useBreakpoints()
 
+  const igLink = 'https://www.instagram.com/markgol777/'
+  const fbLink = 'https://www.facebook.com/SoftServeCompany/?locale=fr_FR'
+
   const socialLinks = (
     <Box sx={styles.socialLinks}>
-      <Link sx={styles.socialLink} target='_blank'>
+      <Link href={fbLink} sx={styles.socialLink} target='_blank'>
         <FacebookIcon />
       </Link>
-      <Link sx={styles.socialLink} target='_blank'>
+      <Link href={igLink} sx={styles.socialLink} target='_blank'>
         <InstagramIcon />
       </Link>
     </Box>

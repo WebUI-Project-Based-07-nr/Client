@@ -24,11 +24,9 @@ const LanguageStep = ({ btnsBox }) => {
         <Box component='img' src={img} sx={styles.img} />
       </Box>
       <Box sx={styles.rigthBox}>
-        <Box sx={styles.langContainer}>
-          <Typography sx={styles.title} variant='p'>
-            {t('step.languageStep.title')}
-          </Typography>
-          <FormControl sx={{ width: '432px', marginTop: '10px' }}>
+        <Box sx={styles}>
+          <Typography>{t('step.languageStep.title')}</Typography>
+          <FormControl sx={{ width: '432px', marginTop: '20px' }}>
             <Select displayEmpty onChange={handleChange} value={language}>
               <MenuItem disabled value=''>
                 Your native language

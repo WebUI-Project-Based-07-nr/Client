@@ -28,6 +28,7 @@ const MyResources = () => {
         tabsData={tabsData}
       />
       {tabContent}
+      {activeTab === 'quizzes'}
     </PageWrapper>
   )
 }
