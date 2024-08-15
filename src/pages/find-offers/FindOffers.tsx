@@ -137,7 +137,7 @@ const FindOffers = () => {
       <CreateRequest translationKey={translationKey} />
       <Box sx={offerStyles.mainContainer}>
         <Box sx={offerStyles.filterContainer}>
-          <Box sx={{...offerStyles.filterButtonsWrapper}}>
+          <Box sx={{ ...offerStyles.filterButtonsWrapper }}>
             <ShowAllFiltersButton showFilters={showFilters} />
           </Box>
 

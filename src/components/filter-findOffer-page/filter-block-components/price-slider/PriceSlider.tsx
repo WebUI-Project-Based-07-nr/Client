@@ -69,6 +69,7 @@ const PriceSlider: React.FC = () => {
         max={3500}
         min={150}
         onChange={handleSliderChange}
+        sx={{ mb: '44px', ml: '13px' }}
         value={value}
         valueLabelDisplay='on'
       />{' '}
@@ -90,7 +91,7 @@ const PriceSlider: React.FC = () => {
             value={value[0]}
           />{' '}
         </Box>
-        <Box>
+        <Box sx={{ mb: '44px' }}>
           <Typography>To</Typography>
           <TextField
             inputProps={{ step: 10, min: 150, max: 3500, type: 'number' }}

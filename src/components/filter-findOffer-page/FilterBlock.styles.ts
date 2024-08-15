@@ -1,6 +1,6 @@
 export const styles = {
   button: {
-    width: '240px',
+    width: '200px',
     height: '48px'
   },
   buttonsWrapper: {

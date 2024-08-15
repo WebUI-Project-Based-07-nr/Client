@@ -18,7 +18,7 @@ export default function FilterBlock() {
       <Box sx={styles.buttonsWrapper}>
         <AppButton
           size={SizeEnum.ExtraLarge}
-          sx={styles.button}
+          sx={{ ...styles.button, mt: '50px' }}
           variant={ButtonVariantEnum.ContainedLight}
         >
           Apply Filters

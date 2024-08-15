@@ -51,7 +51,7 @@ export default function LanguageFilter() {
   }
 
   return (
-    <Box>
+    <Box sx={{ mb: '54px' }}>
       <Typography sx={styles.text}>Language</Typography>
       <Box>
         <Button onClick={handleOpen} sx={{ display: 'block' }} />
@@ -77,10 +77,13 @@ export default function LanguageFilter() {
         </FormControl>
       </Box>
       <Box>
-        <FormGroup>
+        <FormGroup sx={{ mt: '20px' }}>
           <FormControlLabel
             control={
-              <Checkbox onChange={handleChangeNativeSpeaker} name='Native speaker' />
+              <Checkbox
+                name='Native speaker'
+                onChange={handleChangeNativeSpeaker}
+              />
             }
             label='Native speaker'
           />

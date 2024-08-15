@@ -12,7 +12,7 @@ export const styles = {
     gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
     rowGap: '24px',
     columnGap: '32px',
-    maxWidth: '100%',
+    width: '100%',
     margin: '0 auto',
     padding: '30px 0'
   }
