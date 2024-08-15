@@ -1,5 +1,7 @@
 import { axiosClient } from '~/plugins/axiosClient'
 import { URLs } from '~/constants/request'
+import {AxiosResponse} from "axios";
+import {Countries, ItemsWithCount} from "~/types";
 
 let mockQuizzes = [
   {
@@ -19,7 +21,7 @@ let mockQuizzes = [
 ]
 
 export const QuizServiceMock = {
-  getQuizzes: (): unknown => {
+  getQuizzes: (): Promise<AxiosResponse<ItemsWithCount<unknown>>> => {
     return axiosClient.get(URLs.resources.quizzes.get)
   },
   deleteQuiz: (id: string) => {

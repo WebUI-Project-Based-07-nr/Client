@@ -108,7 +108,7 @@ const MyResourcesTable = <T extends TableItem>({
   return (
     <>
       <EnhancedTable<T>
-        data={{ items: response }}
+        data={{ items: response.items }}
         emptyTableKey={`myResourcesPage.${resource}.emptyItems`}
         rowActions={rowActions}
         // sx={roundedBorderTable}

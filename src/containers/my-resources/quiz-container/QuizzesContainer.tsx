@@ -33,7 +33,10 @@ const QuizzesContainer = () => {
   const sortOptions = useSort({ initialSort })
   const { page, handleChangePage } = usePagination()
   const navigate = useNavigate()
-  const [quizzes, setQuizzes] = useState(null)
+  const [quizzes, setQuizzes] = useState({
+    items: [],
+    count: 0
+  })
 
   const itemsPerPage = getScreenBasedLimit(breakpoints, itemsLoadLimit)
 
@@ -60,7 +63,10 @@ const QuizzesContainer = () => {
     const getQuizzes = async () => {
       try {
         const response = await QuizServiceMock.getQuizzes()
-        setQuizzes(response.data)
+        setQuizzes({
+          items: response.data,
+          count: response.data.length
+        })
       } catch {
         console.log('error')
       }
@@ -93,7 +99,7 @@ const QuizzesContainer = () => {
     sort: sortOptions,
     pagination: { page, onChange: handleChangePage }
   }
-  console.log(props)
+
   console.log('quizzes: ', quizzes)
 
   return (
