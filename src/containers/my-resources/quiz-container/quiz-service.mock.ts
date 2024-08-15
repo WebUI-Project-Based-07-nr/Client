@@ -1,4 +1,5 @@
-import { AxiosResponse } from 'axios'
+import { axiosClient } from '~/plugins/axiosClient'
+import { URLs } from '~/constants/request'
 
 let mockQuizzes = [
   {
@@ -18,19 +19,8 @@ let mockQuizzes = [
 ]
 
 export const QuizServiceMock = {
-  getQuizzes: (): Promise<
-    AxiosResponse<{ count: number; items: typeof mockQuizzes }>
-  > => {
-    return Promise.resolve({
-      data: {
-        count: mockQuizzes.length,
-        items: mockQuizzes
-      },
-      status: 200,
-      statusText: 'OK',
-      headers: {},
-      config: { headers: {} }
-    })
+  getQuizzes: (): unknown => {
+    return axiosClient.get(URLs.resources.quizzes.get)
   },
   deleteQuiz: (id: string) => {
     mockQuizzes = mockQuizzes.filter((el) => el._id !== id)
