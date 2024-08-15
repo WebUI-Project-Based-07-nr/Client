@@ -107,7 +107,7 @@ const GeneralInfoStep = ({ btnsBox }) => {
         <Box component='img' src={img} sx={styles.img}></Box>
       </Box>
       <Box sx={styles.rightBox}>
-        <Typography variant='h6'>{translations.generalInfo.title}</Typography>
+        <Typography>{translations.generalInfo.title}</Typography>
         <Box sx={styles.row}>
           <TextField label='First Name*' sx={styles.halfWidth} />
           <TextField label='Last Name*' sx={styles.halfWidth} />
