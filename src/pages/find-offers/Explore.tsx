@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom'
 import subjectImage from '~/assets/img/offers-page/subject-icon.svg'
 import leftArrow from '~/assets/img/offers-page/arrow.svg'
 import searchIcon from '~/assets/img/offers-page/searchIcon.svg'
+import { useTranslation } from 'react-i18next'
 
 interface Offer {
   category: string
@@ -24,11 +25,13 @@ interface Offer {
 }
 
 const Explore: React.FC = () => {
+  const { t } = useTranslation()
+  
   const [category, setCategory] = useState<string>('')
   const [subject, setSubject] = useState('')
   const [searchTerm, setSearchTerm] = useState('')
-  const [offers] = useState<Offer[]>([])
-  const [setFilteredOffers] = useState<Offer[]>([])
+  const [offers, setOffers] = useState<Offer[]>([])
+  const [filteredOffers, setFilteredOffers] = useState<Offer[]>([])
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -61,65 +64,15 @@ const Explore: React.FC = () => {
 
   return (
     <>
-      <Container
-        maxWidth='md'
-        style={{
-          backgroundColor: '#c9ebeb',
-          borderRadius: 8,
-          padding: '16px',
-          position: 'relative',
-          height: '250px'
-        }}
-      >
-        <Box alignItems='center' display='flex' justifyContent='space-between'>
-          <Box style={{ marginTop: '40px', marginLeft: '20px' }}>
-            <Typography align='left' color='black' variant='h5'>
-              Tutors for private lessons
-            </Typography>
-            <Typography
-              align='left'
-              color='black'
-              style={{ marginBottom: '16px' }}
-              variant='body2'
-            >
-              It is a long established fact that a reader will be distracted by
-              the readable content of a page when looking at its layout.
-            </Typography>
-            <Button
-              style={{
-                backgroundColor: 'black',
-                color: 'white',
-                marginTop: '16px'
-              }}
-              variant='contained'
-            >
-              Create request
-            </Button>
-          </Box>
-          <Box
-            alignItems='center'
-            display='flex'
-            justifyContent='center'
-            marginLeft='150px'
-            marginTop='25px'
-          >
-            <img
-              src={subjectImage}
-              style={{ height: '150px', width: 'auto', marginRight: '50px' }}
-            />
-          </Box>
-        </Box>
-      </Container>
-
       <Typography align='center' style={{ marginTop: '16px' }} variant='h5'>
-        Explore Offers
+        {t('categoriesPage.title')}
       </Typography>
       <Typography
         align='center'
         style={{ marginBottom: '16px' }}
         variant='body2'
       >
-        Discover offers in your area of interest
+        {t('categoriesPage.description')}
       </Typography>
 
       <Box

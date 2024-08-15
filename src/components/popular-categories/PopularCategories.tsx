@@ -74,7 +74,7 @@ const PopularCategories: React.FC = () => {
 
   return (
     <Box>
-      <Typography gutterBottom sx={{ marginLeft: '20px' }} variant='h4'>
+      <Typography gutterBottom sx={{ textAlign: 'center', mt: 3 }} variant='h4'>
         Popular Categories
       </Typography>
       <Box sx={styles.categoriesGrid}>

@@ -18,6 +18,7 @@ import IconResolver from './DynamicIcon'
 import * as Icons from '@mui/icons-material'
 import CreateRequest from '~/components/create-request/CreateRequest'
 import { translationKey } from '~/components/create-request/create-request-student-constants'
+import Explore from '../find-offers/Explore'
 
 const Categories: React.FC = () => {
   const { setAlert } = useSnackBarContext()
@@ -48,7 +49,7 @@ const Categories: React.FC = () => {
   return (
     <PageWrapper>
       <CreateRequest translationKey={translationKey} />
-
+      <Explore />
       <Box sx={styles.categoriesGrid}>
         {response.items.map((category, index) => (
           <Link
