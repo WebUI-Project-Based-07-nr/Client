@@ -49,6 +49,8 @@
     "add": "Add Quizzes",
     "title": "Untitled",
     "description": "Description...",
+    "chooseCategory":"Choose the resource's category",
+    "categoryPlaceholder":"Category...",
     "tableTitle": "Title",
     "updated": "Last updates",
     "emptyItems": "You have no quizzes yet",

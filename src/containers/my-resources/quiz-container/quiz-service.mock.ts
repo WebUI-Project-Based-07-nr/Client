@@ -1,4 +1,4 @@
-import { AxiosResponse } from "axios";
+import { AxiosResponse } from 'axios'
 
 let mockQuizzes = [
   {
@@ -14,24 +14,39 @@ let mockQuizzes = [
     category: 'Science',
     description: 'Description 2',
     updatedAt: '2024-08-07T14:30:00Z'
-  },
-
-];
+  }
+]
 
 export const QuizServiceMock = {
-  getQuizzes: (): Promise<AxiosResponse<{ count: number; items: typeof mockQuizzes }>> => {
+  getQuizzes: (): Promise<
+    AxiosResponse<{ count: number; items: typeof mockQuizzes }>
+  > => {
     return Promise.resolve({
       data: {
         count: mockQuizzes.length,
-        items: mockQuizzes,
+        items: mockQuizzes
       },
       status: 200,
       statusText: 'OK',
       headers: {},
-      config: { headers: {} },
-    });
+      config: { headers: {} }
+    })
   },
-  deleteLesson: (id: string) => {
-    mockQuizzes = mockQuizzes.filter((el) => el._id !== id);
+  deleteQuiz: (id: string) => {
+    mockQuizzes = mockQuizzes.filter((el) => el._id !== id)
+  },
+  createMockedQuiz: (newQuiz: {
+    name: string
+    category: string
+    description: string
+  }) => {
+    const quiz = {
+      _id: (mockQuizzes.length + 1).toString(),
+      name: newQuiz.name,
+      category: newQuiz.category || 'General',
+      description: newQuiz.description,
+      updatedAt: new Date().toISOString()
+    }
+    mockQuizzes = [quiz, ...mockQuizzes]
   }
 }
