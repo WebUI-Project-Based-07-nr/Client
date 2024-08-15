@@ -8,7 +8,6 @@ export const styles = {
     height: { sm: '485px' },
     paddingBottom: { xs: '30px', sm: '0' },
     ...fadeAnimation,
-
     '@media (max-width:768px)': {
       flexDirection: 'column',
       alignItems: 'center',
@@ -20,8 +19,7 @@ export const styles = {
   imgContainer: {
     flex: 1,
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    maxWidth: '432px', //
     marginRight: '70px',
     '@media (max-width:768px)': {
       display: 'none'
@@ -58,9 +56,12 @@ export const styles = {
     }
   },
   rightBox: {
-    flex: 2,
+    maxWidth: '432px',
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'space-between',
+    m: { md: 0, xs: '0 auto' },
+    pt: 0,
     gap: '16px',
     '@media (max-width:768px)': {
       textAlign: 'center',
