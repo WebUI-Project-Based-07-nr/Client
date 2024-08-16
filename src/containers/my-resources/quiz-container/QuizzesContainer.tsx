@@ -63,6 +63,7 @@ const QuizzesContainer = () => {
     const getQuizzes = async () => {
       try {
         const response = await QuizServiceMock.getQuizzes()
+        console.log('dfsdfsdf' ,response)
         setQuizzes({
           items: response.data,
           count: response.data.length
@@ -73,6 +74,8 @@ const QuizzesContainer = () => {
     }
 
     getQuizzes()
+
+
   }, []);
 
   const getQuizzes = useCallback(() => {
