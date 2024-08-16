@@ -39,6 +39,10 @@ export const authRoutes = {
     newQuiz: {
       route: 'my-resources/new-quiz',
       path: '/my-resources/new-quiz'
+    },
+    editQuiz: {
+      route: 'my-resources/edit-quiz/:quizId',
+      path: '/my-resources/edit-quiz/:quizId'
     }
   },
   accountMenu: {
