@@ -28,13 +28,5 @@ export const styles = {
     gap: '35px',
     marginBottom: '70px',
     marginTop: '50px'
-  },
-  card: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    textAlign: 'center',
-    maxWidth: '240px',
-    margin: '0px auto'
   }
 }
