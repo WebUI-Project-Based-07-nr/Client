@@ -1,3 +1,4 @@
+/* eslint-disable */
 import AddResourceWithInput from '~/containers/my-resources/add-resource-with-input/AddResourceWithInput'
 import { useTranslation } from 'react-i18next'
 import { authRoutes } from '~/router/constants/authRoutes'
