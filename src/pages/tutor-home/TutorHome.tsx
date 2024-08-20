@@ -11,6 +11,7 @@ import { styles } from '~/pages/tutor-home/TutorHome.styles'
 import { translationKey } from '~/components/find-block/find-student-constants'
 import HowItWorks from '~/containers/student-home-page/student-how-it-works/how-it-works/HowItWorks'
 import PopularCategories from '~/components/popular-categories/PopularCategories'
+import Faq from '~/containers/student-home-page/faq/Faq'
 
 const TutorHome = () => {
   const { openModal } = useModalContext()
@@ -32,6 +33,7 @@ const TutorHome = () => {
       <FindBlock translationKey={translationKey} />
       <PopularCategories />
       <HowItWorks userRole={userRole} />
+      <Faq />
     </PageWrapper>
   )
 }
