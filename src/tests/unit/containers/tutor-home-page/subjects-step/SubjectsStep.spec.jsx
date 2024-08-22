@@ -17,6 +17,10 @@ describe('SubjectsStep', () => {
       .onGet(URLs.categories.getNames)
       .reply(200, [{ name: 'Math' }, { name: 'Science' }])
 
+    mockAxiosClient
+      .onGet(URLs.categories.get)
+      .reply(200, { items: [{ name: 'Math' }, { name: 'Science' }] })
+
     await act(async () => {
       render(<SubjectsStep btnsBox={mockBtnsBox} />)
     })
