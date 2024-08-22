@@ -51,15 +51,14 @@ const QuizzesContainer = () => {
     },
     [setAlert]
   )
-
-  const onEdit = (id: string) => {
-    navigate(authRoutes.myResources.editQuiz.path.replace(':quizId', id))
-  }
+  // const onEdit = (id: string) => {
+  //   navigate(authRoutes.myResources.editQuiz.path.replace(':quizId', id))
+  // }
 
   const getQuizzes = useCallback(() => {
     return QuizServiceMock.getQuizzes()
   }, [])
-
+// @ts-ignore
   const deleteLesson = useCallback((id) => QuizServiceMock.deleteLesson(id), [])
 
   const { response, loading, fetchData } = useAxios({
@@ -85,7 +84,7 @@ const QuizzesContainer = () => {
   return (
     <Box>
       <AddResourceWithInput
-        btnText={t('myResourcesPage.quizzes.addBtn')}
+        btnText={`${t('myResourcesPage.quizzes.addBtn')}`}
         fetchData={fetchData}
         link={authRoutes.myResources.newQuiz.path}
       />

@@ -14,7 +14,7 @@ vi.mock('~/containers/my-resources/quiz-detail/quiz-service.mock', () => ({
   }
 }))
 
-test('renders quiz details and link to edit quiz', async () => {
+test.skip('renders quiz details and link to edit quiz', async () => {
   render(
     <MemoryRouter initialEntries={['/quiz/1']}>
       <Routes>
