@@ -1,8 +1,8 @@
 import React from 'react'
 import { render, screen, waitFor } from '@testing-library/react'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
-import QuizDetail from '~/containers/my-resources/quiz-detail/QuizDetail'
 import { vi } from 'vitest'
+import QuizDetail from '~/containers/my-resources/quiz-container/QuizDetail'
 
 vi.mock('~/containers/my-resources/quiz-detail/quiz-service.mock', () => ({
   QuizServiceMock: {
