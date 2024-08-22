@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import AppChip from '~/components/app-chip/AppChip'
@@ -7,7 +8,7 @@ import { styles } from '~/containers/my-resources/lesson-container/LessonsContai
 import { authRoutes } from '~/router/constants/authRoutes'
 import ListAltIcon from '@mui/icons-material/ListAlt'
 
-export const columns = [
+export const lessonColumns  = [
   {
     label: 'myResourcesPage.lessons.tableTitle',
     field: 'tableTitle',
@@ -57,9 +58,6 @@ export const removeColumnRules = {
 
 export const initialSort = { order: SortEnum.Desc, orderBy: 'updatedAt' }
 
-import { SortEnum } from '~/types'
-import { authRoutes } from '~/router/constants/authRoutes'
-
 export const columns = [
   {
     label: 'Actions',
@@ -67,6 +65,7 @@ export const columns = [
     calculatedCellValue: (item, { navigate }) => {
       const createUrlPath2 = (path, id) => path.replace(':quizId', id)
       const handleEditClick = () => {
+        // @ts-ignore
         navigate(createUrlPath2(authRoutes.myResources.editQuiz.path, item._id))
       }
 

@@ -9,9 +9,11 @@ import AppButton from '~/components/app-button/AppButton'
 import { categoryService } from '~/services/category-service'
 import { subjectService } from '~/services/subject-service'
 import AppChipList from '~/components/app-chips-list/AppChipList'
+import useBreakpoints from '~/hooks/use-breakpoints'
 
 const SubjectsStep = ({ btnsBox }) => {
   const { t } = useTranslation()
+  const { isMobile } = useBreakpoints()
 
   const [selectedCategory, setSelectedCategory] = useState('')
   const [selectedSubject, setSelectedSubject] = useState('')
@@ -69,17 +71,22 @@ const SubjectsStep = ({ btnsBox }) => {
     setSelectedSubjects(selectedSubjects.filter((subject) => subject !== item))
   }
 
+  const renderImage = (
+    <Box sx={styles.imgContainer}>
+      <Box component='img' src={subjectsImage} sx={styles.img} />
+    </Box>
+  )
+
   return (
     <Box sx={styles.container}>
-      <Box sx={styles.imgContainer}>
-        <Box component='img' src={subjectsImage} sx={styles.img} />
-      </Box>
+      {!isMobile && renderImage}
       <Box sx={styles.rightBox}>
         <TitleWithDescription
           style={styles.titleWithDescription}
           title={t('becomeTutor.categories.title')}
         />
         <Box sx={styles.selectContainer}>
+          {isMobile && renderImage}
           <AppSelect
             fields={categoryOptions}
             label={t('becomeTutor.categories.mainSubjectsLabel')}
