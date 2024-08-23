@@ -38,7 +38,6 @@ const HowItWorks = ({ userRole }) => {
               <HowItWorksCard
                 description={t(item.description)}
                 img={item.image}
-                // key={item.title}
                 title={t(item.title)}
               />
             </Grid>
