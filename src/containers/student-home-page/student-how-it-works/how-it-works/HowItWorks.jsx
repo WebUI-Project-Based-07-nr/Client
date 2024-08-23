@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { Box } from '@mui/material'
+import { Box, Grid } from '@mui/material'
 import {
   howItWorksStudentCards,
   howItWorksTutorCards
@@ -32,16 +32,18 @@ const HowItWorks = ({ userRole }) => {
           style={styles.titleWithDescription}
           title={t('studentHomePage.howItWorks.title')}
         />
-        <Box sx={styles.cardsContainer}>
+        <Grid container sx={styles.cardsContainer}>
           {cardsData.map((item) => (
-            <HowItWorksCard
-              description={t(item.description)}
-              img={item.image}
-              key={item.title}
-              title={t(item.title)}
-            />
+            <Grid item key={item.title}>
+              <HowItWorksCard
+                description={t(item.description)}
+                img={item.image}
+                // key={item.title}
+                title={t(item.title)}
+              />
+            </Grid>
           ))}
-        </Box>
+        </Grid>
         <AppButton onClick={handleFindOffers}>
           {t(
             userRole === student

@@ -23,10 +23,16 @@ export const styles = {
     }
   },
   cardsContainer: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    gap: '35px',
-    marginBottom: '70px',
-    marginTop: '50px'
+    display: 'grid',
+    gridTemplateColumns: {
+      xs: 'repeat(1, minmax(200px, 1fr))',
+      sm: 'repeat(2, minmax(200px, 1fr))',
+      md: 'repeat(1fr 2fr)',
+      lg: 'repeat(auto-fit, minmax(200px, 1fr))'
+    },
+    justifyItems: 'center',
+    gap: { xs: '16px', sm: '40px' },
+    marginTop: '50px',
+    marginBottom: { xs: '50px', sm: '50px', md: '70px' }
   }
 }
