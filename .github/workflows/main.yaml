@@ -28,7 +28,7 @@ jobs:
         run : npm run lint
 
       - name : Test
-        run: npm test -- --coverage
+        run: npm test
       
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
