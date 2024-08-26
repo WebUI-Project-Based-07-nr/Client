@@ -18,46 +18,49 @@ const AddPhotoStep = ({ btnsBox }) => {
   const [errorMessage, setErrorMessage] = useState('')
   const [fileSelected, setFileSelected] = useState(false)
 
-  const handleSuccessfulFileSelection = (photo) => {
+  const handleSuccessfulFileSelection = useCallback((photo) => {
     setFile(photo[0])
     const objectURL = URL.createObjectURL(photo[0])
     setFileURL(objectURL)
     setFileSelected(true)
     setErrorMessage('')
-  }
+  }, [])
 
-  const handleUploadPhoto = async (photo) => {
+  const uploadPhotoToServer = useCallback(async (photo) => {
     try {
       await userService.uploadPhoto(photo[0])
     } catch (error) {
       console.error(error.message)
     }
-  }
+  }, [])
 
-  const handleFileErrorSelection = (error) => {
+  const handleFileErrorSelection = useCallback((error) => {
     setFile(null)
     setFileURL('')
     setFileSelected(false)
     setErrorMessage(error)
-  }
+  }, [])
 
-  const handleFileChange = async ({ files: photo, error }) => {
-    if (!error && photo.length > 0) {
-      handleSuccessfulFileSelection(photo)
+  const handleFileChange = useCallback(
+    async ({ files: photo, error }) => {
+      if (!error && photo.length > 0) {
+        handleSuccessfulFileSelection(photo)
 
-      try {
-        await handleUploadPhoto(photo)
-      } catch (error) {
-        console.error(error.message)
+        try {
+          await uploadPhotoToServer(photo)
+        } catch (error) {
+          console.error(error.message)
+        }
+      } else {
+        handleFileErrorSelection(error)
       }
-    } else {
-      handleFileErrorSelection(error)
-    }
-  }
-
-  const handleDragAndDrop = useCallback(handleFileChange, [
-    handleSuccessfulFileSelection
-  ])
+    },
+    [
+      handleSuccessfulFileSelection,
+      uploadPhotoToServer,
+      handleFileErrorSelection
+    ]
+  )
 
   useEffect(() => {
     return () => {
@@ -80,7 +83,7 @@ const AddPhotoStep = ({ btnsBox }) => {
           />
         ) : (
           <DragAndDrop
-            emitter={handleDragAndDrop}
+            emitter={handleFileChange}
             initialState={file ? [file] : []}
             style={style}
             validationData={validationData}
@@ -98,7 +101,7 @@ const AddPhotoStep = ({ btnsBox }) => {
           <Box>
             <FileUploader
               buttonText={t('becomeTutor.photo.button')}
-              emitter={handleDragAndDrop}
+              emitter={handleFileChange}
               initialError={errorMessage}
               initialState={file ? [file] : []}
               isImages={Boolean(true)}
