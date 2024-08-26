@@ -18,24 +18,46 @@ const AddPhotoStep = ({ btnsBox }) => {
   const [errorMessage, setErrorMessage] = useState('')
   const [fileSelected, setFileSelected] = useState(false)
 
-  const handleFileChange = async ({ files, error }) => {
-    if (!error && files.length > 0) {
-      setFile(files[0])
-      const objectURL = URL.createObjectURL(files[0])
+  const handleSuccessfulFileSelection = (photo) => {
+    setFile(photo[0])
+    const objectURL = URL.createObjectURL(photo[0])
+    setFileURL(objectURL)
+    setFileSelected(true)
+    setErrorMessage('')
+  }
 
-      setFileURL(objectURL)
-      setFileSelected(true)
-      await userService.uploadPhoto(files[0])
-      setErrorMessage('')
-    } else {
-      setFile(null)
-      setFileURL('')
-      setFileSelected(false)
-      setErrorMessage(error)
+  const handleUploadPhoto = async (photo) => {
+    try {
+      await userService.uploadPhoto(photo[0])
+    } catch (error) {
+      console.error(error.message)
     }
   }
 
-  const handleDragAndDrop = useCallback(handleFileChange, [])
+  const handleFileErrorSelection = (error) => {
+    setFile(null)
+    setFileURL('')
+    setFileSelected(false)
+    setErrorMessage(error)
+  }
+
+  const handleFileChange = async ({ files: photo, error }) => {
+    if (!error && photo.length > 0) {
+      handleSuccessfulFileSelection(photo)
+
+      try {
+        await handleUploadPhoto(photo)
+      } catch (error) {
+        console.error(error.message)
+      }
+    } else {
+      handleFileErrorSelection(error)
+    }
+  }
+
+  const handleDragAndDrop = useCallback(handleFileChange, [
+    handleSuccessfulFileSelection
+  ])
 
   useEffect(() => {
     return () => {
