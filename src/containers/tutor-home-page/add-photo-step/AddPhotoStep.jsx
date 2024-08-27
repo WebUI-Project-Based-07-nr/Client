@@ -30,7 +30,7 @@ const AddPhotoStep = ({ btnsBox }) => {
     try {
       await userService.uploadPhoto(photo[0])
     } catch (error) {
-      console.error(error.message)
+      throw new Error(`Failed to upload photo: ${error.message}`)
     }
   }, [])
 
@@ -45,12 +45,7 @@ const AddPhotoStep = ({ btnsBox }) => {
     async ({ files: photo, error }) => {
       if (!error && photo.length > 0) {
         handleSuccessfulFileSelection(photo)
-
-        try {
-          await uploadPhotoToServer(photo)
-        } catch (error) {
-          console.error(error.message)
-        }
+        await uploadPhotoToServer(photo)
       } else {
         handleFileErrorSelection(error)
       }
