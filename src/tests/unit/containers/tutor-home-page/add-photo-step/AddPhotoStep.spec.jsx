@@ -2,6 +2,9 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import AddPhotoStep from '~/containers/tutor-home-page/add-photo-step/AddPhotoStep'
 import Box from '@mui/system/Box'
 import { style } from '~/containers/tutor-home-page/add-photo-step/AddPhotoStep.style'
+import userEvent from '@testing-library/user-event'
+import { mockAxiosClient } from '~/tests/test-utils'
+import { URLs } from '~/constants/request'
 
 describe('AddPhotoStep', () => {
   const mockBtnsBox = (
@@ -12,7 +15,19 @@ describe('AddPhotoStep', () => {
   )
 
   beforeEach(() => {
+    mockAxiosClient.onPost(URLs.users.myImage).reply(200)
     render(<AddPhotoStep btnsBox={mockBtnsBox} />)
+  })
+
+  beforeAll(() => {
+    global.URL.createObjectURL = vi.fn(
+      () => 'http://example.com/mock-image.png'
+    )
+    global.URL.revokeObjectURL = vi.fn()
+  })
+
+  afterEach(() => {
+    mockAxiosClient.reset()
   })
 
   it('should renders title', () => {
@@ -51,17 +66,95 @@ describe('AddPhotoStep', () => {
     expect(imageContainer).toHaveStyle(style.activeDrag)
   })
 
-  it('should render file on drag and drop', () => {
+  it('should render image when file is upload ', async () => {
     const mockFile = new File(['dummy content'], 'test.png', {
       type: 'image/png'
     })
-    const imageContainer = screen.getByTestId('image-container')
 
-    waitFor(() => {
-      fireEvent.drop(imageContainer, { dataTransfer: { files: [mockFile] } })
-
-      const image = screen.getByTestId('image-container')
-      expect(image).toBeInTheDocument()
+    const uploadButton = screen.getByRole('button', {
+      name: 'becomeTutor.photo.button'
     })
+
+    await userEvent.upload(uploadButton, mockFile)
+
+    const image = screen.getByTestId('upload-image')
+    expect(image).toBeInTheDocument()
+  })
+
+  it('should update text in upload input when image is upload', async () => {
+    const mockFile = new File(['dummy content'], 'test-name.png', {
+      type: 'image/png'
+    })
+
+    const uploadButton = screen.getByRole('button', {
+      name: 'becomeTutor.photo.button'
+    })
+
+    await userEvent.upload(uploadButton, mockFile)
+
+    const fileName = screen.getByText('test-name.png')
+    expect(fileName).toBeInTheDocument()
+  })
+
+  it('should render check icon when file is upload', async () => {
+    const mockFile = new File(['dummy content'], 'test.png', {
+      type: 'image/png'
+    })
+
+    const uploadButton = screen.getByRole('button', {
+      name: 'becomeTutor.photo.button'
+    })
+
+    await userEvent.upload(uploadButton, mockFile)
+
+    const checkIcon = screen.getByTestId('CheckIcon')
+    expect(checkIcon).toBeInTheDocument()
+  })
+
+  it('should render image when file is dropped', async () => {
+    const mockFile = new File(['dummy content'], 'test.png', {
+      type: 'image/png'
+    })
+
+    const dropZone = screen.getByText('becomeTutor.photo.placeholder')
+
+    fireEvent.drop(dropZone, { dataTransfer: { files: [mockFile] } })
+
+    await waitFor(() => {
+      expect(screen.getByTestId('upload-image'))
+    })
+  })
+
+  it('should render error message for file larger than 10MB', async () => {
+    const largeFile = new File(['dummy content'], 'test.png', {
+      type: 'image/png',
+      size: 11 * 1024 * 1024
+    })
+
+    const uploadButton = screen.getByRole('button', {
+      name: 'becomeTutor.photo.button'
+    })
+
+    await userEvent.upload(uploadButton, largeFile)
+
+    const errorMessage = screen.getByText(
+      'errorMessages.fileSize common.megabytes'
+    )
+    expect(errorMessage).toBeInTheDocument()
+  })
+
+  it('should render error message for file with wrong type', async () => {
+    const invalidFile = new File(['dummy content'], 'test.png', {
+      type: 'text/plain'
+    })
+
+    const uploadButton = screen.getByRole('button', {
+      name: 'becomeTutor.photo.button'
+    })
+
+    await userEvent.upload(uploadButton, invalidFile)
+
+    const errorMessage = screen.getByText('becomeTutor.photo.typeError')
+    expect(errorMessage).toBeInTheDocument()
   })
 })
