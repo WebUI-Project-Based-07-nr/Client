@@ -10,6 +10,7 @@ import DragAndDrop from '~/components/drag-and-drop/DragAndDrop'
 import CheckIcon from '@mui/icons-material/Check'
 import { ButtonVariantEnum } from '~/types'
 import { userService } from '~/services/user-service'
+import useBreakpoints from '~/hooks/use-breakpoints'
 
 const AddPhotoStep = ({ btnsBox }) => {
   const { t } = useTranslation()
@@ -17,6 +18,8 @@ const AddPhotoStep = ({ btnsBox }) => {
   const [fileURL, setFileURL] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
   const [fileSelected, setFileSelected] = useState(false)
+
+  const { isMobile, isTablet, isLaptop, isDesktop } = useBreakpoints()
 
   const handleSuccessfulFileSelection = useCallback((photo) => {
     setFile(photo[0])
@@ -65,6 +68,10 @@ const AddPhotoStep = ({ btnsBox }) => {
     }
   }, [fileURL])
 
+  const renderButtons = () => {
+    return <Box sx={style.btnsWrapper}>{btnsBox}</Box>
+  }
+
   return (
     <Box sx={style.root}>
       <Box data-testid='image-container' sx={style.imgContainer}>
@@ -86,6 +93,7 @@ const AddPhotoStep = ({ btnsBox }) => {
             <Typography>{t('becomeTutor.photo.placeholder')}</Typography>
           </DragAndDrop>
         )}
+        {(isMobile || isTablet) && renderButtons()}
       </Box>
       <Box sx={style.rigthBox}>
         <TitleWithDescription
@@ -112,7 +120,7 @@ const AddPhotoStep = ({ btnsBox }) => {
             {fileSelected && <CheckIcon />}
           </Box>
         </Box>
-        <Box sx={style.btnsWrapper}>{btnsBox}</Box>
+        {(isLaptop || isDesktop) && renderButtons()}
       </Box>
     </Box>
   )

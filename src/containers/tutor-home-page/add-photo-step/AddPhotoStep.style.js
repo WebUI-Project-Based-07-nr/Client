@@ -3,38 +3,39 @@ import { fadeAnimation } from '~/styles/app-theme/custom-animations'
 export const style = {
   root: {
     display: 'flex',
-    justifyContent: 'space-between',
-    gap: '40px',
+    alignItems: { xs: 'stretch', sm: 'center', md: 'stretch' },
+    gap: { sm: '30px', md: '40px' },
     height: { sm: '485px' },
-    paddingBottom: { sm: '210px', md: '0px' },
-    ...fadeAnimation
+    ...fadeAnimation,
+    flexDirection: { xs: 'column', sm: 'column', md: 'row' }
   },
   imgContainer: {
-    display: 'flex',
-    alignItems: 'center',
     maxWidth: '440px',
+    maxHeight: '440px',
+    height: '100%',
     width: '100%',
-    flex: 1,
-    pb: { xs: '16px', sm: '26px', md: '52px' }
+    order: { xs: 1, sm: 1, md: 0, lg: 0 }
   },
   img: {
     width: '100%',
     height: '100%',
+    maxWidth: '400px',
+    maxHeight: '440px',
     objectFit: 'cover',
-    borderRadius: '20px',
-    mt: { xs: '20px', md: '0px' }
+    borderRadius: '20px'
   },
   uploadBox: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     maxWidth: '440px',
+    maxHeight: '440px',
     width: '100%',
+    height: '100%',
     aspectRatio: '1',
     border: '2px dashed',
     borderColor: 'primary.200',
-    borderRadius: '20px',
-    mt: { xs: '20px', md: '0px' }
+    borderRadius: '20px'
   },
   activeDrag: {
     border: '2px primary',
@@ -43,11 +44,10 @@ export const style = {
   rigthBox: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between',
     maxWidth: '432px',
-    m: { md: 0, xs: '0 auto' },
-    pt: 0,
-    pb: { xs: '30px', sm: '0' }
+    m: { md: '0 auto', xs: '0 auto' },
+    pb: { xs: '30px', sm: '0' },
+    order: { xs: 0, sm: 0, md: 1, lg: 1 }
   },
   description: {
     mb: '20px'
@@ -57,14 +57,9 @@ export const style = {
       textAlign: 'center'
     },
     root: {
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'space-around',
       border: '1px solid',
       borderColor: 'primary.200',
       borderRadius: '5px',
-      maxWidth: '270px',
-      overflow: 'auto',
       mt: '20px'
     },
     checkIcon: {
@@ -72,7 +67,8 @@ export const style = {
     }
   },
   btnsWrapper: {
-    mt: 'auto'
+    mt: { xs: '110px', sm: '10px', md: 'auto' },
+    pb: { xs: '30px', sm: '50px', md: '0px' }
   },
   fileUploadContainer: {
     display: 'flex',
