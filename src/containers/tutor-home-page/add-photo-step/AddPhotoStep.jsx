@@ -10,6 +10,7 @@ import DragAndDrop from '~/components/drag-and-drop/DragAndDrop'
 import CheckIcon from '@mui/icons-material/Check'
 import { ButtonVariantEnum } from '~/types'
 import { userService } from '~/services/user-service'
+import useBreakpoints from '~/hooks/use-breakpoints'
 
 const AddPhotoStep = ({ btnsBox }) => {
   const { t } = useTranslation()
@@ -18,24 +19,46 @@ const AddPhotoStep = ({ btnsBox }) => {
   const [errorMessage, setErrorMessage] = useState('')
   const [fileSelected, setFileSelected] = useState(false)
 
-  const handleFileChange = async ({ files, error }) => {
-    if (!error && files.length > 0) {
-      setFile(files[0])
-      const objectURL = URL.createObjectURL(files[0])
+  const { isMobile, isTablet, isLaptop, isDesktop } = useBreakpoints()
 
-      setFileURL(objectURL)
-      setFileSelected(true)
-      await userService.uploadPhoto(files[0])
-      setErrorMessage('')
-    } else {
-      setFile(null)
-      setFileURL('')
-      setFileSelected(false)
-      setErrorMessage(error)
+  const handleSuccessfulFileSelection = useCallback((photo) => {
+    setFile(photo[0])
+    const objectURL = URL.createObjectURL(photo[0])
+    setFileURL(objectURL)
+    setFileSelected(true)
+    setErrorMessage('')
+  }, [])
+
+  const uploadPhotoToServer = useCallback(async (photo) => {
+    try {
+      await userService.uploadPhoto(photo[0])
+    } catch (error) {
+      throw new Error(`Failed to upload photo: ${error.message}`)
     }
-  }
+  }, [])
 
-  const handleDragAndDrop = useCallback(handleFileChange, [])
+  const handleFileErrorSelection = useCallback((error) => {
+    setFile(null)
+    setFileURL('')
+    setFileSelected(false)
+    setErrorMessage(error)
+  }, [])
+
+  const handleFileChange = useCallback(
+    async ({ files: photo, error }) => {
+      if (!error && photo.length > 0) {
+        handleSuccessfulFileSelection(photo)
+        await uploadPhotoToServer(photo)
+      } else {
+        handleFileErrorSelection(error)
+      }
+    },
+    [
+      handleSuccessfulFileSelection,
+      uploadPhotoToServer,
+      handleFileErrorSelection
+    ]
+  )
 
   useEffect(() => {
     return () => {
@@ -44,6 +67,10 @@ const AddPhotoStep = ({ btnsBox }) => {
       }
     }
   }, [fileURL])
+
+  const renderButtons = () => {
+    return <Box sx={style.btnsWrapper}>{btnsBox}</Box>
+  }
 
   return (
     <Box sx={style.root}>
@@ -58,7 +85,7 @@ const AddPhotoStep = ({ btnsBox }) => {
           />
         ) : (
           <DragAndDrop
-            emitter={handleDragAndDrop}
+            emitter={handleFileChange}
             initialState={file ? [file] : []}
             style={style}
             validationData={validationData}
@@ -66,6 +93,7 @@ const AddPhotoStep = ({ btnsBox }) => {
             <Typography>{t('becomeTutor.photo.placeholder')}</Typography>
           </DragAndDrop>
         )}
+        {(isMobile || isTablet) && renderButtons()}
       </Box>
       <Box sx={style.rigthBox}>
         <TitleWithDescription
@@ -76,7 +104,7 @@ const AddPhotoStep = ({ btnsBox }) => {
           <Box>
             <FileUploader
               buttonText={t('becomeTutor.photo.button')}
-              emitter={handleDragAndDrop}
+              emitter={handleFileChange}
               initialError={errorMessage}
               initialState={file ? [file] : []}
               isImages={Boolean(true)}
@@ -92,7 +120,7 @@ const AddPhotoStep = ({ btnsBox }) => {
             {fileSelected && <CheckIcon />}
           </Box>
         </Box>
-        <Box sx={style.btnsWrapper}>{btnsBox}</Box>
+        {(isLaptop || isDesktop) && renderButtons()}
       </Box>
     </Box>
   )
