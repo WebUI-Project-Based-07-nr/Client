@@ -27,12 +27,26 @@ export const styles = {
     m: { md: 0, xs: '0 auto' },
     pt: 0
   },
-  title: {
-    fontSize: '16px',
-    color: '#263238',
-    fontFamily: 'Rubik'
-  },
-  placeholder: {
-    color: '#90A4AE'
+  // titleWithDescription: {
+  //   wrapper: {
+  //     textAlign: 'left',
+  //     m: 0
+  //   },
+  // description: {
+  //   typography: 'body2',
+  //   mb: '20px'
+  // }
+  // },
+  select: {
+    width: '100%',
+    mt: { xs: '0 auto', sm: '20px' }
   }
+  // title: {
+  //   fontSize: '16px',
+  //   color: '#263238',
+  //   fontFamily: 'Rubik'
+  // },
+  // placeholder: {
+  //   color: '#90A4AE'
+  // }
 }

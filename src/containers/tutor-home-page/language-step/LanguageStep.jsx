@@ -1,21 +1,22 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 import Box from '@mui/material/Box'
-import MenuItem from '@mui/material/MenuItem'
-import Select from '@mui/material/Select'
-import FormControl from '@mui/material/FormControl'
-import Typography from '@mui/material/Typography'
 import { useTranslation } from 'react-i18next'
 
 import { styles } from '~/containers/tutor-home-page/language-step/LanguageStep.styles'
 import img from '~/assets/img/tutor-home-page/become-tutor/languages.svg'
+import TitleWithDescription from '~/components/title-with-description/TitleWithDescription'
+import { languagesMock } from '~/containers/tutor-home-page/language-step/constants'
+import Autocomplete from '@mui/material/Autocomplete'
+import { TextField } from '@mui/material'
 
 const LanguageStep = ({ btnsBox }) => {
-  const [language, setLanguage] = useState('')
   const { t } = useTranslation()
 
-  const handleChange = (event) => {
-    setLanguage(event.target.value)
+  const [selectedLanguage, setSelectedLanguage] = useState(null)
+
+  const handleLanguageChange = (event, newValue) => {
+    setSelectedLanguage(newValue ? newValue.value : '')
   }
 
   return (
@@ -25,16 +26,30 @@ const LanguageStep = ({ btnsBox }) => {
       </Box>
       <Box sx={styles.rigthBox}>
         <Box sx={styles}>
-          <Typography>{t('step.languageStep.title')}</Typography>
-          <FormControl sx={{ width: '432px', marginTop: '20px' }}>
-            <Select displayEmpty onChange={handleChange} value={language}>
-              <MenuItem disabled value=''>
-                Your native language
-              </MenuItem>
-              <MenuItem value='english'>English</MenuItem>
-              <MenuItem value='ukrainian'>Ukrainian</MenuItem>
-            </Select>
-          </FormControl>
+          <TitleWithDescription
+            style={styles}
+            title={t('step.languageStep.title')}
+          />
+          <Autocomplete
+            getOptionLabel={(option) => option.value || ''}
+            isOptionEqualToValue={(option, value) =>
+              option.value === value.value
+            }
+            onChange={handleLanguageChange}
+            options={languagesMock}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label={t('becomeTutor.languages.autocompleteLabel')}
+              />
+            )}
+            sx={styles.select}
+            value={
+              languagesMock.find(
+                (option) => option.value === selectedLanguage
+              ) || null
+            }
+          />
         </Box>
         {btnsBox}
       </Box>

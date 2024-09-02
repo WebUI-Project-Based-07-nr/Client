@@ -3,7 +3,7 @@ import { Box, Grid } from '@mui/material'
 import {
   howItWorksStudentCards,
   howItWorksTutorCards
-} from '../HowItWorksCards'
+} from '../howItWorksCards'
 import { styles } from './HowItWorks.styles'
 import TitleWithDescription from '~/components/title-with-description/TitleWithDescription'
 import AppButton from '~/components/app-button/AppButton'
