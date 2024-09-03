@@ -4,14 +4,16 @@ import Box from '@mui/material/Box'
 import { useTranslation } from 'react-i18next'
 
 import { styles } from '~/containers/tutor-home-page/language-step/LanguageStep.styles'
-import img from '~/assets/img/tutor-home-page/become-tutor/languages.svg'
+import languageImage from '~/assets/img/tutor-home-page/become-tutor/languages.svg'
 import TitleWithDescription from '~/components/title-with-description/TitleWithDescription'
 import { languagesMock } from '~/containers/tutor-home-page/language-step/constants'
 import Autocomplete from '@mui/material/Autocomplete'
 import { TextField } from '@mui/material'
+import useBreakpoints from '~/hooks/use-breakpoints'
 
 const LanguageStep = ({ btnsBox }) => {
   const { t } = useTranslation()
+  const { isMobile } = useBreakpoints()
 
   const [selectedLanguage, setSelectedLanguage] = useState(null)
 
@@ -19,17 +21,28 @@ const LanguageStep = ({ btnsBox }) => {
     setSelectedLanguage(newValue ? newValue.value : '')
   }
 
+  const findSelectedLanguage = () => {
+    return (
+      languagesMock.find((option) => option.value === selectedLanguage) || null
+    )
+  }
+
+  const renderImage = (
+    <Box sx={styles.imgContainer}>
+      <Box component='img' src={languageImage} sx={styles.img} />
+    </Box>
+  )
+
   return (
     <Box sx={styles.container}>
-      <Box sx={styles.imgContainer}>
-        <Box component='img' src={img} sx={styles.img} />
-      </Box>
+      {!isMobile && renderImage}
       <Box sx={styles.rigthBox}>
         <Box sx={styles}>
           <TitleWithDescription
             style={styles}
             title={t('step.languageStep.title')}
           />
+          {isMobile && renderImage}
           <Autocomplete
             getOptionLabel={(option) => option.value || ''}
             isOptionEqualToValue={(option, value) =>
@@ -44,11 +57,7 @@ const LanguageStep = ({ btnsBox }) => {
               />
             )}
             sx={styles.select}
-            value={
-              languagesMock.find(
-                (option) => option.value === selectedLanguage
-              ) || null
-            }
+            value={findSelectedLanguage()}
           />
         </Box>
         {btnsBox}
