@@ -17,15 +17,16 @@ const LanguageStep = ({ btnsBox }) => {
 
   const [selectedLanguage, setSelectedLanguage] = useState(null)
 
-  const handleLanguageChange = (event, newValue) => {
+  const handleLanguageChange = (_event, newValue) => {
     setSelectedLanguage(newValue ? newValue.value : '')
   }
 
-  const findSelectedLanguage = () => {
-    return (
-      languagesMock.find((option) => option.value === selectedLanguage) || null
-    )
-  }
+  const findSelectedLanguage = () =>
+    languagesMock.find((option) => option.value === selectedLanguage) || null
+
+  const getOptionLabel = (option) => option.value || ''
+
+  const isOptionEqualToValue = (option, value) => option.value === value.value
 
   const renderImage = (
     <Box sx={styles.imgContainer}>
@@ -44,10 +45,8 @@ const LanguageStep = ({ btnsBox }) => {
           />
           {isMobile && renderImage}
           <Autocomplete
-            getOptionLabel={(option) => option.value || ''}
-            isOptionEqualToValue={(option, value) =>
-              option.value === value.value
-            }
+            getOptionLabel={getOptionLabel}
+            isOptionEqualToValue={isOptionEqualToValue}
             onChange={handleLanguageChange}
             options={languagesMock}
             renderInput={(params) => (
