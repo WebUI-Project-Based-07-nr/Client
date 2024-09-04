@@ -1,40 +1,63 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 import Box from '@mui/material/Box'
-import MenuItem from '@mui/material/MenuItem'
-import Select from '@mui/material/Select'
-import FormControl from '@mui/material/FormControl'
-import Typography from '@mui/material/Typography'
 import { useTranslation } from 'react-i18next'
 
 import { styles } from '~/containers/tutor-home-page/language-step/LanguageStep.styles'
-import img from '~/assets/img/tutor-home-page/become-tutor/languages.svg'
+import languageImage from '~/assets/img/tutor-home-page/become-tutor/languages.svg'
+import TitleWithDescription from '~/components/title-with-description/TitleWithDescription'
+import { languagesMock } from '~/containers/tutor-home-page/language-step/constants'
+import Autocomplete from '@mui/material/Autocomplete'
+import { TextField } from '@mui/material'
+import useBreakpoints from '~/hooks/use-breakpoints'
 
 const LanguageStep = ({ btnsBox }) => {
-  const [language, setLanguage] = useState('')
   const { t } = useTranslation()
+  const { isMobile } = useBreakpoints()
 
-  const handleChange = (event) => {
-    setLanguage(event.target.value)
+  const [selectedLanguage, setSelectedLanguage] = useState(null)
+
+  const handleLanguageChange = (_event, newValue) => {
+    setSelectedLanguage(newValue ? newValue.value : '')
   }
+
+  const findSelectedLanguage = () =>
+    languagesMock.find((option) => option.value === selectedLanguage) || null
+
+  const getOptionLabel = (option) => option.value || ''
+
+  const isOptionEqualToValue = (option, value) => option.value === value.value
+
+  const renderImage = (
+    <Box sx={styles.imgContainer}>
+      <Box component='img' src={languageImage} sx={styles.img} />
+    </Box>
+  )
 
   return (
     <Box sx={styles.container}>
-      <Box sx={styles.imgContainer}>
-        <Box component='img' src={img} sx={styles.img} />
-      </Box>
+      {!isMobile && renderImage}
       <Box sx={styles.rigthBox}>
         <Box sx={styles}>
-          <Typography>{t('step.languageStep.title')}</Typography>
-          <FormControl sx={{ width: '432px', marginTop: '20px' }}>
-            <Select displayEmpty onChange={handleChange} value={language}>
-              <MenuItem disabled value=''>
-                Your native language
-              </MenuItem>
-              <MenuItem value='english'>English</MenuItem>
-              <MenuItem value='ukrainian'>Ukrainian</MenuItem>
-            </Select>
-          </FormControl>
+          <TitleWithDescription
+            style={styles}
+            title={t('step.languageStep.title')}
+          />
+          {isMobile && renderImage}
+          <Autocomplete
+            getOptionLabel={getOptionLabel}
+            isOptionEqualToValue={isOptionEqualToValue}
+            onChange={handleLanguageChange}
+            options={languagesMock}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label={t('becomeTutor.languages.autocompleteLabel')}
+              />
+            )}
+            sx={styles.select}
+            value={findSelectedLanguage()}
+          />
         </Box>
         {btnsBox}
       </Box>

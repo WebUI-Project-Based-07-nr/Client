@@ -3,7 +3,7 @@ import { student, tutor } from '~/constants'
 import {
   howItWorksStudentCards,
   howItWorksTutorCards
-} from '~/containers/student-home-page/student-how-it-works/HowItWorksCards'
+} from '~/containers/student-home-page/student-how-it-works/howItWorksCards'
 import HowItWorks from '~/containers/student-home-page/student-how-it-works/how-it-works/HowItWorks'
 import { renderWithProviders } from '~/tests/test-utils'
 import userEvent from '@testing-library/user-event'

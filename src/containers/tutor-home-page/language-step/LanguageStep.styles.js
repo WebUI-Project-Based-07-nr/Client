@@ -9,14 +9,14 @@ export const styles = {
     ...fadeAnimation
   },
   imgContainer: {
-    display: 'flex',
+    display: { xs: 'flex', sm: 'none', md: 'flex' },
     flex: 1,
     maxWidth: '432px',
     aspectRatio: { xs: '4/3', sm: 'auto' },
     pb: { xs: '16px', sm: '52px' }
   },
   img: {
-    width: '100%',
+    width: { xs: '50%', sm: '100%' },
     m: { sm: 0, xs: '0 auto' }
   },
   rigthBox: {
@@ -27,12 +27,8 @@ export const styles = {
     m: { md: 0, xs: '0 auto' },
     pt: 0
   },
-  title: {
-    fontSize: '16px',
-    color: '#263238',
-    fontFamily: 'Rubik'
-  },
-  placeholder: {
-    color: '#90A4AE'
+  select: {
+    width: '100%',
+    mt: { xs: '0px', sm: '20px' }
   }
 }
