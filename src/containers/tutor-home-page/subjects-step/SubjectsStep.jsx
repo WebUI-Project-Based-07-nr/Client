@@ -82,7 +82,7 @@ const SubjectsStep = ({ btnsBox }) => {
       {!isMobile && renderImage}
       <Box sx={styles.rightBox}>
         <TitleWithDescription
-          style={styles.titleWithDescription}
+          style={styles}
           title={t('becomeTutor.categories.title')}
         />
         <Box sx={styles.selectContainer}>

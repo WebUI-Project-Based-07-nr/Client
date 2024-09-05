@@ -13,31 +13,19 @@ export const styles = {
     display: { xs: 'flex', sm: 'none', md: 'flex' },
     flex: 1,
     maxWidth: '432px',
-    aspectRatio: { xs: '4/3', sm: 'auto' },
-    pb: { xs: '16px', sm: '52px' }
+    aspectRatio: { xs: '4/3', sm: 'auto' }
   },
   img: {
-    width: { xs: '50%', sm: '100%' },
-    m: { sm: 0, xs: '0 auto' },
+    width: { xs: '180px', sm: '100%' },
+    m: { xs: '0 auto', sm: '0 auto' },
     mt: { xs: '16px' }
   },
   rightBox: {
-    maxWidth: '432px',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between',
-    m: { md: 0, xs: '0 auto' },
+    maxWidth: '432px',
+    m: { xs: '0 auto', md: 0 },
     pt: 0
-  },
-  titleWithDescription: {
-    wrapper: {
-      textAlign: 'left',
-      m: 0
-    },
-    description: {
-      typography: 'body2',
-      mb: '20px'
-    }
   },
   selectContainer: {
     display: 'flex',
@@ -45,7 +33,7 @@ export const styles = {
   },
   select: {
     width: '100%',
-    mt: { xs: '0 auto', sm: '20px' }
+    mt: { xs: '10px', sm: '20px' }
   },
   submitButton: {
     mt: { xs: '10px', sm: '20px' }

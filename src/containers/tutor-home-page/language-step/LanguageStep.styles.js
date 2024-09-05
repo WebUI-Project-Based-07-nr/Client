@@ -6,6 +6,7 @@ export const styles = {
     justifyContent: 'space-between',
     gap: '40px',
     height: { sm: '485px' },
+    paddingBottom: { xs: '30px', sm: '0px' },
     ...fadeAnimation
   },
   imgContainer: {
@@ -16,8 +17,9 @@ export const styles = {
     pb: { xs: '16px', sm: '52px' }
   },
   img: {
-    width: { xs: '50%', sm: '100%' },
-    m: { sm: 0, xs: '0 auto' }
+    width: { xs: '180px', sm: '100%' },
+    m: { xs: '0 auto', sm: '0 auto' },
+    mt: { xs: '16px' }
   },
   rigthBox: {
     maxWidth: '432px',
@@ -29,6 +31,6 @@ export const styles = {
   },
   select: {
     width: '100%',
-    mt: { xs: '0px', sm: '20px' }
+    mt: { xs: '10px', sm: '20px' }
   }
 }

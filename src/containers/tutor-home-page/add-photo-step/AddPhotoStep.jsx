@@ -97,7 +97,7 @@ const AddPhotoStep = ({ btnsBox }) => {
       </Box>
       <Box sx={style.rigthBox}>
         <TitleWithDescription
-          style={style.description}
+          style={style}
           title={t('becomeTutor.photo.description')}
         />
         <Box sx={style.fileUploadContainer}>
