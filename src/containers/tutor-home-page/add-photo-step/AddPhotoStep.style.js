@@ -7,19 +7,20 @@ export const style = {
     gap: { sm: '30px', md: '40px' },
     height: { sm: '485px' },
     ...fadeAnimation,
-    flexDirection: { xs: 'column', sm: 'column', md: 'row' }
+    flexDirection: { xs: 'column', sm: 'column', md: 'row' },
+    paddingBottom: { xs: '30px', sm: '20px' }
   },
   imgContainer: {
-    maxWidth: '440px',
-    maxHeight: '440px',
-    height: '100%',
-    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: { xs: 'space-between' },
+    flex: { xs: 1, sm: 0, md: 1 },
     order: { xs: 1, sm: 1, md: 0, lg: 0 }
   },
   img: {
     width: '100%',
     height: '100%',
-    maxWidth: '400px',
+    maxWidth: '440px',
     maxHeight: '440px',
     objectFit: 'cover',
     borderRadius: '20px'
@@ -45,12 +46,8 @@ export const style = {
     display: 'flex',
     flexDirection: 'column',
     maxWidth: '432px',
-    m: { md: '0 auto', xs: '0 auto' },
-    pb: { xs: '30px', sm: '0' },
+    pb: { xs: '30px', sm: 0 },
     order: { xs: 0, sm: 0, md: 1, lg: 1 }
-  },
-  description: {
-    mb: '20px'
   },
   fileUploader: {
     button: {
@@ -67,8 +64,8 @@ export const style = {
     }
   },
   btnsWrapper: {
-    mt: { xs: '110px', sm: '10px', md: 'auto' },
-    pb: { xs: '30px', sm: '50px', md: '0px' }
+    mt: 'auto',
+    pb: { sm: '30px' }
   },
   fileUploadContainer: {
     display: 'flex',
