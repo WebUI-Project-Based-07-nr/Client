@@ -2,6 +2,9 @@ import LanguageIcon from '@mui/icons-material/Language'
 import MenuIcon from '@mui/icons-material/Menu'
 import LoginIcon from '@mui/icons-material/Login'
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined'
+import NotificationsIcon from '@mui/icons-material/Notifications'
+import BookmarkIcon from '@mui/icons-material/Bookmark'
+import MessageIcon from '@mui/icons-material/Message'
 import { IconButtonProps } from '@mui/material/IconButton'
 
 import { styles } from '~/containers/navigation-icons/NavigationIcons.styles'
@@ -54,6 +57,21 @@ export const guestIcons: NavigationIconButton[] = [
 
 export const userIcons: NavigationIconButton[] = [
   languageIcon,
+  {
+    tooltip: 'iconsTooltip.messages',
+    icon: <MessageIcon />,
+    buttonProps: () => ({ sx: styles.studentIcons })
+  },
+  {
+    tooltip: 'iconsTooltip.bookmarks',
+    icon: <BookmarkIcon />,
+    buttonProps: () => ({ sx: styles.studentIcons })
+  },
+  {
+    tooltip: 'iconsTooltip.notifications',
+    icon: <NotificationsIcon />,
+    buttonProps: () => ({ sx: styles.studentIcons })
+  },
   {
     tooltip: 'iconsTooltip.account',
     icon: <AccountCircleOutlinedIcon />,
