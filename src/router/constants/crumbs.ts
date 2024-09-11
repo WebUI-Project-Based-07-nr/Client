@@ -38,6 +38,11 @@ export const myResources = {
   path: authRoutes.myResources.root.route
 }
 
+export const myCourses = {
+  name: t('breadCrumbs.myCourses'),
+  path: authRoutes.myCourses.route
+}
+
 export const userProfile = ({ data }: { data: UserResponse }) => ({
   name: `${data.firstName} ${data.lastName}`
 })

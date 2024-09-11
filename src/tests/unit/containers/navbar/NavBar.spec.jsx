@@ -2,6 +2,7 @@ import { screen, fireEvent, waitFor } from '@testing-library/react'
 import NavBar from '~/containers/layout/navbar/NavBar'
 import { renderWithProviders } from '~tests/test-utils'
 import { vi } from 'vitest'
+import userEvent from '@testing-library/user-event'
 
 vi.mock('~/hooks/use-confirm', () => {
   return {
@@ -66,5 +67,49 @@ describe('Student NavBar test', () => {
     const icon = screen.getByTestId('AccountCircleOutlinedIcon')
 
     expect(icon).toBeInTheDocument()
+  })
+})
+
+describe('Tutor NavBar test', () => {
+  const preloadedState = { appMain: { loading: false, userRole: 'tutor' } }
+
+  beforeEach(() => {
+    renderWithProviders(<NavBar />, { preloadedState })
+  })
+
+  it('should renders find offer, my resources, my courses items in navBar', () => {
+    const findOffersText = screen.getByText('header.findOffers')
+    const myResourcesText = screen.getByText('header.my-resources')
+    const myCoursesText = screen.getByText('header.my-courses')
+
+    expect(findOffersText).toBeInTheDocument()
+    expect(myResourcesText).toBeInTheDocument()
+    expect(myCoursesText).toBeInTheDocument()
+  })
+
+  it('should renders correct icons', () => {
+    const messageIcon = screen.getByTestId('MessageIcon')
+    const bookmarkIcon = screen.getByTestId('BookmarkIcon')
+    const notificationsIcon = screen.getByTestId('NotificationsIcon')
+    const accountIcon = screen.getByTestId('AccountCircleOutlinedIcon')
+
+    expect(messageIcon).toBeInTheDocument()
+    expect(bookmarkIcon).toBeInTheDocument()
+    expect(notificationsIcon).toBeInTheDocument()
+    expect(accountIcon).toBeInTheDocument()
+  })
+
+  it('should renders correct when dropdown menu is open', async () => {
+    const findOffersText = screen.getByText('header.findOffers')
+
+    await userEvent.click(findOffersText)
+
+    const categoriesMenuItem = screen.getByText('header.categories')
+    const subjectMenuItem = screen.getByText('header.subjects')
+    const allOffersMenuItem = screen.getByText('header.allOffers')
+
+    expect(categoriesMenuItem).toBeInTheDocument()
+    expect(subjectMenuItem).toBeInTheDocument()
+    expect(allOffersMenuItem).toBeInTheDocument()
   })
 })

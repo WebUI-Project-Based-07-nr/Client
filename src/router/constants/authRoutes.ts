@@ -41,6 +41,10 @@ export const authRoutes = {
       path: '/my-resources/new-quiz'
     }
   },
+  myCourses: {
+    route: 'my-courses',
+    path: '/my-courses'
+  },
   accountMenu: {
     myProfile: { route: 'my-profile', path: '/my-profile' },
     logout: { route: 'logout', path: '/logout' }

@@ -3,7 +3,7 @@ import { authRoutes } from '~/router/constants/authRoutes'
 export const findOffersChildRoutes = [
   { route: 'categories', path: authRoutes.categories.route },
   { route: 'subjects', path: authRoutes.subjects.path },
-  { route: 'findOffers', path: authRoutes.findOffers.path }
+  { route: 'allOffers', path: authRoutes.findOffers.path }
 ]
 
 export const tutorRoutes = {
@@ -15,6 +15,10 @@ export const tutorRoutes = {
     myResources: {
       route: 'my-resources',
       path: authRoutes.myResources.root.path
+    },
+    myCourses: {
+      route: 'my-courses',
+      path: authRoutes.myCourses.path
     }
   }
 }
