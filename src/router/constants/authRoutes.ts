@@ -45,6 +45,11 @@ export const authRoutes = {
     route: 'my-courses',
     path: '/my-courses'
   },
+  iconsNavigate: {
+    messageIcon: { route: 'chat', path: '/chat' },
+    bookmarkIcon: { route: 'bookmarks', path: '/bookmarked-offers' },
+    notificationIcon: {}
+  },
   accountMenu: {
     myProfile: { route: 'my-profile', path: '/my-profile' },
     logout: { route: 'logout', path: '/logout' }

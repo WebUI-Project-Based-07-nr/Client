@@ -14,5 +14,10 @@ export const styles = {
     ...hideOnMobile,
     ml: '12px'
   },
-  studentIcons: { ...hideOnMobile, color: 'primary.900' }
+  studentIcons: {
+    ...hideOnMobile,
+    color: 'primary.900',
+    display: 'flex',
+    alignItems: 'center'
+  }
 }

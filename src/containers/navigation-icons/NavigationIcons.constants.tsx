@@ -8,6 +8,7 @@ import MessageIcon from '@mui/icons-material/Message'
 import { IconButtonProps } from '@mui/material/IconButton'
 
 import { styles } from '~/containers/navigation-icons/NavigationIcons.styles'
+import { authRoutes } from '~/router/constants/authRoutes'
 
 type ButtonProps = (props: {
   openLoginDialog?: () => void
@@ -24,6 +25,7 @@ interface NavigationIconButton {
   icon: React.ReactElement
   buttonProps: ButtonProps
   badgeContent?: BadgeContent
+  to?: string
 }
 
 const languageIcon = {
@@ -60,17 +62,22 @@ export const userIcons: NavigationIconButton[] = [
   {
     tooltip: 'iconsTooltip.messages',
     icon: <MessageIcon />,
-    buttonProps: () => ({ sx: styles.studentIcons })
+    buttonProps: () => ({ sx: styles.studentIcons }),
+    to: authRoutes.iconsNavigate.messageIcon.path
   },
   {
     tooltip: 'iconsTooltip.bookmarks',
     icon: <BookmarkIcon />,
-    buttonProps: () => ({ sx: styles.studentIcons })
+    buttonProps: () => ({ sx: styles.studentIcons }),
+    to: authRoutes.iconsNavigate.bookmarkIcon.path
   },
   {
     tooltip: 'iconsTooltip.notifications',
     icon: <NotificationsIcon />,
-    buttonProps: () => ({ sx: styles.studentIcons })
+    buttonProps: ({ openNotifications }) => ({
+      onClick: openNotifications,
+      sx: styles.studentIcons
+    })
   },
   {
     tooltip: 'iconsTooltip.account',

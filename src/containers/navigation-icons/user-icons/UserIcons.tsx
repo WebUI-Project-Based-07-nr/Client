@@ -37,6 +37,7 @@ const UserIcons: FC<UserIconsProps> = ({ setSidebarOpen }) => {
           })}
           icon={item.icon}
           key={item.tooltip}
+          to={item.to}
           tooltip={t(item.tooltip)}
         />
       )

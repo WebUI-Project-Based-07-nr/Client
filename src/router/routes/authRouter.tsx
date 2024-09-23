@@ -14,7 +14,8 @@ import {
   newLesson,
   newQuiz,
   editLesson,
-  myCourses
+  myCourses,
+  bookMarks
 } from '~/router/constants/crumbs'
 import PrivateRoute from '~/router/helpers/PrivateRoute'
 import { UserRoleEnum } from '~/types'
@@ -25,6 +26,8 @@ import QuizzesContainer from '~/containers/my-resources/quiz-container/QuizzesCo
 import QuizDetail from '~/containers/my-resources/quiz-container/QuizDetail'
 import CreateNewQuiz from '~/pages/createNewQuiz/CreateNewQuiz'
 import MyCourses from '~/pages/my-courses/MyCourses'
+import Chat from '~/pages/chat/Chat'
+import Favorites from '~/pages/favorites/Favorites'
 
 const Categories = lazy(() => import('~/pages/categories/Categories'))
 const Subjects = lazy(() => import('~/pages/subjects/Subjects'))
@@ -135,6 +138,15 @@ export const authRouter = (
       element={<MyCourses />}
       handle={{ crumb: [myCourses] }}
       path={authRoutes.myCourses.route}
+    />
+    <Route
+      element={<Chat />}
+      path={authRoutes.iconsNavigate.messageIcon.route}
+    />
+    <Route
+      element={<Favorites />}
+      handle={{ crumb: [bookMarks] }}
+      path={authRoutes.iconsNavigate.bookmarkIcon.path}
     />
   </Route>
 )

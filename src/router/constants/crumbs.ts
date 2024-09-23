@@ -43,6 +43,11 @@ export const myCourses = {
   path: authRoutes.myCourses.route
 }
 
+export const bookMarks = {
+  name: t('breadCrumbs.bookmarks'),
+  path: authRoutes.iconsNavigate.bookmarkIcon.route
+}
+
 export const userProfile = ({ data }: { data: UserResponse }) => ({
   name: `${data.firstName} ${data.lastName}`
 })

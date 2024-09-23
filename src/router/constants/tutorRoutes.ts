@@ -20,5 +20,15 @@ export const tutorRoutes = {
       route: 'my-courses',
       path: authRoutes.myCourses.path
     }
+  },
+  iconsNavigate: {
+    message: {
+      route: 'chat',
+      path: authRoutes.iconsNavigate.messageIcon.path
+    },
+    bookmark: {
+      route: 'bookmark',
+      path: authRoutes.iconsNavigate.bookmarkIcon.path
+    }
   }
 }
