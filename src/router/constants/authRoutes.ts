@@ -47,11 +47,13 @@ export const authRoutes = {
   },
   iconsNavigate: {
     messageIcon: { route: 'chat', path: '/chat' },
-    bookmarkIcon: { route: 'bookmarks', path: '/bookmarked-offers' },
-    notificationIcon: {}
+    bookmarkIcon: { route: 'bookmarks', path: '/bookmarked-offers' }
   },
+  notificationMenu: {},
   accountMenu: {
     myProfile: { route: 'my-profile', path: '/my-profile' },
+    myCooperations: { route: 'my-cooperations', path: '/my-cooperations' },
+    myOffers: { route: 'my-offers', path: '/my-offers' },
     logout: { route: 'logout', path: '/logout' }
   }
 }
