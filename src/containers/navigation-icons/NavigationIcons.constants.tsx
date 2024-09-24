@@ -74,8 +74,8 @@ export const userIcons: NavigationIconButton[] = [
   {
     tooltip: 'iconsTooltip.notifications',
     icon: <NotificationsIcon />,
-    buttonProps: ({ openMenu }) => ({
-      onClick: openMenu,
+    buttonProps: ({ openNotifications }) => ({
+      onClick: openNotifications,
       sx: styles.studentIcons
     })
   },
