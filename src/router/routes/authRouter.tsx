@@ -14,7 +14,10 @@ import {
   newLesson,
   newQuiz,
   editLesson,
-  myCourses
+  myCourses,
+  bookMarks,
+  myCooperations,
+  myOffers
 } from '~/router/constants/crumbs'
 import PrivateRoute from '~/router/helpers/PrivateRoute'
 import { UserRoleEnum } from '~/types'
@@ -25,6 +28,10 @@ import QuizzesContainer from '~/containers/my-resources/quiz-container/QuizzesCo
 import QuizDetail from '~/containers/my-resources/quiz-container/QuizDetail'
 import CreateNewQuiz from '~/pages/createNewQuiz/CreateNewQuiz'
 import MyCourses from '~/pages/my-courses/MyCourses'
+import Chat from '~/pages/chat/Chat'
+import Favorites from '~/pages/favorites/Favorites'
+import MyCooperations from '~/pages/my-cooperations/MyCooperations'
+import MyOffers from '~/pages/my-offers/MyOffers'
 
 const Categories = lazy(() => import('~/pages/categories/Categories'))
 const Subjects = lazy(() => import('~/pages/subjects/Subjects'))
@@ -45,17 +52,17 @@ export const authRouter = (
     <Route
       element={<Categories />}
       handle={{ crumb: categories }}
-      path={authRoutes.categories.route}
+      path={authRoutes.categories.path}
     />
     <Route
       element={<Subjects />}
       handle={{ crumb: [categories, subjects] }}
-      path={authRoutes.subjects.route}
+      path={authRoutes.subjects.path}
     />
     <Route
       element={<FindOffers />}
       handle={{ crumb: findOffers }}
-      path={authRoutes.findOffers.route}
+      path={authRoutes.findOffers.path}
     />
     <Route
       element={<TutorProfile />}
@@ -71,7 +78,7 @@ export const authRouter = (
     <Route
       element={<MyResources />}
       handle={{ crumb: myResources }}
-      path={authRoutes.myResources.root.route}
+      path={authRoutes.myResources.root.path}
     />
     <Route
       element={<CreateOrEditQuestion />}
@@ -134,7 +141,26 @@ export const authRouter = (
     <Route
       element={<MyCourses />}
       handle={{ crumb: [myCourses] }}
-      path={authRoutes.myCourses.route}
+      path={authRoutes.myCourses.path}
+    />
+    <Route
+      element={<Chat />}
+      path={authRoutes.iconsNavigate.messageIcon.path}
+    />
+    <Route
+      element={<Favorites />}
+      handle={{ crumb: [bookMarks] }}
+      path={authRoutes.iconsNavigate.bookmarkIcon.path}
+    />
+    <Route
+      element={<MyCooperations />}
+      handle={{ crumb: [myCooperations] }}
+      path={authRoutes.accountMenu.myCooperations.path}
+    />
+    <Route
+      element={<MyOffers />}
+      handle={{ crumb: [myOffers] }}
+      path={authRoutes.accountMenu.myOffers.path}
     />
   </Route>
 )

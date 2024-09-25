@@ -99,7 +99,7 @@ describe('Tutor NavBar test', () => {
     expect(accountIcon).toBeInTheDocument()
   })
 
-  it('should renders correct when dropdown menu is open', async () => {
+  it('should renders correct menu items when dropdown menu is open', async () => {
     const findOffersText = screen.getByText('header.findOffers')
 
     await userEvent.click(findOffersText)
@@ -111,5 +111,21 @@ describe('Tutor NavBar test', () => {
     expect(categoriesMenuItem).toBeInTheDocument()
     expect(subjectMenuItem).toBeInTheDocument()
     expect(allOffersMenuItem).toBeInTheDocument()
+  })
+  it('should renders correct menu items when dropdown accountMenu is open ', async () => {
+    const accountIcon = screen.getByRole('button', {
+      name: 'iconsTooltip.account'
+    })
+    await userEvent.click(accountIcon)
+
+    const myProfileItem = screen.getByText('header.my-profile')
+    const myCooperationsItem = screen.getByText('header.my-cooperations')
+    const myOffersItem = screen.getByText('header.my-offers')
+    const logOutItem = screen.getByText('header.logout')
+
+    expect(myProfileItem).toBeInTheDocument()
+    expect(myCooperationsItem).toBeInTheDocument()
+    expect(myOffersItem).toBeInTheDocument()
+    expect(logOutItem).toBeInTheDocument()
   })
 })

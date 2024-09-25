@@ -1,14 +1,14 @@
 import Typography from '@mui/material/Typography'
 import PageWrapper from '~/components/page-wrapper/PageWrapper'
 
-const MyCourses = () => {
+const Chat = () => {
   return (
     <PageWrapper>
-      <Typography sx={{ textAlign: 'center' }}>
-        MyCourses Page Placeholder
+      <Typography sx={{ textAlign: 'center', mt: '30px' }}>
+        Chat Page Placeholder
       </Typography>
     </PageWrapper>
   )
 }
 
-export default MyCourses
+export default Chat

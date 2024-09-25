@@ -1,14 +1,14 @@
 import Typography from '@mui/material/Typography'
 import PageWrapper from '~/components/page-wrapper/PageWrapper'
 
-const MyCourses = () => {
+const MyCooperations = () => {
   return (
     <PageWrapper>
       <Typography sx={{ textAlign: 'center' }}>
-        MyCourses Page Placeholder
+        MyCooperation Page Placeholder
       </Typography>
     </PageWrapper>
   )
 }
 
-export default MyCourses
+export default MyCooperations
