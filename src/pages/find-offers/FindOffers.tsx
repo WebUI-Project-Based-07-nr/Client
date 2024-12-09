@@ -22,6 +22,10 @@ import { defaultResponses, snackbarVariants, student, tutor } from '~/constants'
 import { useSnackBarContext } from '~/context/snackbar-context'
 import { styles } from '~/containers/guest-home-page/how-it-works/HowItWorks.styles'
 import PopularCategories from '~/components/popular-categories/PopularCategories'
+import { Box } from '@mui/material'
+import FilterBlock from '~/components/filter-findOffer-page/FilterBlock'
+import ShowAllFiltersButton from '~/components/filter-findOffer-page/filter-block-components/show-all-filters-button/ShowAllFiltersButton'
+import { offerStyles } from './FindOffers.styles'
 
 const FindOffers = () => {
   const { t } = useTranslation()
@@ -32,6 +36,11 @@ const FindOffers = () => {
   const [isTutor, setIsTutor] = useState(
     searchParams.get('authorRole') === tutor
   )
+  const [isFilterShown, setisFilterShown] = useState<boolean>(false)
+
+  function showFilters() {
+    setisFilterShown((prev) => !prev)
+  }
 
   const [queryParams, setQueryParams] = useState({
     authorRole: searchParams.get('authorRole') || student,
@@ -133,6 +142,15 @@ const FindOffers = () => {
         switchOptions={switchOptions}
         typographyVariant={TypographyVariantEnum.H6}
       />
+
+      <Box sx={offerStyles.filterButtonsWrapper}>
+        <ShowAllFiltersButton showFilters={showFilters} />
+      </Box>
+
+      <Box sx={offerStyles.filterDetailBlock}>
+        {isFilterShown && <FilterBlock />}
+      </Box>
+
       <SortMenu items={items} />
       <ToggleButtons alignment={alignment} setAlignment={setAlignment} />
       <OfferCards
